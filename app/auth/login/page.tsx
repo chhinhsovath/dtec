@@ -51,8 +51,21 @@ export default function LoginPage() {
         // Store session in localStorage
         setSession(user);
 
-        // Redirect based on role
-        router.push(`/dashboard/${user.role}`);
+        // Redirect based on role and email domain
+        let dashboardPath = `/dashboard/${user.role}`;
+
+        // Map Pedagogy LMS roles to correct dashboards
+        if (user.email.includes('pedagogy.edu')) {
+          if (user.role === 'student') {
+            dashboardPath = '/dashboard/graduate-student';
+          } else if (user.role === 'teacher') {
+            dashboardPath = '/dashboard/mentor';
+          } else if (user.role === 'admin') {
+            dashboardPath = '/dashboard/coordinator';
+          }
+        }
+
+        router.push(dashboardPath);
       }
     } catch (error: any) {
       setError(error.message || t('messages.errorTryAgain'));
@@ -72,7 +85,22 @@ export default function LoginPage() {
 
       if (user) {
         setSession(user);
-        router.push(`/dashboard/${user.role}`);
+
+        // Redirect based on role and email domain
+        let dashboardPath = `/dashboard/${user.role}`;
+
+        // Map Pedagogy LMS roles to correct dashboards
+        if (user.email.includes('pedagogy.edu')) {
+          if (user.role === 'student') {
+            dashboardPath = '/dashboard/graduate-student';
+          } else if (user.role === 'teacher') {
+            dashboardPath = '/dashboard/mentor';
+          } else if (user.role === 'admin') {
+            dashboardPath = '/dashboard/coordinator';
+          }
+        }
+
+        router.push(dashboardPath);
       }
     } catch (error: any) {
       setError(error.message || 'Demo login failed');

@@ -1,23 +1,8 @@
 /* Mantine UI - Pure styling, no Tailwind CSS */
 
 /* Khmer font support - Using Hanuman font for all Khmer text */
-* {
-  font-family: 'Hanuman', sans-serif !important;
-}
-
-html, body {
-  font-family: 'Hanuman', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6, p, span, div, a, li, label {
-  font-family: 'Hanuman', sans-serif;
-}
-
-/* Ensure proper Khmer text rendering in form elements */
-input,
-textarea,
-select,
-button {
+/* Let Mantine theme handle font configuration for consistency */
+html {
   font-family: 'Hanuman', sans-serif;
 }
 

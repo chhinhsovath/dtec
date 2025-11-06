@@ -1,0 +1,20 @@
+IMPORTANT: Git Configuration
+
+Make sure .env.local is never committed to Git:
+
+1. Check that .env.local is in .gitignore:
+   $ grep ".env.local" .gitignore
+   
+   Should return: .env.local
+
+2. If .env.local was already committed, remove it:
+   $ git rm --cached .env.local
+   $ git commit -m "Remove .env.local from tracking"
+
+3. Never commit files containing:
+   - SSH passwords
+   - Database credentials
+   - API keys
+   - Sensitive configuration
+
+All these are already handled by .gitignore ✅

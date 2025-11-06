@@ -1,0 +1,328 @@
+{
+  "assignments": {
+    "addOption": "បន្ថែមជម្រើស",
+    "addQuestion": "បន្ថែមសំណួរ",
+    "assignment": "កិច្ចការ",
+    "checkBackLater": "សូមពិនិត្យមើលម្តងទៀតនៅពេលក្រោយ",
+    "confirmDeleteQuestion": "តើអ្នកប្រាកដថាចង់លុបសំណួរនេះឬ?",
+    "createQuestion": "បង្កើតសំណួរ",
+    "description": "ពិពណ៌នា",
+    "editQuestion": "កែប្រែសំណួរ",
+    "explanation": "ការពន្យល់",
+    "explanationPlaceholder": "បញ្ចូលការពន្យល់លម្អិត",
+    "gradedOn": "បានដាក់ពិន្ទុនៅ",
+    "grading": "កំពុងដាក់ពិន្ទុ",
+    "isCorrect": "ត្រឹមត្រូវ",
+    "lastUpdated": "បានធ្វើបច្ចុប្បន្នភាពចុងក្រោយ",
+    "maxScore": "ពិន្ទុអតិបរមា",
+    "noFeedback": "មិនមានមតិយោបល់",
+    "noResponses": "មិនមានការឆ្លើយតប",
+    "notSubmitted": "មិនទាន់បានដាក់ស្នើ",
+    "optionText": "អត្ថបទជម្រើស",
+    "optionTextPlaceholder": "បញ្ចូលអត្ថបទជម្រើស",
+    "options": "ជម្រើស",
+    "points": "ពិន្ទុ",
+    "pointsPlaceholder": "បញ្ចូលពិន្ទុ",
+    "published": "បានបោះពុម្ពផ្សាយ",
+    "questionDescription": "ពិពណ៌នាសំណួរ",
+    "questionDescriptionPlaceholder": "បញ្ចូលពិពណ៌នាសំណួរ",
+    "questionNumber": "សំណួរលេខ",
+    "questionText": "អត្ថបទសំណួរ",
+    "questionTextPlaceholder": "បញ្ចូលសំណួររបស់អ្នក",
+    "questionType": "ប្រភេទសំណួរ",
+    "questionTypes": {
+      "essay": "សេចក្តីសរសេរ",
+      "h5p": "អន្តរកម្ម H5P",
+      "multiple_choice": "ជម្រើសច្រើន",
+      "short_answer": "ចម្លើយខ្លី"
+    },
+    "questions": "សំណួរ",
+    "required": "ចាំបាច់",
+    "saveQuestion": "រក្សាទុកសំណួរ",
+    "studentResponse": "ការឆ្លើយតបរបស់សិស្ស",
+    "submissionPlaceholder": "បញ្ចូលការឆ្លើយតបរបស់អ្នក",
+    "submitButton": "ដាក់ស្នើ",
+    "submitWork": "ដាក់ស្នើការងារ",
+    "submittedAt": "បានដាក់ស្នើនៅ",
+    "teacherFeedback": "មតិយោបល់គ្រូ",
+    "totalPoints": "ពិន្ទុសរុប",
+    "unpublished": "មិនទាន់បោះពុម្ពផ្សាយ",
+    "updateButton": "ធ្វើបច្ចុប្បន្នភាព",
+    "updateSubmission": "ធ្វើបច្ចុប្បន្នភាពការដាក់ស្នើ",
+    "yourScore": "ពិន្ទុរបស់អ្នក"
+  },
+
+  "resources": {
+    "action": "សកម្មភាព",
+    "all": "ទាំងអស់",
+    "assignment": "កិច្ចការ",
+    "close": "បិទ",
+    "confirmDelete": "តើអ្នកប្រាកដថាចង់លុបធនធាននេះឬ?",
+    "confirmDeleteMessage": "សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ",
+    "course": "វគ្គសិក្សា",
+    "createNew": "បង្កើតថ្មី",
+    "createResource": "បង្កើតធនធាន",
+    "delete": "លុប",
+    "description": "ពិពណ៌នា",
+    "descriptionPlaceholder": "បញ្ចូលពិពណ៌នាធនធាន",
+    "edit": "កែប្រែ",
+    "editResource": "កែប្រែធនធាន",
+    "fileType": "ប្រភេទឯកសារ",
+    "fileTypePlaceholder": "ជ្រើសរើសប្រភេទឯកសារ",
+    "fileUrl": "តំណភ្ជាប់ឯកសារ",
+    "fileUrlPlaceholder": "បញ្ចូលតំណភ្ជាប់ឯកសារ",
+    "filterByType": "ត្រងតាមប្រភេទ",
+    "isPublished": "បានបោះពុម្ពផ្សាយ",
+    "lectureNotes": "កំណត់ត្រាមេរៀន",
+    "noResources": "មិនមានធនធាន",
+    "published": "បានបោះពុម្ពផ្សាយ",
+    "reference": "គោលយោង",
+    "resourceTitle": "ចំណងជើងធនធាន",
+    "searchPlaceholder": "ស្វែងរកធនធាន",
+    "slides": "ស្លាយ",
+    "sortBy": "តម្រៀបតាម",
+    "sortByDate": "តម្រៀបតាមកាលបរិច្ឆេទ",
+    "sortByTitle": "តម្រៀបតាមចំណងជើង",
+    "sortByViews": "តម្រៀបតាមចំនួនមើល",
+    "status": "ស្ថានភាព",
+    "textbook": "សៀវភៅ",
+    "title": "ចំណងជើង",
+    "titlePlaceholder": "បញ្ចូលចំណងជើងធនធាន",
+    "total": "សរុប",
+    "type": "ប្រភេទ",
+    "unpublished": "មិនទាន់បោះពុម្ពផ្សាយ",
+    "video": "វីដេអូ",
+    "viewCount": "ចំនួនមើល"
+  },
+
+  "teacherProfile": {
+    "backToDashboard": "ត្រឡប់ទៅផ្ទាំងគ្រប់គ្រង",
+    "bio": "ជីវប្រវត្តិ",
+    "bioPlaceholder": "សរសេរអំពីខ្លួនអ្នក",
+    "certificationNumber": "លេខវិញ្ញាបនបត្រ",
+    "certificationNumberPlaceholder": "បញ្ចូលលេខវិញ្ញាបនបត្ររបស់អ្នក",
+    "contactInformation": "ព័ត៌មានទំនាក់ទំនង",
+    "dangerZone": "តំបន់គ្រោះថ្នាក់",
+    "deleteConfirmation": "តើអ្នកប្រាកដថាចង់លុបប្រវត្តិរូបរបស់អ្នកឬ?",
+    "deleteDescription": "សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ និងនឹងលុបទិន្នន័យទាំងអស់របស់អ្នក",
+    "deleteProfile": "លុបប្រវត្តិរូប",
+    "edit": "កែប្រែ",
+    "editProfile": "កែប្រែប្រវត្តិរូប",
+    "email": "អ៊ីមែល",
+    "emailDisabled": "អ៊ីមែលមិនអាចកែប្រែបានទេ",
+    "experience": "បទពិសោធន៍",
+    "failedToLoad": "មិនអាចផ្ទុកប្រវត្តិរូបបានទេ",
+    "failedToUpdate": "មិនអាចធ្វើបច្ចុប្បន្នភាពប្រវត្តិរូបបានទេ",
+    "firstName": "នាមខ្លួន",
+    "firstNamePlaceholder": "បញ្ចូលនាមខ្លួនរបស់អ្នក",
+    "lastName": "នាមត្រកូល",
+    "lastNamePlaceholder": "បញ្ចូលនាមត្រកូលរបស់អ្នក",
+    "memberSince": "សមាជិកតាំងពី",
+    "notSpecified": "មិនបានបញ្ជាក់",
+    "officeHours": "ម៉ោងការិយាល័យ",
+    "officeHoursPlaceholder": "ឧទាហរណ៍៖ ច័ន្ទ-សុក្រ 9:00-17:00",
+    "overview": "ទិដ្ឋភាពទូទៅ",
+    "phoneNumber": "លេខទូរស័ព្ទ",
+    "phoneNumberPlaceholder": "បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក",
+    "professionalInfo": "ព័ត៌មានវិជ្ជាជីវៈ",
+    "profileUpdated": "ប្រវត្តិរូបបានធ្វើបច្ចុប្បន្នភាព",
+    "qualifications": "គុណវុឌ្ឍិ",
+    "qualificationsPlaceholder": "បញ្ជីគុណវុឌ្ឍិរបស់អ្នក",
+    "saveChanges": "រក្សាទុកការផ្លាស់ប្តូរ",
+    "specialization": "ឯកទេស",
+    "specializationPlaceholder": "បញ្ចូលវិស័យឯកទេសរបស់អ្នក",
+    "subtitle": "គ្រប់គ្រងព័ត៌មានគ្រូបង្រៀនរបស់អ្នក",
+    "title": "ប្រវត្តិរូបគ្រូបង្រៀន",
+    "yearsOfExperience": "ចំនួនឆ្នាំបទពិសោធន៍"
+  },
+
+  "common": {
+    "allRightsReserved": "រក្សាសិទ្ធិគ្រប់យ៉ាង",
+    "classes": "ថ្នាក់",
+    "confirmDelete": "តើអ្នកប្រាកដថាចង់លុបនេះឬ?",
+    "contact": "ទំនាក់ទំនង",
+    "create": "បង្កើត",
+    "created": "បានបង្កើត",
+    "description": "ពិពណ៌នា",
+    "editAttendance": "កែប្រែវត្តមាន",
+    "faq": "សំណួរដែលគេសួរញឹកញាប់",
+    "filterStatus": "ត្រងតាមស្ថានភាព",
+    "info": "ព័ត៌មាន",
+    "markAttendance": "ម៉ាក់វត្តមាន",
+    "optionalRemarks": "មតិយោបល់ (ស្ម័គ្រចិត្ត)",
+    "privacy": "គោលការណ៍ឯកជនភាព",
+    "progress": "ដំណើរការ",
+    "remarks": "មតិយោបល់",
+    "requiredField": "វាលនេះចាំបាច់",
+    "requiredFields": "សូមបំពេញវាលដែលចាំបាច់",
+    "saving": "កំពុងរក្សាទុក...",
+    "select": "ជ្រើសរើស",
+    "selectStatus": "ជ្រើសរើសស្ថានភាព",
+    "selectStudent": "ជ្រើសរើសសិស្ស",
+    "showing": "បង្ហាញ",
+    "students": "សិស្ស",
+    "support": "ការគាំទ្រ",
+    "terms": "លក្ខខណ្ឌ",
+    "unknown": "មិនស្គាល់",
+    "warning": "ការព្រមាន",
+    "year": "ឆ្នាំ"
+  },
+
+  "dashboard": {
+    "teacher": {
+      "announcements": "ប្រកាស",
+      "assessments": "ការវាយតម្លៃ",
+      "assignCourse": "ចាត់តាំងវគ្គសិក្សា",
+      "assignmentTitle": "ចំណងជើងកិច្ចការ",
+      "attendance": "វត្តមាន",
+      "classCode": "លេខកូដថ្នាក់",
+      "className": "ឈ្មោះថ្នាក់",
+      "courseCode": "លេខកូដវគ្គសិក្សា",
+      "courseDescriptionPlaceholder": "បញ្ចូលពិពណ៌នាវគ្គសិក្សា",
+      "courseError": "មានកំហុសក្នុងការផ្ទុកវគ្គសិក្សា",
+      "courseMaterials": "សម្ភារៈវគ្គសិក្សា",
+      "courseName": "ឈ្មោះវគ្គសិក្សា",
+      "courseNamePlaceholder": "បញ្ចូលឈ្មោះវគ្គសិក្សា",
+      "deleteError": "មិនអាចលុបបានទេ",
+      "dueDate": "ថ្ងៃកំណត់",
+      "gradeLevel": "កម្រិតថ្នាក់",
+      "grades": "ពិន្ទុ",
+      "markAttendance": "ម៉ាក់វត្តមាន",
+      "maxScore": "ពិន្ទុអតិបរមា",
+      "myProfile": "ប្រវត្តិរូបរបស់ខ្ញុំ",
+      "noAttendanceRecords": "មិនមានកំណត់ត្រាវត្តមានទេ",
+      "roomNumber": "លេខបន្ទប់",
+      "semester": "ឆមាស",
+      "studentsEnrolled": "សិស្សចុះឈ្មោះ",
+      "submissions": "ការដាក់ស្នើ",
+      "viewAllStudents": "មើលសិស្សទាំងអស់"
+    }
+  },
+
+  "registration": {
+    "status": {
+      "applicationDetails": "លម្អិតពាក្យសុំ",
+      "applicationNotFound": "រកមិនឃើញពាក្យសុំ",
+      "applicationProgress": "ដំណើរការពាក្យសុំ",
+      "approved": {
+        "goToLogin": "ទៅទំព័រចូល",
+        "step1": "ពាក្យសុំរបស់អ្នកត្រូវបានអនុម័ត",
+        "step2": "គណនីរបស់អ្នកត្រូវបានបង្កើតរួចរាល់",
+        "step3": "អ្នកអាចចូលដោយប្រើអ៊ីមែលនិងពាក្យសម្ងាត់របស់អ្នក",
+        "title": "ពាក្យសុំត្រូវបានអនុម័ត"
+      },
+      "checkAnotherEmail": "ពិនិត្យមើលអ៊ីមែលផ្សេង",
+      "checkButton": "ពិនិត្យស្ថានភាព",
+      "completed": {
+        "goToDashboard": "ទៅផ្ទាំងគ្រប់គ្រង",
+        "message": "អ្នកអាចចូលប្រើប្រាស់គណនីរបស់អ្នកបានរួចរាល់",
+        "title": "ការចុះឈ្មោះបានបញ្ចប់"
+      },
+      "emailLabel": "អ៊ីមែល",
+      "emailPlaceholder": "បញ្ចូលអ៊ីមែលរបស់អ្នក",
+      "emailRequired": "អ៊ីមែលគឺចាំបាច់",
+      "institution": "ស្ថាប័ន",
+      "newApplication": "ដាក់ពាក្យសុំថ្មី",
+      "notFound": "រកមិនឃើញពាក្យសុំសម្រាប់អ៊ីមែលនេះទេ",
+      "notSpecified": "មិនបានបញ្ជាក់",
+      "pending": {
+        "step1": "ពាក្យសុំរបស់អ្នកកំពុងរង់ចាំការពិនិត្យ",
+        "step2": "ក្រុមការងាររបស់យើងកំពុងពិនិត្យឯកសាររបស់អ្នក",
+        "step3": "យើងនឹងជូនដំណឹងដល់អ្នកនៅពេលមានការសម្រេចចិត្ត",
+        "title": "ពាក្យសុំកំពុងរង់ចាំ"
+      },
+      "progressOf": "{{current}} នៃ {{total}}",
+      "readyToApply": "ត្រៀមរួចរាល់ដាក់ពាក្យសុំ?",
+      "rejected": {
+        "feedback": "មូលហេតុ",
+        "submitNew": "ដាក់ពាក្យសុំថ្មី",
+        "title": "ពាក្យសុំត្រូវបានបដិសេធ"
+      },
+      "searching": "កំពុងស្វែងរក...",
+      "status": "ស្ថានភាព",
+      "submittedDate": "ថ្ងៃដាក់ស្នើ",
+      "subtitle": "ពិនិត្យមើលស្ថានភាពពាក្យសុំរបស់អ្នក",
+      "title": "ស្ថានភាពពាក្យសុំ",
+      "tryAgain": "ព្យាយាមម្តងទៀត"
+    },
+    "success": {
+      "backToLogin": "ត្រឡប់ទៅទំព័រចូល",
+      "description": "ពាក្យសុំរបស់អ្នកត្រូវបានដាក់ស្នើដោយជោគជ័យ",
+      "step1": "យើងកំពុងពិនិត្យឯកសាររបស់អ្នក",
+      "step2": "អ្នកនឹងទទួលបានអ៊ីមែលនៅពេលពាក្យសុំត្រូវបានអនុម័ត",
+      "step3": "បន្ទាប់មកអ្នកអាចចូលទៅកាន់គណនីរបស់អ្នក",
+      "title": "ការចុះឈ្មោះបានបញ្ចប់",
+      "whatsNext": "អ្វីទៅជាជំហានបន្ទាប់?"
+    }
+  },
+
+  "h5p": {
+    "confirmDelete": "តើអ្នកប្រាកដថាចង់លុបមាតិកានេះឬ?",
+    "contentLibrary": "បណ្ណាល័យមាតិកា",
+    "contentTitle": "ចំណងជើងមាតិកា",
+    "contentTitlePlaceholder": "បញ្ចូលចំណងជើងមាតិកា",
+    "contentType": "ប្រភេទមាតិកា",
+    "contentTypes": {
+      "drag_and_drop": "អូស និង ទម្លាក់",
+      "interactive_video": "វីដេអូអន្តរកម្ម",
+      "memory_game": "ល្បែងចងចាំ",
+      "quiz": "កម្រងសំណួរ",
+      "timeline": "បន្ទាត់ពេលវេលា"
+    },
+    "createContent": "បង្កើតមាតិកា",
+    "description": "ពិពណ៌នា",
+    "descriptionPlaceholder": "បញ្ចូលពិពណ៌នា",
+    "editContent": "កែប្រែមាតិកា",
+    "h5pJson": "H5P JSON",
+    "h5pJsonPlaceholder": "បញ្ចូល H5P JSON ទិន្នន័យ",
+    "isPublished": "បានបោះពុម្ពផ្សាយ",
+    "isReusable": "អាចប្រើឡើងវិញបាន",
+    "noContent": "មិនមានមាតិកា",
+    "title": "H5P មាតិកាអន្តរកម្ម",
+    "usageCount": "ចំនួនដងប្រើប្រាស់"
+  },
+
+  "auth": {
+    "login": {
+      "demoAccounts": "គណនីសាកល្បង",
+      "demoAdmin": "អ្នកគ្រប់គ្រង៖ admin@test.com",
+      "demoParent": "ឪពុកម្តាយ៖ parent@test.com",
+      "demoPassword": "ពាក្យសម្ងាត់៖ demo@123",
+      "demoStudent": "សិស្ស៖ student@test.com",
+      "demoTeacher": "គ្រូ៖ teacher@test.com"
+    }
+  },
+
+  "dashboard": {
+    "parent": {
+      "quickLinks": "តំណភ្ជាប់រហ័ស",
+      "viewAttendance": "មើលវត្តមាន",
+      "viewGrades": "មើលពិន្ទុ",
+      "viewProgress": "មើលដំណើរការ"
+    },
+    "admin": {
+      "noAnalyticsData": "មិនមានទិន្នន័យវិភាគ",
+      "totalCourses": "វគ្គសិក្សាសរុប",
+      "viewReports": "មើលរបាយការណ៍"
+    }
+  },
+
+  "navigation": {
+    "course": "វគ្គសិក្សា",
+    "documents": "ឯកសារ",
+    "events": "ព្រឹត្តិការណ៍"
+  },
+
+  "attendance": {
+    "records": "កំណត់ត្រាវត្តមាន",
+    "statuses": "ស្ថានភាពវត្តមាន"
+  },
+
+  "messages": {
+    "unknown": "សារមិនស្គាល់"
+  },
+
+  "app": {
+    "name": "ប្រព័ន្ធគ្រប់គ្រងការអប់រំ"
+  }
+}

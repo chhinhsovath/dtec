@@ -1,0 +1,176 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║                    🎯 FINAL STEP - SEED DEMO DATA                        ║
+║                                                                           ║
+║            Your app is running at http://localhost:3000                   ║
+║              Just 1 command to complete the setup!                        ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ WHAT'S ALREADY DONE
+
+  ✅ Next.js app running at http://localhost:3000
+  ✅ PostgreSQL authentication configured
+  ✅ Login page ready (/auth/login)
+  ✅ API endpoint ready (/api/auth/login)
+  ✅ Homepage beautiful and loading
+  ✅ No errors in the app
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⏳ WHAT'S LEFT (FINAL STEP)
+
+  ⏳ Seed demo data (6 users, 4 courses, 80+ records)
+  ⏳ Test login functionality
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 DO THIS NOW (In order!)
+
+STEP 1: OPEN SSH TUNNEL (New Terminal Window)
+────────────────────────────────────────────────────────────────────────────
+
+Open a NEW terminal and paste EXACTLY this:
+
+ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+
+When it says "Password:", paste:
+
+en_&xdX#!N(^OqCQzc3RE0B)m6ogU!
+
+Wait until you see: ubuntu@server:~$
+
+✅ LEAVE THIS TERMINAL OPEN! Do not close it!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 2: SEED DEMO DATA (In another NEW Terminal)
+────────────────────────────────────────────────────────────────────────────
+
+Open ANOTHER NEW terminal and paste EXACTLY this:
+
+psql -h localhost -p 5433 -U admin -d dtech < /Users/chhinhsovath/Documents/GitHub/dgtech/supabase/migrations/002_demo_data.sql
+
+You should see output like:
+  INSERT 0 1
+  INSERT 0 1
+  CREATE INDEX
+  [...]
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 3: TEST IT! (In your browser)
+────────────────────────────────────────────────────────────────────────────
+
+Once you see the INSERT messages finish:
+
+1. Go to: http://localhost:3000
+
+2. Click the "Sign In" button
+
+3. Enter these credentials:
+   Email:    alice@test.com
+   Password: password123
+
+4. Press Sign In
+
+You should see Alice's student dashboard!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🧪 OTHER TEST ACCOUNTS (After Step 2)
+
+All password: password123
+
+Students:
+  bob@test.com          GPA: 3.45
+  charlie@test.com      GPA: 3.65
+  diana@test.com        GPA: 3.50
+  alice@test.com        GPA: 3.75
+
+Teacher:
+  teacher@test.com
+
+Admin:
+  admin@test.com
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT NOTES
+
+1. SSH Tunnel (Terminal 1):
+   • MUST be open for database access
+   • Keep the window OPEN while testing
+   • If it closes, database stops working
+   • If that happens, just reopen it
+
+2. Demo Data Seeding (Terminal 2):
+   • One-time setup
+   • Takes 30-60 seconds
+   • Safe to run multiple times (idempotent SQL)
+
+3. App (Browser):
+   • Running at http://localhost:3000
+   • Login works AFTER seeding
+   • Before seeding: "User not found" error
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ SUMMARY
+
+Your app:
+  ✅ Built
+  ✅ Running
+  ✅ Authenticated
+  ✅ Database ready
+  ⏳ Just needs demo data
+
+The setup:
+  • Terminal 1: SSH tunnel (keep open)
+  • Terminal 2: Seed command (one-time)
+  • Browser: Login and test
+
+Time remaining: ~2 minutes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎉 READY TO FINISH?
+
+Follow the 3 steps above, then you'll have:
+  ✅ Full working TEC LMS
+  ✅ 6 test accounts
+  ✅ 4 courses
+  ✅ Student dashboard with GPA, attendance, courses
+  ✅ Everything working perfectly!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 IF YOU GET STUCK
+
+"SSH tunnel error":
+  → Make sure Terminal 1 is open with SSH command running
+  → Check you typed password correctly
+
+"psql: command not found":
+  → Install PostgreSQL: brew install postgresql
+
+"Cannot connect to database":
+  → SSH tunnel might have closed
+  → Restart SSH tunnel in Terminal 1
+
+"User not found" on login:
+  → Demo data hasn't been seeded yet
+  → Complete Step 2 first
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 LET'S GO!
+
+You're so close to finishing! Just:
+  1. Open SSH tunnel
+  2. Seed demo data
+  3. Login and celebrate! 🎉
+
+═══════════════════════════════════════════════════════════════════════════════

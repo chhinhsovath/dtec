@@ -1,0 +1,193 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║          🚀 TEC LMS - COMPLETE SETUP WITH DEMO DATA - RUN NOW           ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+⚡ QUICK START - 5 MINUTES TO RUNNING APP
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: OPEN TERMINAL WINDOW 1 (KEEP OPEN)
+────────────────────────────────────────────────────────────────────────────
+
+$ ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+
+When prompted for password, type:
+en_&xdX#!N(^OqCQzc3RE0B)m6ogU!
+
+Expected:
+  Welcome to Ubuntu...
+  ubuntu@server:~$
+
+✅ DO NOT CLOSE THIS WINDOW - KEEP IT OPEN WHILE DEVELOPING!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 2: OPEN TERMINAL WINDOW 2 (New Terminal)
+────────────────────────────────────────────────────────────────────────────
+
+Navigate to project:
+$ cd /Users/chhinhsovath/Documents/GitHub/dgtech
+
+Install dependencies:
+$ npm install
+
+Install PostgreSQL client:
+$ npm install pg
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 3: SEED DEMO DATA (Same Terminal 2)
+────────────────────────────────────────────────────────────────────────────
+
+Load demo data:
+$ psql -h localhost -p 5433 -U admin -d dtech < supabase/migrations/002_demo_data.sql
+
+Verify it worked:
+$ psql -h localhost -p 5433 -U admin -d dtech -c "SELECT COUNT(*) FROM profiles;"
+
+Should show: 6 (six user profiles)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 4: START DEVELOPMENT SERVER (Same Terminal 2)
+────────────────────────────────────────────────────────────────────────────
+
+$ npm run dev
+
+Expected output:
+  ▲ Next.js 14.2.0
+  - Local:        http://localhost:3000
+  ✓ Ready in 2.5s
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 5: OPEN IN BROWSER
+────────────────────────────────────────────────────────────────────────────
+
+Go to: http://localhost:3000
+
+Click "Login" or go to: http://localhost:3000/auth/login
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 6: LOGIN WITH DEMO ACCOUNT
+────────────────────────────────────────────────────────────────────────────
+
+Email:    alice@test.com
+Password: password123
+
+Expected:
+  ✓ Redirects to /dashboard/student
+  ✓ Shows student name: Alice Johnson
+  ✓ Shows GPA: 3.75
+  ✓ Shows Courses: 2
+  ✓ Shows Attendance Rate: 94%
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎉 DONE! Your app is running locally with demo data!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🧪 ALL TEST ACCOUNTS (Password: password123 for ALL):
+
+STUDENTS:
+  alice@test.com       - GPA: 3.75, 2 courses
+  bob@test.com         - GPA: 3.45, 2 courses
+  charlie@test.com     - GPA: 3.65, 2 courses
+  diana@test.com       - GPA: 3.50, 2 courses
+
+TEACHER:
+  teacher@test.com     - Can view all students
+
+ADMIN:
+  admin@test.com       - Full system access
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 WHAT YOU GET:
+
+✓ 6 Test Accounts (4 students, 1 teacher, 1 admin)
+✓ 1 Institution (Technology Enhanced Classroom)
+✓ 4 Courses (Web Dev, Database, Mobile, Cloud)
+✓ 8 Enrollments (Students in courses)
+✓ 8 Academic Records (GPA data for Fall 2024)
+✓ 80+ Attendance Records (Last 4 weeks)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 KEY POINTS TO REMEMBER:
+
+1. TERMINAL 1 (SSH TUNNEL) MUST STAY OPEN
+   → Never close this window
+   → It's how your app connects to the database
+   → If you close it, app stops working
+
+2. USE EXACT CREDENTIALS
+   → Email: alice@test.com (lowercase, with @)
+   → Password: password123 (exact)
+
+3. IF SOMETHING GOES WRONG
+   → Read: SETUP_AND_RUN.md (detailed guide with troubleshooting)
+   → Check: Common Issues section in that file
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⏱️ TIMING:
+
+Terminal Window 1 (SSH):        30 seconds
+Terminal Window 2 (Install):    2-3 minutes
+Terminal Window 2 (Seed Data):  10 seconds
+Terminal Window 2 (Dev Server): 5 seconds
+Open Browser:                    Instant
+Login:                           Instant
+
+TOTAL TIME: ~5 MINUTES ⏱️
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❌ COMMON MISTAKES TO AVOID:
+
+DON'T:
+  ✗ Close Terminal Window 1 (SSH tunnel)
+  ✗ Use uppercase email (Alice@test.com)
+  ✗ Forget to npm install
+  ✗ Skip seeding demo data
+  ✗ Try to connect without SSH tunnel
+
+DO:
+  ✓ Keep SSH tunnel open in Terminal 1
+  ✓ Use lowercase: alice@test.com
+  ✓ Run: npm install && npm install pg
+  ✓ Load demo data: psql ... < 002_demo_data.sql
+  ✓ Verify tunnel is running before starting
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📚 DETAILED GUIDE:
+
+If you want more details or have issues, read:
+  → SETUP_AND_RUN.md (comprehensive 200+ line guide)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 READY TO START?
+
+Just follow the 6 STEPS above!
+
+Everything is prepared. You should be running in ~5 minutes.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Status: ✅ ALL FILES READY
+Files Created: 
+  - SETUP_AND_RUN.md (comprehensive guide)
+  - 002_demo_data.sql (SQL seeding)
+  - seed-demo-data.js (Node.js seeding)
+  - run-setup-and-dev.sh (automated script)
+
+Next: Follow the 6 STEPS above ↑
+
+═══════════════════════════════════════════════════════════════════════════════

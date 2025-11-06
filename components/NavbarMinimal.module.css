@@ -1,0 +1,104 @@
+.navbar {
+  padding: 0.5rem 0;
+  background-color: #ffffff;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.navbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.navbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navbar::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 3px;
+}
+
+.navbar::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+
+.navbarMain {
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.link {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #868e96;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+  border: 2px solid transparent;
+  position: relative;
+
+  &:hover {
+    color: #0369a1;
+    background-color: #f0f9ff;
+  }
+
+  &[data-active] {
+    color: #0369a1;
+    background-color: #f0f9ff;
+    border-color: #0369a1;
+    font-weight: 600;
+  }
+
+  &[data-active]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #0369a1;
+    border-radius: 0 3px 3px 0;
+  }
+}
+
+.link svg {
+  transition: transform 0.15s ease;
+}
+
+.link:hover svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 70px;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+    height: auto;
+    flex-direction: row;
+    padding: 0.5rem;
+  }
+
+  .navbarMain {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .link {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    margin-right: 0.5rem;
+  }
+}

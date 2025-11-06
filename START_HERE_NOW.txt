@@ -1,0 +1,173 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║            🚀 START HERE - AUTOMATIC SETUP & DEMO DATA                   ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+⚡ ONE COMMAND DOES EVERYTHING FOR YOU!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: OPEN TWO TERMINAL WINDOWS
+
+═══════════════════════════════════════════════════════════════════════════════
+
+TERMINAL WINDOW 1 - SSH TUNNEL (KEEP THIS OPEN)
+────────────────────────────────────────────────────────────────────────────
+
+Copy and paste this command:
+
+ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+
+When it asks for password, type:
+
+en_&xdX#!N(^OqCQzc3RE0B)m6ogU!
+
+Wait until you see:
+  ubuntu@server:~$
+
+✅ LEAVE THIS WINDOW OPEN! Do not close it!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+TERMINAL WINDOW 2 - RUN AUTOMATIC SETUP
+────────────────────────────────────────────────────────────────────────────
+
+Copy and paste this command:
+
+cd /Users/chhinhsovath/Documents/GitHub/dgtech && ./auto-setup.sh
+
+That's it! The script will do EVERYTHING:
+  ✅ Install npm dependencies
+  ✅ Seed all demo data
+  ✅ Start the development server
+  ✅ Show you test accounts
+
+═══════════════════════════════════════════════════════════════════════════════
+
+WHAT HAPPENS NEXT
+────────────────────────────────────────────────────────────────────────────
+
+You'll see:
+
+  ✅ SSH tunnel is running!
+  ✅ Database connected!
+  ✅ Dependencies installed!
+  ✅ Demo data seeded!
+
+  📊 Database Statistics:
+     users  | courses | students | enrollments | attendance
+     6      | 4       | 4        | 8           | 80+
+
+  🧪 Test Accounts (Password: password123):
+     alice@test.com       (Student)  - GPA: 3.75
+     bob@test.com         (Student)  - GPA: 3.45
+     charlie@test.com     (Student)  - GPA: 3.65
+     diana@test.com       (Student)  - GPA: 3.50
+     teacher@test.com     (Teacher)
+     admin@test.com       (Admin)
+
+  🌐 Starting development server...
+     Open your browser: http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 3: OPEN IN BROWSER
+────────────────────────────────────────────────────────────────────────────
+
+Go to: http://localhost:3000
+
+You'll see the TEC LMS homepage!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 4: LOGIN & TEST
+────────────────────────────────────────────────────────────────────────────
+
+Click "Login" and use:
+
+Email:    alice@test.com
+Password: password123
+
+You should see the student dashboard with:
+  ✅ Name: Alice Johnson
+  ✅ GPA: 3.75
+  ✅ Courses: 2
+  ✅ Attendance: 94%
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎉 DONE! Your app is running with demo data!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❓ WHAT IF SOMETHING GOES WRONG?
+
+"SSH tunnel not running"
+→ Make sure Terminal Window 1 is open and shows "ubuntu@server:~$"
+→ If not, run the SSH command from Terminal Window 1 again
+
+"Connection refused"
+→ Check Terminal Window 1 (SSH tunnel must be open)
+→ Restart the script if it says tunnel not running
+
+"npm not found"
+→ You need to install Node.js first
+→ On macOS: brew install node
+
+"psql not found"
+→ You need PostgreSQL tools
+→ On macOS: brew install postgresql
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🧪 ALL TEST ACCOUNTS
+
+Email                 | Role     | Password   | Features
+─────────────────────────────────────────────────────────────────
+alice@test.com       | Student  | password123| GPA 3.75, 2 courses
+bob@test.com         | Student  | password123| GPA 3.45, 2 courses
+charlie@test.com     | Student  | password123| GPA 3.65, 2 courses
+diana@test.com       | Student  | password123| GPA 3.50, 2 courses
+teacher@test.com     | Teacher  | password123| See all students
+admin@test.com       | Admin    | password123| Full access
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 WHAT YOU GET
+
+✓ 6 User Accounts (4 students, 1 teacher, 1 admin)
+✓ 1 Institution (Technology Enhanced Classroom)
+✓ 4 Courses (Web Development, Database Design, Mobile App, Cloud Computing)
+✓ 8 Student Enrollments (2 courses per student)
+✓ 8 Academic Records (GPA for Fall 2024)
+✓ 80+ Attendance Records (Last 4 weeks)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⏱️ TOTAL TIME: ~5-10 MINUTES
+
+Terminal 1 (SSH):           30 seconds
+Terminal 2 (Run script):    5-10 minutes
+  - npm install:           2-3 minutes
+  - Seed demo data:        10 seconds
+  - Start dev server:      5 seconds
+Open browser:              Instant
+Login:                     Instant
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ THAT'S IT!
+
+Just follow these 4 steps and you're done:
+
+1. Terminal 1: ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+2. Terminal 2: cd /Users/chhinhsovath/Documents/GitHub/dgtech && ./auto-setup.sh
+3. Browser: http://localhost:3000
+4. Login: alice@test.com / password123
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 READY? START NOW! ↑
+
+═══════════════════════════════════════════════════════════════════════════════

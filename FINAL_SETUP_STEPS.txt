@@ -1,0 +1,164 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║                  🎯 FINAL 3 STEPS TO COMPLETE SETUP                      ║
+║                                                                           ║
+║              Your app is running! Now let's add demo data.                ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ CURRENT STATUS
+
+  ✅ App running at http://localhost:3000
+  ✅ Dev server online
+  ❌ Demo data NOT seeded yet
+  ❌ SSH tunnel NOT open yet
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 COMPLETE THESE 3 STEPS
+
+STEP 1: OPEN SSH TUNNEL IN NEW TERMINAL
+────────────────────────────────────────────────────────────────────────────
+
+Open a NEW terminal window and paste this:
+
+ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+
+When prompted "Password:", paste:
+
+en_&xdX#!N(^OqCQzc3RE0B)m6ogU!
+
+Wait for: ubuntu@server:~$
+
+✅ KEEP THIS WINDOW OPEN!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 2: SEED DEMO DATA IN ANOTHER TERMINAL
+────────────────────────────────────────────────────────────────────────────
+
+Open ANOTHER NEW terminal and paste this:
+
+psql -h localhost -p 5433 -U admin -d dtech < /Users/chhinhsovath/Documents/GitHub/dgtech/supabase/migrations/002_demo_data.sql
+
+You should see:
+  INSERT 0 1 (multiple times)
+
+Or try this to show statistics:
+
+psql -h localhost -p 5433 -U admin -d dtech << 'EOF'
+SELECT
+  'Users' as type, (SELECT COUNT(*) FROM profiles)::text as count
+UNION ALL
+SELECT 'Courses', (SELECT COUNT(*) FROM courses)::text
+UNION ALL
+SELECT 'Students', (SELECT COUNT(*) FROM students)::text
+UNION ALL
+SELECT 'Enrollments', (SELECT COUNT(*) FROM enrollments)::text
+UNION ALL
+SELECT 'Academic Records', (SELECT COUNT(*) FROM academic_records)::text
+UNION ALL
+SELECT 'Attendance Records', (SELECT COUNT(*) FROM attendance)::text;
+EOF
+
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 3: TEST LOGIN IN YOUR BROWSER
+────────────────────────────────────────────────────────────────────────────
+
+After demo data is seeded:
+
+1. Go to: http://localhost:3000
+2. Click "Sign In"
+3. Use these credentials:
+
+   Email:    alice@test.com
+   Password: password123
+
+You should see Alice's student dashboard!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 YOUR 3 TERMINAL WINDOWS
+
+Terminal 1 (OPEN FIRST - KEEP OPEN):
+  Command: ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+  Status: Running SSH tunnel
+  Action: KEEP THIS OPEN ALWAYS
+
+Terminal 2 (ALREADY RUNNING):
+  Command: npm run dev
+  Status: Running dev server
+  Accessible: http://localhost:3000
+
+Terminal 3 (OPEN NOW):
+  Command: psql -h localhost -p 5433 -U admin -d dtech < ...
+  Status: Seed demo data
+  Action: Run once to load data
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🧪 TEST ACCOUNTS AFTER SEEDING
+
+All password: password123
+
+Students:
+  alice@test.com       GPA: 3.75
+  bob@test.com         GPA: 3.45
+  charlie@test.com     GPA: 3.65
+  diana@test.com       GPA: 3.50
+
+Others:
+  teacher@test.com     (Teacher account)
+  admin@test.com       (Admin account)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT
+
+1. Terminal 1 (SSH tunnel) MUST stay open while you work
+2. If you close it, database connection stops
+3. If that happens, just open Terminal 1 again with the SSH command
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ WHAT'S HAPPENING
+
+Step 1: Opens secure tunnel to remote database server
+Step 2: Loads test data (6 users, 4 courses, 80+ records)
+Step 3: Tests that everything works by logging in
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 QUICK REFERENCE
+
+SSH Tunnel Command:
+  ssh -L 5433:157.10.73.52:5432 ubuntu@157.10.73.52
+
+Password:
+  en_&xdX#!N(^OqCQzc3RE0B)m6ogU!
+
+Seed Data Command:
+  psql -h localhost -p 5433 -U admin -d dtech < supabase/migrations/002_demo_data.sql
+
+App URL:
+  http://localhost:3000
+
+Test Login:
+  Email: alice@test.com
+  Password: password123
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎉 THAT'S IT!
+
+Just 3 simple steps and you're done:
+1. Open SSH tunnel
+2. Seed demo data
+3. Login and test
+
+Ready? Let's go! 🚀
+
+═══════════════════════════════════════════════════════════════════════════════

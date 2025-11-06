@@ -34,6 +34,15 @@ export async function POST(request: NextRequest) {
       path: '/'
     });
 
+    // Set role cookie for role-based API access
+    response.cookies.set('role', user.role, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: '/'
+    });
+
     return response;
   } catch (error: any) {
     console.error('Auth error:', error);

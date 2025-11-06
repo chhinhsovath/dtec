@@ -11,7 +11,8 @@ export async function GET(req: NextRequest) {
     const mentorId = cookies.get('user_id')?.value;
     const userRole = cookies.get('role')?.value;
 
-    if (!mentorId || userRole !== 'mentor') {
+    // Mentors have 'teacher' role in the system, admins can also access mentor dashboards
+    if (!mentorId || (userRole !== 'teacher' && userRole !== 'admin')) {
       return NextResponse.json(
         { error: 'Unauthorized - mentor access required' },
         { status: 403 }

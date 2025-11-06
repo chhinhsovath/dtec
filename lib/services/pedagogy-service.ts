@@ -206,20 +206,20 @@ export async function getTeachingObservations(graduateStudentId: string) {
 export async function getMentorMentees(mentorId: string) {
   const result = await query(
     `SELECT
-      mr.mentor_relationship_id,
+      mr.id as mentor_relationship_id,
       mr.mentor_id,
       mr.graduate_student_id,
       mr.assignment_date,
-      mr.relationship_status,
+      mr.status as relationship_status,
       gs.student_code,
       p.email,
       p.full_name,
       c.batch_code,
       c.batch_year
     FROM mentor_relationships mr
-    JOIN graduate_students gs ON mr.graduate_student_id = gs.graduate_student_id
+    JOIN graduate_students gs ON mr.graduate_student_id = gs.id
     JOIN profiles p ON gs.user_id = p.id
-    JOIN cohorts c ON gs.cohort_id = c.cohort_id
+    JOIN cohorts c ON gs.cohort_id = c.id
     WHERE mr.mentor_id = $1
     ORDER BY p.full_name ASC`,
     [mentorId]
@@ -504,7 +504,7 @@ export async function getMentorDashboardStats(mentorId: string) {
     query(
       `SELECT COUNT(*) as total_mentees
        FROM mentor_relationships
-       WHERE mentor_id = $1 AND relationship_status = 'active'`,
+       WHERE mentor_id = $1 AND status = 'active'`,
       [mentorId]
     ),
     query(

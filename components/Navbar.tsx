@@ -85,26 +85,6 @@ export function DashboardNavbar({ user }: NavbarProps) {
         {/* Language Switcher */}
         <Group gap={6}>
           <Badge
-            onClick={() => changeLanguage('en')}
-            style={{
-              cursor: 'pointer',
-              backgroundColor: language === 'en' ? '#0369a1' : '#e9ecef',
-              color: language === 'en' ? '#ffffff' : '#495057',
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.transform = 'translateY(0)';
-            }}
-          >
-            EN
-          </Badge>
-          <Badge
             onClick={() => changeLanguage('km')}
             style={{
               cursor: 'pointer',
@@ -123,6 +103,26 @@ export function DashboardNavbar({ user }: NavbarProps) {
             }}
           >
             KM
+          </Badge>
+          <Badge
+            onClick={() => changeLanguage('en')}
+            style={{
+              cursor: 'pointer',
+              backgroundColor: language === 'en' ? '#0369a1' : '#e9ecef',
+              color: language === 'en' ? '#ffffff' : '#495057',
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.transform = 'translateY(0)';
+            }}
+          >
+            EN
           </Badge>
         </Group>
 
@@ -192,42 +192,6 @@ export function DashboardNavbar({ user }: NavbarProps) {
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
-
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          disabled={isLoggingOut}
-          style={{
-            background: '#ff6b6b',
-            color: '#ffffff',
-            border: 'none',
-            padding: '8px 16px',
-            borderRadius: '6px',
-            fontWeight: 600,
-            fontSize: '14px',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            opacity: isLoggingOut ? 0.6 : 1,
-          }}
-          onMouseEnter={(e) => {
-            const btn = e.currentTarget as HTMLElement;
-            if (!isLoggingOut) {
-              btn.style.backgroundColor = '#fa5252';
-              btn.style.transform = 'translateY(-2px)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            const btn = e.currentTarget as HTMLElement;
-            btn.style.backgroundColor = '#ff6b6b';
-            btn.style.transform = 'translateY(0)';
-          }}
-        >
-          <IconLogout size={18} stroke={2} />
-          {isLoggingOut ? t('components.navbar.signingOut') : t('components.navbar.logout')}
-        </button>
       </Group>
     </Box>
   );

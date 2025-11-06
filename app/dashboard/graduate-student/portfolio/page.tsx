@@ -37,6 +37,7 @@ import {
   IconDownload,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 interface PortfolioEvidence {
   evidence_id: string;
@@ -115,9 +116,12 @@ export default function PortfolioPage() {
   const [modalOpened, setModalOpened] = useState(false);
   const [selectedEvidence, setSelectedEvidence] = useState<PortfolioEvidence | null>(null);
   const [evidenceModalOpened, setEvidenceModalOpened] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
+
     const loadData = async () => {
       try {
         const session = getSession();
@@ -248,11 +252,11 @@ export default function PortfolioPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Teaching Portfolio / ផលប័ត្ររបស់គ្រូ</Title>
-          <Text c="dimmed">Collect evidence of competency development throughout the program</Text>
+          <Title order={1}>{language === 'km' ? 'ផលប័ត្រ' : 'Portfolio'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'ប្រមូលភស្តុតាងនៃការអភិវឌ្ឍសមត្ថភាពពេញមួយកម្មវិធី' : 'Collect evidence of competency development throughout the program'}</Text>
         </div>
       </Group>
 
@@ -263,10 +267,10 @@ export default function PortfolioPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Portfolio Status / ស្ថានភាព
+                {language === 'km' ? 'ស្ថានភាពផលប័ត្រ' : 'Portfolio Status'}
               </Text>
               <Title order={2}>
-                {submissionStatus === 'draft' ? 'Draft' : 'Submitted'}
+                {submissionStatus === 'draft' ? (language === 'km' ? 'ព្រាង' : 'Draft') : (language === 'km' ? 'បានដាក់ស្នើ' : 'Submitted')}
               </Title>
             </Stack>
             <ThemeIcon variant="light" size={50} radius="md" color={submissionStatus === 'submitted' ? 'teal' : 'blue'}>
@@ -278,10 +282,10 @@ export default function PortfolioPage() {
             size="lg"
             variant="light"
           >
-            {submissionStatus === 'draft' ? 'In Progress' : 'Ready for Review'}
+            {submissionStatus === 'draft' ? (language === 'km' ? 'កំពុងដំណើរការ' : 'In Progress') : (language === 'km' ? 'រួចរាល់សម្រាប់ពិនិត្យ' : 'Ready for Review')}
           </Badge>
           <Text size="xs" c="dimmed" mt="lg">
-            Last updated: {data?.portfolio?.last_updated ? new Date(data.portfolio.last_updated).toLocaleDateString() : 'Never'}
+            {language === 'km' ? 'ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ' : 'Last updated'}: {data?.portfolio?.last_updated ? new Date(data.portfolio.last_updated).toLocaleDateString() : (language === 'km' ? 'មិនទាន់មាន' : 'Never')}
           </Text>
         </Card>
 
@@ -290,7 +294,7 @@ export default function PortfolioPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Total Evidence / ភស្តុតាង
+                {language === 'km' ? 'ភស្តុតាងសរុប' : 'Total Evidence'}
               </Text>
               <Title order={2}>{totalEvidenceCount}</Title>
             </Stack>
@@ -300,7 +304,7 @@ export default function PortfolioPage() {
           </Group>
           <Progress value={Math.min(totalEvidenceCount * 5, 100)} size="md" radius="md" />
           <Text size="xs" c="dimmed" mt="xs">
-            Aim for 20+ pieces of evidence
+            {language === 'km' ? 'គោលដៅ ២០+ ភស្តុតាង' : 'Aim for 20+ pieces of evidence'}
           </Text>
         </Card>
 
@@ -309,7 +313,7 @@ export default function PortfolioPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Competencies Covered / សមត្ថភាព
+                {language === 'km' ? 'សមត្ថភាពបានគ្រប' : 'Competencies Covered'}
               </Text>
               <Title order={2}>{competenciesCovered}/10</Title>
             </Stack>
@@ -338,13 +342,13 @@ export default function PortfolioPage() {
         mb="xl"
         onClick={() => setModalOpened(true)}
       >
-        Add Evidence to Portfolio
+        {language === 'km' ? 'បន្ថែមភស្តុតាងទៅផលប័ត្រ' : 'Add Evidence to Portfolio'}
       </Button>
 
       {/* Evidence by Competency Tabs */}
       <Card withBorder p="lg" radius="md">
         <Title order={3} mb="lg">
-          Evidence by Competency / ភស្តុតាងតាមសមត្ថភាព
+          {language === 'km' ? 'ភស្តុតាងតាមសមត្ថភាព' : 'Evidence by Competency'}
         </Title>
 
         <Tabs defaultValue="comp-1" variant="pills" orientation="vertical">
@@ -400,7 +404,7 @@ export default function PortfolioPage() {
                               size="sm"
                               onClick={() => handleViewEvidence(evidence)}
                             >
-                              View
+                              {language === 'km' ? 'មើល' : 'View'}
                             </Button>
                           </Group>
                           {evidence.description_en && (
@@ -418,7 +422,7 @@ export default function PortfolioPage() {
                   </Stack>
                 ) : (
                   <Alert icon={<IconAlertCircle />} color="gray">
-                    No evidence submitted for this competency yet. Click "Add Evidence" to submit.
+                    {language === 'km' ? 'មិនទាន់មានភស្តុតាងសម្រាប់សមត្ថភាពនេះទេ។ ចុចប៊ូតុង "បន្ថែមភស្តុតាង" ដើម្បីដាក់ស្នើ។' : 'No evidence submitted for this competency yet. Click "Add Evidence" to submit.'}
                   </Alert>
                 )}
               </div>
@@ -431,7 +435,7 @@ export default function PortfolioPage() {
       <Modal
         opened={modalOpened}
         onClose={() => setModalOpened(false)}
-        title="Add Evidence to Portfolio / បន្ថែមភស្តុតាង"
+        title={language === 'km' ? 'បន្ថែមភស្តុតាងទៅផលប័ត្រ' : 'Add Evidence to Portfolio'}
         size="lg"
       >
         <Stack gap="md">
@@ -497,7 +501,7 @@ export default function PortfolioPage() {
 
           <Group justify="flex-end" mt="lg">
             <Button variant="default" onClick={() => setModalOpened(false)}>
-              Cancel
+              {language === 'km' ? 'បោះបង់' : 'Cancel'}
             </Button>
             <Button
               onClick={handleSubmitEvidence}
@@ -505,7 +509,7 @@ export default function PortfolioPage() {
               leftSection={<IconUpload size={16} />}
               disabled={!selectedCompetencyId || !evidenceType || !titleKm}
             >
-              Submit Evidence
+              {language === 'km' ? 'ដាក់ស្នើភស្តុតាង' : 'Submit Evidence'}
             </Button>
           </Group>
         </Stack>
@@ -516,7 +520,7 @@ export default function PortfolioPage() {
         <Modal
           opened={evidenceModalOpened}
           onClose={() => setEvidenceModalOpened(false)}
-          title="Evidence Details / ព័ត៌មានលម្អិតឯកសារ"
+          title={language === 'km' ? 'ព័ត៌មានលម្អិតភស្តុតាង' : 'Evidence Details'}
           size="lg"
         >
           <Stack gap="lg">
@@ -572,18 +576,18 @@ export default function PortfolioPage() {
                 leftSection={<IconDownload size={16} />}
                 fullWidth
               >
-                Download/View File
+                {language === 'km' ? 'ទាញយក/មើលឯកសារ' : 'Download/View File'}
               </Button>
             )}
 
             {selectedEvidence.mentor_feedback && (
-              <Alert icon={<IconClock />} color="teal" title="Mentor Feedback">
+              <Alert icon={<IconClock />} color="teal" title={language === 'km' ? 'មតិយោបល់ពីគ្រូបង្រៀន' : 'Mentor Feedback'}>
                 {selectedEvidence.mentor_feedback}
               </Alert>
             )}
 
             <Button fullWidth onClick={() => setEvidenceModalOpened(false)}>
-              Close
+              {language === 'km' ? 'បិទ' : 'Close'}
             </Button>
           </Stack>
         </Modal>

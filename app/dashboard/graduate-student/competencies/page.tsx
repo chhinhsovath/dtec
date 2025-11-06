@@ -28,6 +28,7 @@ import {
   IconFileText,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface Competency {
   competency_assessment_id: string;
@@ -72,6 +73,7 @@ const LEVEL_DESCRIPTIONS: Record<number, { name: string; description: string; co
 };
 
 export default function CompetenciesPage() {
+  const { language } = useTranslation();
   const [competencies, setCompetencies] = useState<Competency[]>([]);
   const [selectedCompetency, setSelectedCompetency] = useState<Competency | null>(null);
   const [modalOpened, setModalOpened] = useState(false);
@@ -131,7 +133,7 @@ export default function CompetenciesPage() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -147,11 +149,11 @@ export default function CompetenciesPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រលប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Competency Framework</Title>
-          <Text c="dimmed">រចនាសម្ព័ន្ធសមត្ថភាព - Monitor your progress across all 10 competencies</Text>
+          <Title order={1}>{language === 'km' ? 'ក្របខ័ណ្ឌសមត្ថភាព' : 'Competency Framework'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'ត្រួតពិនិត្យការវិវឌ្ឍន៍របស់អ្នកលើសមត្ថភាពទាំង ១០' : 'Monitor your progress across all 10 competencies'}</Text>
         </div>
       </Group>
 
@@ -160,13 +162,13 @@ export default function CompetenciesPage() {
         <Group justify="space-between">
           <Stack gap={0}>
             <Text fw={500} c="dimmed">
-              Overall Competency Progress
+              {language === 'km' ? 'ការវិវឌ្ឍន៍សមត្ថភាពទូទៅ' : 'Overall Competency Progress'}
             </Text>
             <Title order={2} mt="xs">
-              {proficientCount}/{competencies.length} Proficient
+              {proficientCount}/{competencies.length} {language === 'km' ? 'មានសមត្ថភាព' : 'Proficient'}
             </Title>
             <Text size="sm" c="dimmed" mt="xs">
-              Minimum requirement for certification: All 10 at Level 3+
+              {language === 'km' ? 'តម្រូវការអប្បបរមាសម្រាប់វិញ្ញាបនបត្រ៖ ទាំងអស់ ១០ ស្ថិតក្នុងកម្រិតទី ៣ ឬខ្ពស់ជាងនេះ' : 'Minimum requirement for certification: All 10 at Level 3+'}
             </Text>
           </Stack>
           <div style={{ width: 120, height: 120 }}>
@@ -229,7 +231,7 @@ export default function CompetenciesPage() {
                     color={LEVEL_DESCRIPTIONS[competency.current_level]?.color}
                     variant="filled"
                   >
-                    Level {competency.current_level}
+                    {language === 'km' ? 'កម្រិត' : 'Level'} {competency.current_level}
                   </Badge>
                   {competency.current_level >= 3 && (
                     <ThemeIcon size="sm" color="teal" variant="light">
@@ -240,17 +242,14 @@ export default function CompetenciesPage() {
               </Group>
 
               <Title order={4} mb="xs">
-                {competency.name_en}
+                {language === 'km' ? competency.name_km : competency.name_en}
               </Title>
-              <Text size="sm" c="dimmed" mb="md">
-                {competency.name_km}
-              </Text>
 
               <Stack gap="sm">
                 <div>
                   <Group justify="space-between" mb="xs">
                     <Text size="sm" fw={500}>
-                      Score
+                      {language === 'km' ? 'ពិន្ទុ' : 'Score'}
                     </Text>
                     <Text size="sm" fw={700}>
                       {competency.score}/100
@@ -267,26 +266,26 @@ export default function CompetenciesPage() {
                   <Group gap="xs">
                     <IconMessageCircle size={16} color="#999" />
                     <Text size="xs" c="dimmed">
-                      Feedback available
+                      {language === 'km' ? 'មានមតិកែលម្អ' : 'Feedback available'}
                     </Text>
                   </Group>
                 )}
 
                 {competency.assessment_date && (
                   <Text size="xs" c="dimmed">
-                    Last assessed: {new Date(competency.assessment_date).toLocaleDateString()}
+                    {language === 'km' ? 'វាយតម្លៃចុងក្រោយ' : 'Last assessed'}: {new Date(competency.assessment_date).toLocaleDateString()}
                   </Text>
                 )}
 
                 <Button variant="light" size="xs" fullWidth onClick={() => handleViewDetails(competency)}>
-                  View Details
+                  {language === 'km' ? 'មើលព័ត៌មានលម្អិត' : 'View Details'}
                 </Button>
               </Stack>
             </Card>
           ))
         ) : (
-          <Alert icon={<IconAlertCircle />} color="gray" title="No Assessments">
-            You haven't received any competency assessments yet. Check back soon!
+          <Alert icon={<IconAlertCircle />} color="gray" title={language === 'km' ? 'គ្មានការវាយតម្លៃ' : 'No Assessments'}>
+            {language === 'km' ? 'អ្នកមិនទាន់ទទួលបានការវាយតម្លៃសមត្ថភាពណាមួយនៅឡើយទេ។ សូមពិនិត្យមើលជាថ្មីនៅពេលក្រោយ!' : 'You haven\'t received any competency assessments yet. Check back soon!'}
           </Alert>
         )}
       </SimpleGrid>
@@ -295,14 +294,14 @@ export default function CompetenciesPage() {
       <Modal
         opened={modalOpened}
         onClose={() => setModalOpened(false)}
-        title={selectedCompetency?.name_en}
+        title={language === 'km' ? selectedCompetency?.name_km : selectedCompetency?.name_en}
         size="lg"
       >
         {selectedCompetency && (
           <Stack gap="lg">
             <div>
               <Text fw={500} c="dimmed" size="sm">
-                Khmer Name
+                {language === 'km' ? 'ឈ្មោះជាភាសាខ្មែរ' : 'Khmer Name'}
               </Text>
               <Text size="lg" fw={700}>
                 {selectedCompetency.name_km}
@@ -312,7 +311,7 @@ export default function CompetenciesPage() {
             {selectedCompetency.description_en && (
               <div>
                 <Text fw={500} c="dimmed" size="sm" mb="xs">
-                  Description (English)
+                  {language === 'km' ? 'ការពិពណ៌នា (អង់គ្លេស)' : 'Description (English)'}
                 </Text>
                 <Text size="sm">{selectedCompetency.description_en}</Text>
               </div>
@@ -321,7 +320,7 @@ export default function CompetenciesPage() {
             {selectedCompetency.description_km && (
               <div>
                 <Text fw={500} c="dimmed" size="sm" mb="xs">
-                  Description (Khmer)
+                  {language === 'km' ? 'ការពិពណ៌នា (ខ្មែរ)' : 'Description (Khmer)'}
                 </Text>
                 <Text size="sm">{selectedCompetency.description_km}</Text>
               </div>
@@ -329,7 +328,7 @@ export default function CompetenciesPage() {
 
             <div>
               <Group justify="space-between" mb="xs">
-                <Text fw={500}>Current Level</Text>
+                <Text fw={500}>{language === 'km' ? 'កម្រិតបច្ចុប្បន្ន' : 'Current Level'}</Text>
                 <Badge
                   color={LEVEL_DESCRIPTIONS[selectedCompetency.current_level]?.color}
                   variant="filled"
@@ -345,7 +344,7 @@ export default function CompetenciesPage() {
 
             <div>
               <Group justify="space-between" mb="xs">
-                <Text fw={500}>Score</Text>
+                <Text fw={500}>{language === 'km' ? 'ពិន្ទុ' : 'Score'}</Text>
                 <Text fw={700}>{selectedCompetency.score}/100</Text>
               </Group>
               <Progress
@@ -356,8 +355,10 @@ export default function CompetenciesPage() {
             </div>
 
             {selectedCompetency.current_level >= 3 && (
-              <Alert icon={<IconCheck />} color="teal" title="Proficient">
-                You have achieved proficiency in this competency. This counts toward your certification requirement.
+              <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'មានសមត្ថភាព' : 'Proficient'}>
+                {language === 'km'
+                  ? 'អ្នកបានសម្រេចសមត្ថភាពក្នុងសមត្ថភាពនេះ។ វារាប់បញ្ចូលក្នុងតម្រូវការវិញ្ញាបនបត្ររបស់អ្នក។'
+                  : 'You have achieved proficiency in this competency. This counts toward your certification requirement.'}
               </Alert>
             )}
 
@@ -365,25 +366,27 @@ export default function CompetenciesPage() {
               <Card withBorder p="lg" radius="md" bg="gray.0">
                 <Group mb="sm">
                   <IconMessageCircle size={20} />
-                  <Text fw={500}>Mentor Feedback</Text>
+                  <Text fw={500}>{language === 'km' ? 'មតិកែលម្អពីអ្នកណែនាំ' : 'Mentor Feedback'}</Text>
                 </Group>
                 <Text size="sm">{selectedCompetency.feedback_text}</Text>
                 {selectedCompetency.assessment_date && (
                   <Text size="xs" c="dimmed" mt="xs">
-                    Provided on {new Date(selectedCompetency.assessment_date).toLocaleDateString()}
+                    {language === 'km' ? 'ផ្តល់ជូននៅថ្ងៃ' : 'Provided on'} {new Date(selectedCompetency.assessment_date).toLocaleDateString()}
                   </Text>
                 )}
               </Card>
             )}
 
             {!selectedCompetency.feedback_text && (
-              <Alert icon={<IconAlertCircle />} color="yellow" title="No Feedback Yet">
-                Your mentor hasn't provided feedback on this competency yet. Check back soon!
+              <Alert icon={<IconAlertCircle />} color="yellow" title={language === 'km' ? 'មិនទាន់មានមតិកែលម្អ' : 'No Feedback Yet'}>
+                {language === 'km'
+                  ? 'អ្នកណែនាំរបស់អ្នកមិនទាន់ផ្តល់មតិកែលម្អលើសមត្ថភាពនេះនៅឡើយទេ។ សូមពិនិត្យមើលជាថ្មីនៅពេលក្រោយ!'
+                  : 'Your mentor hasn\'t provided feedback on this competency yet. Check back soon!'}
               </Alert>
             )}
 
             <Button fullWidth onClick={() => setModalOpened(false)}>
-              Close
+              {language === 'km' ? 'បិទ' : 'Close'}
             </Button>
           </Stack>
         )}

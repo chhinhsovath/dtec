@@ -31,14 +31,17 @@ import {
   IconCertificate,
 } from '@tabler/icons-react';
 import { getSession, AuthUser } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 export default function StudentProfilePage() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
     const loadData = async () => {
       try {
         const session = getSession();
@@ -92,18 +95,18 @@ export default function StudentProfilePage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Student Profile / ប្រវត្តិលម្អិត</Title>
-          <Text c="dimmed">Your student account information</Text>
+          <Title order={1}>{language === 'km' ? 'ប្រវត្តិរូប' : 'Profile'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'ព័ត៌មានគណនីសិស្សរបស់អ្នក' : 'Your student account information'}</Text>
         </div>
       </Group>
 
       {/* Account Information Card */}
       <Card withBorder p="lg" radius="md" mb="xl">
         <Title order={3} mb="lg">
-          Account Information / ព័ត៌មានគណនី
+          {language === 'km' ? 'ព័ត៌មានគណនី' : 'Account Information'}
         </Title>
 
         <Stack gap="md">

@@ -31,6 +31,7 @@ import {
   IconSettings,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 interface CoordinatorStats {
   totalStudents: number;
@@ -47,9 +48,11 @@ export default function CoordinatorDashboard() {
   const [stats, setStats] = useState<CoordinatorStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
     const loadData = async () => {
       try {
         const session = getSession();
@@ -114,11 +117,11 @@ export default function CoordinatorDashboard() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Coordinator Dashboard / ផ្ទាំងគ្រប់គ្រង</Title>
-          <Text c="dimmed">Program oversight and student certification management</Text>
+          <Title order={1}>{language === 'km' ? 'ផ្ទាំងគ្រប់គ្រងសម្របសម្រួល' : 'Coordinator Dashboard'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'ការត្រួតពិនិត្យកម្មវិធី និងការគ្រប់គ្រងសញ្ញាបត្រសិស្ស' : 'Program oversight and student certification management'}</Text>
         </div>
       </Group>
 

@@ -6,7 +6,7 @@ export default function MentorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DashboardLayout requiredRole="teacher">
+    <DashboardLayout requiredRole="teacher" sidebarRole="mentor">
       {children}
     </DashboardLayout>
   );

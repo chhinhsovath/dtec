@@ -37,6 +37,7 @@ import {
   IconCheck,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface PracticumPlacement {
   placement_id: string;
@@ -76,6 +77,7 @@ interface PracticumData {
 }
 
 export default function PracticumPage() {
+  const { language } = useTranslation();
   const [data, setData] = useState<PracticumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -124,7 +126,7 @@ export default function PracticumPage() {
 
   const handleLogHours = async () => {
     if (!data?.placement || logHours <= 0) {
-      alert('Please enter valid hours');
+      alert(language === 'km' ? 'សូមបញ្ចូលម៉ោងត្រឹមត្រូវ' : 'Please enter valid hours');
       return;
     }
 
@@ -178,7 +180,7 @@ export default function PracticumPage() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -201,11 +203,11 @@ export default function PracticumPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Teaching Practicum / អនុវត្ត</Title>
-          <Text c="dimmed">Real classroom teaching experience in partner schools</Text>
+          <Title order={1}>{language === 'km' ? 'ការងារគន្លឹះ' : 'Practicum'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'បទពិសោធន៍បង្រៀនក្នុងថ្នាក់រៀនពិតនៅសាលាដៃគូ' : 'Real classroom teaching experience in partner schools'}</Text>
         </div>
       </Group>
 
@@ -216,15 +218,17 @@ export default function PracticumPage() {
           <Card withBorder p="lg" radius="md" mb="xl" bg="blue.0">
             <Group justify="space-between" mb="lg">
               <div>
-                <Title order={2}>{placement.school_name_en}</Title>
-                <Text c="dimmed">{placement.school_name_km}</Text>
+                <Title order={2}>{language === 'km' ? placement.school_name_km : placement.school_name_en}</Title>
+                <Text c="dimmed">{language === 'km' ? placement.school_name_en : placement.school_name_km}</Text>
               </div>
               <Badge
                 color={placement.placement_status === 'active' ? 'teal' : 'yellow'}
                 size="lg"
                 variant="light"
               >
-                {placement.placement_status === 'active' ? 'In Progress' : 'Not Started'}
+                {placement.placement_status === 'active'
+                  ? (language === 'km' ? 'កំពុងដំណើរការ' : 'In Progress')
+                  : (language === 'km' ? 'មិនទាន់ចាប់ផ្តើម' : 'Not Started')}
               </Badge>
             </Group>
 
@@ -235,7 +239,7 @@ export default function PracticumPage() {
                 </ThemeIcon>
                 <div>
                   <Text size="xs" c="dimmed" fw={500}>
-                    Location / ទីតាំង
+                    {language === 'km' ? 'ទីតាំង' : 'Location'}
                   </Text>
                   <Text fw={500}>{placement.location}</Text>
                 </div>
@@ -247,7 +251,7 @@ export default function PracticumPage() {
                 </ThemeIcon>
                 <div>
                   <Text size="xs" c="dimmed" fw={500}>
-                    Supervisor / អ្នកគ្រប់គ្រង
+                    {language === 'km' ? 'អ្នកគ្រប់គ្រង' : 'Supervisor'}
                   </Text>
                   <Text fw={500}>{placement.contact_person}</Text>
                 </div>
@@ -259,7 +263,7 @@ export default function PracticumPage() {
                 </ThemeIcon>
                 <div>
                   <Text size="xs" c="dimmed" fw={500}>
-                    Contact / ទូរស័ព្ទ
+                    {language === 'km' ? 'ទូរស័ព្ទ' : 'Contact'}
                   </Text>
                   <Text fw={500}>{placement.contact_phone}</Text>
                 </div>
@@ -271,7 +275,7 @@ export default function PracticumPage() {
                 </ThemeIcon>
                 <div>
                   <Text size="xs" c="dimmed" fw={500}>
-                    Duration / រយៈពេល
+                    {language === 'km' ? 'រយៈពេល' : 'Duration'}
                   </Text>
                   <Text fw={500} size="sm">
                     {new Date(placement.start_date).toLocaleDateString()} - {new Date(placement.end_date).toLocaleDateString()}
@@ -287,7 +291,7 @@ export default function PracticumPage() {
               <Group justify="space-between" mb="lg">
                 <Stack gap={0}>
                   <Text fw={500} c="dimmed">
-                    Teaching Hours / ម៉ោងបង្រៀន
+                    {language === 'km' ? 'ម៉ោងបង្រៀន' : 'Teaching Hours'}
                   </Text>
                   <Title order={2}>
                     {teachingHours.total_hours}/{placement.teaching_hours_target}
@@ -306,12 +310,14 @@ export default function PracticumPage() {
                 mb="sm"
               />
               <Text c="dimmed" size="sm">
-                {hoursPercentage.toFixed(0)}% complete ({teachingHours.log_entries} logs)
+                {hoursPercentage.toFixed(0)}% {language === 'km' ? 'បានបញ្ចប់' : 'complete'} ({teachingHours.log_entries} {language === 'km' ? 'កំណត់ត្រា' : 'logs'})
               </Text>
 
               {hoursPercentage >= 100 && (
-                <Alert icon={<IconCheck />} color="teal" title="Target Reached!" mt="lg">
-                  You have completed your minimum teaching hours requirement!
+                <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'បានឈានដល់គោលដៅ!' : 'Target Reached!'} mt="lg">
+                  {language === 'km'
+                    ? 'អ្នកបានបញ្ចប់តម្រូវការម៉ោងបង្រៀនអប្បបរមារបស់អ្នក!'
+                    : 'You have completed your minimum teaching hours requirement!'}
                 </Alert>
               )}
 
@@ -321,7 +327,7 @@ export default function PracticumPage() {
                 leftSection={<IconPlus size={16} />}
                 onClick={() => setLogModalOpened(true)}
               >
-                Log Teaching Hours
+                {language === 'km' ? 'កត់ត្រាម៉ោងបង្រៀន' : 'Log Teaching Hours'}
               </Button>
             </Card>
 
@@ -329,7 +335,7 @@ export default function PracticumPage() {
               <Group justify="space-between" mb="lg">
                 <Stack gap={0}>
                   <Text fw={500} c="dimmed">
-                    Observations / ការសង្កេត
+                    {language === 'km' ? 'ការសង្កេត' : 'Observations'}
                   </Text>
                   <Title order={2}>{data?.totalObservations || 0}</Title>
                 </Stack>
@@ -339,14 +345,14 @@ export default function PracticumPage() {
               </Group>
 
               <Text size="sm" c="dimmed" mb="lg">
-                Mentor has conducted formal observations
+                {language === 'km' ? 'គ្រូជំនួយបានធ្វើការសង្កេតផ្លូវការ' : 'Mentor has conducted formal observations'}
               </Text>
 
               <Stack gap="xs">
                 {observations.length > 0 ? (
                   <>
                     <Text size="sm" fw={500}>
-                      Latest Observations:
+                      {language === 'km' ? 'ការសង្កេតចុងក្រោយបំផុត៖' : 'Latest Observations:'}
                     </Text>
                     {observations.slice(0, 3).map((obs) => (
                       <Group key={obs.observation_id} gap="xs">
@@ -355,12 +361,12 @@ export default function PracticumPage() {
                       </Group>
                     ))}
                     <Button variant="light" fullWidth mt="lg" onClick={() => setObservationModalOpened(true)}>
-                      View All Observations
+                      {language === 'km' ? 'មើលការសង្កេតទាំងអស់' : 'View All Observations'}
                     </Button>
                   </>
                 ) : (
                   <Text size="sm" c="dimmed">
-                    No observations recorded yet
+                    {language === 'km' ? 'មិនទាន់មានការសង្កេតណាមួយត្រូវបានកត់ត្រានៅឡើយទេ' : 'No observations recorded yet'}
                   </Text>
                 )}
               </Stack>
@@ -370,18 +376,18 @@ export default function PracticumPage() {
           {/* Observations Table */}
           <Card withBorder p="lg" radius="md">
             <Title order={3} mb="lg">
-              All Teaching Observations / ការសង្កេតការបង្រៀនដោយលម្អិត
+              {language === 'km' ? 'ការសង្កេតការបង្រៀនដោយលម្អិត' : 'All Teaching Observations'}
             </Title>
 
             {observations.length > 0 ? (
               <Table striped highlightOnHover>
                 <Table.Thead>
                   <Table.Tr>
-                    <Table.Th>Date / ថ្ងៃ</Table.Th>
-                    <Table.Th>Lesson Title / មេរៀន</Table.Th>
-                    <Table.Th>Grade / ថ្នាក់</Table.Th>
-                    <Table.Th>Score / ពិន្ទុ</Table.Th>
-                    <Table.Th>Action / សកម្មភាព</Table.Th>
+                    <Table.Th>{language === 'km' ? 'ថ្ងៃ' : 'Date'}</Table.Th>
+                    <Table.Th>{language === 'km' ? 'មេរៀន' : 'Lesson Title'}</Table.Th>
+                    <Table.Th>{language === 'km' ? 'ថ្នាក់' : 'Grade'}</Table.Th>
+                    <Table.Th>{language === 'km' ? 'ពិន្ទុ' : 'Score'}</Table.Th>
+                    <Table.Th>{language === 'km' ? 'សកម្មភាព' : 'Action'}</Table.Th>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
@@ -404,7 +410,7 @@ export default function PracticumPage() {
                           size="xs"
                           onClick={() => handleViewObservation(obs)}
                         >
-                          View
+                          {language === 'km' ? 'មើល' : 'View'}
                         </Button>
                       </Table.Td>
                     </Table.Tr>
@@ -413,14 +419,18 @@ export default function PracticumPage() {
               </Table>
             ) : (
               <Alert icon={<IconAlertCircle />} color="gray">
-                No observations recorded yet. Your mentor will provide feedback on your teaching.
+                {language === 'km'
+                  ? 'មិនទាន់មានការសង្កេតត្រូវបានកត់ត្រានៅឡើយទេ។ គ្រូជំនួយរបស់អ្នកនឹងផ្តល់មតិកែលម្អអំពីការបង្រៀនរបស់អ្នក។'
+                  : 'No observations recorded yet. Your mentor will provide feedback on your teaching.'}
               </Alert>
             )}
           </Card>
         </>
       ) : (
-        <Alert icon={<IconAlertCircle />} color="yellow" title="No Practicum Placement">
-          You have not yet been assigned to a partner school for your practicum. Please contact your coordinator.
+        <Alert icon={<IconAlertCircle />} color="yellow" title={language === 'km' ? 'គ្មានទីតាំងអនុវត្តន៍' : 'No Practicum Placement'}>
+          {language === 'km'
+            ? 'អ្នកមិនទាន់ត្រូវបានចាត់តាំងទៅសាលាដៃគូសម្រាប់ការអនុវត្តន៍របស់អ្នកនៅឡើយទេ។ សូមទាក់ទងអ្នកសម្របសម្រួលរបស់អ្នក។'
+            : 'You have not yet been assigned to a partner school for your practicum. Please contact your coordinator.'}
         </Alert>
       )}
 
@@ -428,13 +438,13 @@ export default function PracticumPage() {
       <Modal
         opened={logModalOpened}
         onClose={() => setLogModalOpened(false)}
-        title="Log Teaching Hours"
+        title={language === 'km' ? 'កត់ត្រាម៉ោងបង្រៀន' : 'Log Teaching Hours'}
         size="md"
       >
         <Stack gap="md">
           <div>
             <Text fw={500} size="sm" mb="xs">
-              Date / ថ្ងៃ
+              {language === 'km' ? 'ថ្ងៃ' : 'Date'}
             </Text>
             <Input
               type="date"
@@ -445,25 +455,25 @@ export default function PracticumPage() {
 
           <div>
             <Text fw={500} size="sm" mb="xs">
-              Hours Taught / ម៉ោងបង្រៀន
+              {language === 'km' ? 'ម៉ោងបង្រៀន' : 'Hours Taught'}
             </Text>
             <NumberInput
               value={logHours}
               onChange={(val) => setLogHours(typeof val === 'number' ? val : (val ? parseFloat(val) : 0))}
               min={0}
               step={0.5}
-              placeholder="Enter hours"
+              placeholder={language === 'km' ? 'បញ្ចូលម៉ោង' : 'Enter hours'}
             />
           </div>
 
           <div>
             <Text fw={500} size="sm" mb="xs">
-              Notes / ចំណាំ (Optional)
+              {language === 'km' ? 'ចំណាំ (ស្រេចចិត្ត)' : 'Notes (Optional)'}
             </Text>
             <Textarea
               value={logNotes}
               onChange={(e) => setLogNotes(e.currentTarget.value)}
-              placeholder="What lesson did you teach? How was student engagement?"
+              placeholder={language === 'km' ? 'មេរៀនអ្វីដែលអ្នកបានបង្រៀន? តើសិស្សចូលរួមយ៉ាងដូចម្តេច?' : 'What lesson did you teach? How was student engagement?'}
               minRows={3}
             />
           </div>
@@ -474,7 +484,7 @@ export default function PracticumPage() {
             loading={submitting}
             disabled={logHours <= 0}
           >
-            Log Hours
+            {language === 'km' ? 'កត់ត្រាម៉ោង' : 'Log Hours'}
           </Button>
         </Stack>
       </Modal>
@@ -483,7 +493,7 @@ export default function PracticumPage() {
       <Modal
         opened={observationModalOpened && !!selectedObservation}
         onClose={() => setObservationModalOpened(false)}
-        title="Teaching Observation Details"
+        title={language === 'km' ? 'ព័ត៌មានលម្អិតការសង្កេតការបង្រៀន' : 'Teaching Observation Details'}
         size="lg"
       >
         {selectedObservation && (
@@ -500,7 +510,7 @@ export default function PracticumPage() {
                 </Badge>
               </Group>
               <Group gap="sm">
-                <Badge variant="light">Grade {selectedObservation.grade_level}</Badge>
+                <Badge variant="light">{language === 'km' ? 'ថ្នាក់' : 'Grade'} {selectedObservation.grade_level}</Badge>
                 <Text size="sm" c="dimmed">
                   {new Date(selectedObservation.observation_date).toLocaleDateString()}
                 </Text>
@@ -509,48 +519,33 @@ export default function PracticumPage() {
 
             <div>
               <Text fw={500} mb="xs">
-                Strengths / ចំណុចខលួនល្អ
+                {language === 'km' ? 'ចំណុចខ្លាំង' : 'Strengths'}
               </Text>
               <Card p="sm" bg="green.0">
-                <Text size="sm">{selectedObservation.strengths_en}</Text>
-                {selectedObservation.strengths_km && (
-                  <Text size="sm" c="dimmed" mt="xs">
-                    {selectedObservation.strengths_km}
-                  </Text>
-                )}
+                <Text size="sm">{language === 'km' ? selectedObservation.strengths_km : selectedObservation.strengths_en}</Text>
               </Card>
             </div>
 
             <div>
               <Text fw={500} mb="xs">
-                Areas for Improvement / ផ្នែកដែលត្រូវកែលម្អ
+                {language === 'km' ? 'ផ្នែកដែលត្រូវកែលម្អ' : 'Areas for Improvement'}
               </Text>
               <Card p="sm" bg="orange.0">
-                <Text size="sm">{selectedObservation.areas_for_improvement_en}</Text>
-                {selectedObservation.areas_for_improvement_km && (
-                  <Text size="sm" c="dimmed" mt="xs">
-                    {selectedObservation.areas_for_improvement_km}
-                  </Text>
-                )}
+                <Text size="sm">{language === 'km' ? selectedObservation.areas_for_improvement_km : selectedObservation.areas_for_improvement_en}</Text>
               </Card>
             </div>
 
             <div>
               <Text fw={500} mb="xs">
-                Recommendations / អនុសាសន៍
+                {language === 'km' ? 'អនុសាសន៍' : 'Recommendations'}
               </Text>
               <Card p="sm" bg="blue.0">
-                <Text size="sm">{selectedObservation.recommendations_en}</Text>
-                {selectedObservation.recommendations_km && (
-                  <Text size="sm" c="dimmed" mt="xs">
-                    {selectedObservation.recommendations_km}
-                  </Text>
-                )}
+                <Text size="sm">{language === 'km' ? selectedObservation.recommendations_km : selectedObservation.recommendations_en}</Text>
               </Card>
             </div>
 
             <Button fullWidth onClick={() => setObservationModalOpened(false)}>
-              Close
+              {language === 'km' ? 'បិទ' : 'Close'}
             </Button>
           </Stack>
         )}

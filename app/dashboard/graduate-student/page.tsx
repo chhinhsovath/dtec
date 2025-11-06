@@ -31,6 +31,7 @@ import {
   IconTrendingUp,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface CompetencyLevel {
   level: number;
@@ -91,6 +92,7 @@ const COMPETENCY_LEVELS: CompetencyLevel[] = [
 ];
 
 export default function GraduateStudentDashboard() {
+  const { language } = useTranslation();
   const [data, setData] = useState<DashboardData | null>(null);
   const [competencies, setCompetencies] = useState<Competency[]>([]);
   const [loading, setLoading] = useState(true);
@@ -149,7 +151,7 @@ export default function GraduateStudentDashboard() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -159,8 +161,8 @@ export default function GraduateStudentDashboard() {
   if (!data) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="yellow" title="No Data">
-          Unable to load dashboard data
+        <Alert icon={<IconAlertCircle />} color="yellow" title={language === 'km' ? 'គ្មានទិន្នន័យ' : 'No Data'}>
+          {language === 'km' ? 'មិនអាចផ្ទុកទិន្នន័យផ្ទាំងគ្រប់គ្រងបានទេ' : 'Unable to load dashboard data'}
         </Alert>
       </Container>
     );
@@ -183,9 +185,9 @@ export default function GraduateStudentDashboard() {
       {/* Header */}
       <Stack gap="lg" mb="xl">
         <div>
-          <Title order={1}>ឡើងលម្អិតលម្អិត - Graduate Student Dashboard</Title>
+          <Title order={1}>{language === 'km' ? 'ផ្ទាំងគ្រប់គ្រងសិស្សស្រាវជ្រាវ' : 'Graduate Student Dashboard'}</Title>
           <Text c="dimmed" size="lg" mt="sm">
-            សូមស្វាគមន៍ទៅកម្មវិធីបង្រៀនគ្រូច្រៃលំង្វល់ - Welcome to Contract Teacher Training Program
+            {language === 'km' ? 'សូមស្វាគមន៍ទៅកម្មវិធីបណ្តុះបណ្តាលគ្រូបង្រៀនកិច្ចសន្យា' : 'Welcome to Contract Teacher Training Program'}
           </Text>
         </div>
 
@@ -195,7 +197,7 @@ export default function GraduateStudentDashboard() {
             <Card withBorder p="lg" radius="md">
               <Group justify="space-between" mb="xs">
                 <Text fw={500} size="sm" c="dimmed">
-                  Cohort / ក្រុម
+                  {language === 'km' ? 'ក្រុម' : 'Cohort'}
                 </Text>
                 <IconSchool size={16} color="blue" />
               </Group>
@@ -213,18 +215,15 @@ export default function GraduateStudentDashboard() {
             <Card withBorder p="lg" radius="md">
               <Group justify="space-between" mb="xs">
                 <Text fw={500} size="sm" c="dimmed">
-                  Current Phase / ដំណាក់កាល
+                  {language === 'km' ? 'ដំណាក់កាលបច្ចុប្បន្ន' : 'Current Phase'}
                 </Text>
                 <IconTrendingUp size={16} color="blue" />
               </Group>
               <Text fw={700} size="lg">
-                {data.currentPhase.name_en}
-              </Text>
-              <Text c="dimmed" size="sm">
-                {data.currentPhase.name_km}
+                {language === 'km' ? data.currentPhase.name_km : data.currentPhase.name_en}
               </Text>
               <Text c="dimmed" size="xs" mt="xs">
-                Phase {data.currentPhase.phase_number} ({data.currentPhase.duration_weeks} weeks)
+                {language === 'km' ? 'ដំណាក់កាល' : 'Phase'} {data.currentPhase.phase_number} ({data.currentPhase.duration_weeks} {language === 'km' ? 'សប្តាហ៍' : 'weeks'})
               </Text>
             </Card>
           </SimpleGrid>
@@ -238,7 +237,7 @@ export default function GraduateStudentDashboard() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} size="sm" c="dimmed">
-                Competencies / សមត្ថភាព
+                {language === 'km' ? 'សមត្ថភាព' : 'Competencies'}
               </Text>
               <Title order={3}>
                 {data.progressSummary.competenciesAtLevel3Plus}/{data.progressSummary.totalCompetencies}
@@ -255,7 +254,7 @@ export default function GraduateStudentDashboard() {
             radius="md"
           />
           <Text c="dimmed" size="xs" mt="xs">
-            {competencyPercentage.toFixed(0)}% at Level 3+
+            {competencyPercentage.toFixed(0)}% {language === 'km' ? 'ស្ថិតក្នុងកម្រិតទី ៣ ឬខ្ពស់ជាងនេះ' : 'at Level 3+'}
           </Text>
         </Card>
 
@@ -264,7 +263,7 @@ export default function GraduateStudentDashboard() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} size="sm" c="dimmed">
-                Teaching Hours / ម៉ោងបង្រៀន
+                {language === 'km' ? 'ម៉ោងបង្រៀន' : 'Teaching Hours'}
               </Text>
               <Title order={3}>
                 {data.progressSummary.teachingHoursLogged}/{data.progressSummary.teachingHoursTarget}
@@ -281,7 +280,7 @@ export default function GraduateStudentDashboard() {
             radius="md"
           />
           <Text c="dimmed" size="xs" mt="xs">
-            {teachingHoursPercentage.toFixed(0)}% complete
+            {teachingHoursPercentage.toFixed(0)}% {language === 'km' ? 'បានបញ្ចប់' : 'complete'}
           </Text>
         </Card>
 
@@ -290,7 +289,7 @@ export default function GraduateStudentDashboard() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} size="sm" c="dimmed">
-                Certification / ឯកសារ
+                {language === 'km' ? 'វិញ្ញាបនបត្រ' : 'Certification'}
               </Text>
               <Title order={3}>
                 {data.progressSummary.certificationsCompleted}/{data.progressSummary.totalCertificationRequirements}
@@ -307,7 +306,7 @@ export default function GraduateStudentDashboard() {
             radius="md"
           />
           <Text c="dimmed" size="xs" mt="xs">
-            {certificationPercentage.toFixed(0)}% complete
+            {certificationPercentage.toFixed(0)}% {language === 'km' ? 'បានបញ្ចប់' : 'complete'}
           </Text>
         </Card>
 
@@ -316,10 +315,12 @@ export default function GraduateStudentDashboard() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} size="sm" c="dimmed">
-                Practicum / អនុវត្ត
+                {language === 'km' ? 'ការអនុវត្តន៍' : 'Practicum'}
               </Text>
               <Title order={3}>
-                {data.progressSummary.practicumStatus === 'active' ? 'Active' : 'Not Started'}
+                {data.progressSummary.practicumStatus === 'active'
+                  ? (language === 'km' ? 'កំពុងដំណើរការ' : 'Active')
+                  : (language === 'km' ? 'មិនទាន់ចាប់ផ្តើម' : 'Not Started')}
               </Title>
             </Stack>
             <ThemeIcon
@@ -336,7 +337,9 @@ export default function GraduateStudentDashboard() {
             variant="light"
             fullWidth
           >
-            {data.progressSummary.practicumStatus === 'active' ? 'In Progress' : 'Not Started'}
+            {data.progressSummary.practicumStatus === 'active'
+              ? (language === 'km' ? 'កំពុងដំណើរការ' : 'In Progress')
+              : (language === 'km' ? 'មិនទាន់ចាប់ផ្តើម' : 'Not Started')}
           </Badge>
         </Card>
       </SimpleGrid>
@@ -344,8 +347,8 @@ export default function GraduateStudentDashboard() {
       {/* Competency Details */}
       <Tabs defaultValue="grid" mb="xl">
         <Tabs.List>
-          <Tabs.Tab value="grid">Grid View</Tabs.Tab>
-          <Tabs.Tab value="table">Table View</Tabs.Tab>
+          <Tabs.Tab value="grid">{language === 'km' ? 'មើលជាក្រឡា' : 'Grid View'}</Tabs.Tab>
+          <Tabs.Tab value="table">{language === 'km' ? 'មើលជាតារាង' : 'Table View'}</Tabs.Tab>
         </Tabs.List>
 
         {/* Grid View */}
@@ -356,25 +359,21 @@ export default function GraduateStudentDashboard() {
                 <Card key={comp.competency_assessment_id} withBorder p="lg" radius="md">
                   <Group justify="space-between" mb="sm">
                     <Title order={4} size="h5">
-                      {comp.name_en}
+                      {language === 'km' ? comp.name_km : comp.name_en}
                     </Title>
                     <Badge
                       color={getLevelColor(comp.current_level)}
                       variant="filled"
                     >
-                      Level {comp.current_level}
+                      {language === 'km' ? 'កម្រិត' : 'Level'} {comp.current_level}
                     </Badge>
                   </Group>
-
-                  <Text size="sm" c="dimmed" mb="xs">
-                    {comp.name_km}
-                  </Text>
 
                   <Stack gap="xs">
                     <div>
                       <Group justify="space-between" mb="xs">
                         <Text size="sm" fw={500}>
-                          Score
+                          {language === 'km' ? 'ពិន្ទុ' : 'Score'}
                         </Text>
                         <Text size="sm" fw={700}>
                           {comp.score}/100
@@ -387,7 +386,7 @@ export default function GraduateStudentDashboard() {
                       <Group gap="xs">
                         <IconCheck size={16} color="teal" />
                         <Text size="xs" c="teal" fw={500}>
-                          Proficient - Ready for certification
+                          {language === 'km' ? 'មានសមត្ថភាព - ត្រៀមរួចសម្រាប់វិញ្ញាបនបត្រ' : 'Proficient - Ready for certification'}
                         </Text>
                       </Group>
                     )}
@@ -395,7 +394,7 @@ export default function GraduateStudentDashboard() {
                     {comp.feedback_text && (
                       <div style={{ marginTop: '0.5rem', padding: '0.5rem', backgroundColor: '#f8f9fa', borderRadius: '4px' }}>
                         <Text size="xs" fw={500} mb="xs">
-                          Feedback:
+                          {language === 'km' ? 'មតិកែលម្អ' : 'Feedback'}:
                         </Text>
                         <Text size="xs" c="dimmed">
                           {comp.feedback_text}
@@ -405,7 +404,7 @@ export default function GraduateStudentDashboard() {
 
                     {comp.assessment_date && (
                       <Text size="xs" c="dimmed">
-                        Last assessed: {new Date(comp.assessment_date).toLocaleDateString()}
+                        {language === 'km' ? 'វាយតម្លៃចុងក្រោយ' : 'Last assessed'}: {new Date(comp.assessment_date).toLocaleDateString()}
                       </Text>
                     )}
                   </Stack>
@@ -414,7 +413,7 @@ export default function GraduateStudentDashboard() {
             ) : (
               <Card withBorder p="lg" radius="md">
                 <Text c="dimmed" ta="center">
-                  No competency assessments yet
+                  {language === 'km' ? 'មិនទាន់មានការវាយតម្លៃសមត្ថភាពនៅឡើយទេ' : 'No competency assessments yet'}
                 </Text>
               </Card>
             )}
@@ -428,19 +427,17 @@ export default function GraduateStudentDashboard() {
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>#</Table.Th>
-                  <Table.Th>Competency (English)</Table.Th>
-                  <Table.Th>Competency (Khmer)</Table.Th>
-                  <Table.Th>Level</Table.Th>
-                  <Table.Th>Score</Table.Th>
-                  <Table.Th>Status</Table.Th>
+                  <Table.Th>{language === 'km' ? 'សមត្ថភាព (ខ្មែរ)' : 'Competency (English)'}</Table.Th>
+                  <Table.Th>{language === 'km' ? 'កម្រិត' : 'Level'}</Table.Th>
+                  <Table.Th>{language === 'km' ? 'ពិន្ទុ' : 'Score'}</Table.Th>
+                  <Table.Th>{language === 'km' ? 'ស្ថានភាព' : 'Status'}</Table.Th>
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
                 {competencies.map((comp) => (
                   <Table.Tr key={comp.competency_assessment_id}>
                     <Table.Td>{comp.competency_number}</Table.Td>
-                    <Table.Td fw={500}>{comp.name_en}</Table.Td>
-                    <Table.Td>{comp.name_km}</Table.Td>
+                    <Table.Td fw={500}>{language === 'km' ? comp.name_km : comp.name_en}</Table.Td>
                     <Table.Td>
                       <Badge color={getLevelColor(comp.current_level)} variant="filled">
                         {getLevelLabel(comp.current_level)}
@@ -459,12 +456,12 @@ export default function GraduateStudentDashboard() {
                         <Group gap="xs">
                           <IconCheck size={16} color="teal" />
                           <Text size="xs" c="teal">
-                            Proficient
+                            {language === 'km' ? 'មានសមត្ថភាព' : 'Proficient'}
                           </Text>
                         </Group>
                       ) : (
                         <Badge color="yellow" variant="light">
-                          In Progress
+                          {language === 'km' ? 'កំពុងដំណើរការ' : 'In Progress'}
                         </Badge>
                       )}
                     </Table.Td>
@@ -473,8 +470,8 @@ export default function GraduateStudentDashboard() {
               </Table.Tbody>
             </Table>
           ) : (
-            <Alert icon={<IconAlertCircle />} color="gray" title="No Data">
-              No competency assessments available yet
+            <Alert icon={<IconAlertCircle />} color="gray" title={language === 'km' ? 'គ្មានទិន្នន័យ' : 'No Data'}>
+              {language === 'km' ? 'មិនទាន់មានការវាយតម្លៃសមត្ថភាពនៅឡើយទេ' : 'No competency assessments available yet'}
             </Alert>
           )}
         </Tabs.Panel>
@@ -483,7 +480,7 @@ export default function GraduateStudentDashboard() {
       {/* Legend */}
       <Card withBorder p="lg" radius="md" mb="xl">
         <Title order={4} mb="lg">
-          Competency Levels / កម្រិតសមត្ថភាព
+          {language === 'km' ? 'កម្រិតសមត្ថភាព' : 'Competency Levels'}
         </Title>
         <SimpleGrid cols={{ base: 1, sm: 5 }} spacing="lg">
           {COMPETENCY_LEVELS.map((level) => (
@@ -493,7 +490,7 @@ export default function GraduateStudentDashboard() {
               </ThemeIcon>
               <Stack gap={0}>
                 <Text fw={500} size="sm">
-                  Level {level.level}
+                  {language === 'km' ? 'កម្រិត' : 'Level'} {level.level}
                 </Text>
                 <Text size="xs" c="dimmed">
                   {level.label}
@@ -508,9 +505,10 @@ export default function GraduateStudentDashboard() {
       {data.progressSummary.competenciesAtLevel3Plus === data.progressSummary.totalCompetencies &&
         data.progressSummary.teachingHoursLogged >= data.progressSummary.teachingHoursTarget &&
         data.progressSummary.certificationsCompleted === data.progressSummary.totalCertificationRequirements && (
-          <Alert icon={<IconCheck />} color="teal" title="Ready for Certification!" mb="lg">
-            Congratulations! You have met all requirements for contract teacher certification. Please contact your coordinator to
-            proceed with final certification.
+          <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'រួចរាល់សម្រាប់វិញ្ញាបនបត្រ!' : 'Ready for Certification!'} mb="lg">
+            {language === 'km'
+              ? 'អបអរសាទរ! អ្នកបានបំពេញតម្រូវការទាំងអស់សម្រាប់វិញ្ញាបនបត្រគ្រូបង្រៀនកិច្ចសន្យា។ សូមទាក់ទងអ្នកសម្របសម្រួលរបស់អ្នកដើម្បីបន្តការផ្តល់វិញ្ញាបនបត្រចុងក្រោយ។'
+              : 'Congratulations! You have met all requirements for contract teacher certification. Please contact your coordinator to proceed with final certification.'}
           </Alert>
         )}
     </Container>

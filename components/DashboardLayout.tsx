@@ -11,11 +11,13 @@ import { SidebarMinimal } from './SidebarMinimal';
 interface DashboardLayoutProps {
   children: React.ReactNode;
   requiredRole?: 'student' | 'teacher' | 'mentor' | 'coordinator' | 'admin' | 'parent';
+  sidebarRole?: 'student' | 'teacher' | 'mentor' | 'coordinator' | 'admin' | 'parent';
 }
 
 export function DashboardLayout({
   children,
   requiredRole,
+  sidebarRole,
 }: DashboardLayoutProps) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -77,7 +79,7 @@ export function DashboardLayout({
       {/* Main Content with Minimal Sidebar */}
       <Box style={{ display: 'flex', flex: 1 }}>
         {/* Minimal Sidebar - Icon only */}
-        <SidebarMinimal role={user.role} />
+        <SidebarMinimal role={(sidebarRole || user.role) as 'student' | 'teacher' | 'mentor' | 'coordinator' | 'admin' | 'parent'} />
 
         {/* Page Content */}
         <Box

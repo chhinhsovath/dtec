@@ -30,6 +30,7 @@ import {
   IconCheck,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface TeachingHourLog {
   log_id: string;
@@ -40,6 +41,7 @@ interface TeachingHourLog {
 }
 
 export default function TeachingHoursPage() {
+  const { language } = useTranslation();
   const [logs, setLogs] = useState<TeachingHourLog[]>([]);
   const [totals, setTotals] = useState<{ total_hours: number; log_entries: number } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -73,8 +75,6 @@ export default function TeachingHoursPage() {
         const practicumData = result.data;
 
         setTotals(practicumData.teachingHours);
-        // In a real scenario, we'd fetch logs separately
-        // For now, we'll create mock data based on the API structure
         setLogs([]);
         setLoading(false);
       } catch (err) {
@@ -103,7 +103,7 @@ export default function TeachingHoursPage() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -123,11 +123,11 @@ export default function TeachingHoursPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Teaching Hours Log / ម៉ោងបង្រៀន</Title>
-          <Text c="dimmed">Track your teaching practice hours throughout the practicum</Text>
+          <Title order={1}>{language === 'km' ? 'ម៉ោងបង្រៀន' : 'Teaching Hours'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'តាមដានម៉ោងបង្រៀនរបស់អ្នកពេញមួយកម្មវិធី' : 'Track your teaching practice hours throughout the practicum'}</Text>
         </div>
       </Group>
 
@@ -138,9 +138,9 @@ export default function TeachingHoursPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Total Hours Logged
+                {language === 'km' ? 'ម៉ោងសរុបបានកត់ត្រា' : 'Total Hours Logged'}
               </Text>
-              <Title order={2}>{totalHours} hours</Title>
+              <Title order={2}>{totalHours} {language === 'km' ? 'ម៉ោង' : 'hours'}</Title>
             </Stack>
             <ThemeIcon variant="light" size={50} radius="md" color="blue">
               <IconClock size={28} color="blue" />
@@ -153,7 +153,7 @@ export default function TeachingHoursPage() {
             radius="md"
           />
           <Text size="sm" c="dimmed" mt="xs">
-            Target: {TARGET_HOURS} hours
+            {language === 'km' ? 'គោលដៅ៖' : 'Target:'} {TARGET_HOURS} {language === 'km' ? 'ម៉ោង' : 'hours'}
           </Text>
         </Card>
 
@@ -166,7 +166,7 @@ export default function TeachingHoursPage() {
                 <Stack gap={0}>
                   <Text fw={700} ta="center">{Math.min(percentage, 100).toFixed(0)}%</Text>
                   <Text size="xs" c="dimmed" ta="center">
-                    Complete
+                    {language === 'km' ? 'បានបញ្ចប់' : 'Complete'}
                   </Text>
                 </Stack>
               }
@@ -175,8 +175,10 @@ export default function TeachingHoursPage() {
             />
           </Group>
           {percentage >= 100 && (
-            <Alert icon={<IconCheck />} color="teal" title="Target Reached!">
-              You have met the minimum teaching hours requirement!
+            <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'បានឈានដល់គោលដៅ!' : 'Target Reached!'}>
+              {language === 'km'
+                ? 'អ្នកបានបំពេញតម្រូវការម៉ោងបង្រៀនអប្បបរមា!'
+                : 'You have met the minimum teaching hours requirement!'}
             </Alert>
           )}
         </Card>
@@ -186,27 +188,27 @@ export default function TeachingHoursPage() {
           <Stack gap="md">
             <div>
               <Text fw={500} size="sm" c="dimmed" mb="xs">
-                Total Entries
+                {language === 'km' ? 'កំណត់ត្រាសរុប' : 'Total Entries'}
               </Text>
               <Title order={3}>{totals?.log_entries || 0}</Title>
             </div>
             <div>
               <Text fw={500} size="sm" c="dimmed" mb="xs">
-                Average per Entry
+                {language === 'km' ? 'មធ្យមក្នុងមួយកំណត់ត្រា' : 'Average per Entry'}
               </Text>
               <Title order={3}>
                 {totals && totals.log_entries > 0
                   ? (totals.total_hours / totals.log_entries).toFixed(1)
                   : 0}
-                h
+                {language === 'km' ? 'ម' : 'h'}
               </Title>
             </div>
             <div>
               <Text fw={500} size="sm" c="dimmed" mb="xs">
-                Hours Remaining
+                {language === 'km' ? 'ម៉ោងដែលនៅសល់' : 'Hours Remaining'}
               </Text>
               <Title order={3} c={totalHours >= TARGET_HOURS ? 'teal' : 'orange'}>
-                {Math.max(0, TARGET_HOURS - totalHours)} hours
+                {Math.max(0, TARGET_HOURS - totalHours)} {language === 'km' ? 'ម៉ោង' : 'hours'}
               </Title>
             </div>
           </Stack>
@@ -216,18 +218,18 @@ export default function TeachingHoursPage() {
       {/* Teaching Hours Log Table */}
       <Card withBorder p="lg" radius="md" mb="xl">
         <Title order={3} mb="lg">
-          Hour Log Entries / កំណត់ត្រាម៉ោង
+          {language === 'km' ? 'កំណត់ត្រាម៉ោង' : 'Hour Log Entries'}
         </Title>
 
         {logs.length > 0 ? (
           <Table striped highlightOnHover>
             <Table.Thead>
               <Table.Tr>
-                <Table.Th>Date / ថ្ងៃ</Table.Th>
-                <Table.Th>Hours / ម៉ោង</Table.Th>
-                <Table.Th>Notes / ចំណាំ</Table.Th>
-                <Table.Th>Logged / កម្មវិធី</Table.Th>
-                <Table.Th>Action / សកម្មភាព</Table.Th>
+                <Table.Th>{language === 'km' ? 'ថ្ងៃ' : 'Date'}</Table.Th>
+                <Table.Th>{language === 'km' ? 'ម៉ោង' : 'Hours'}</Table.Th>
+                <Table.Th>{language === 'km' ? 'ចំណាំ' : 'Notes'}</Table.Th>
+                <Table.Th>{language === 'km' ? 'កត់ត្រានៅ' : 'Logged'}</Table.Th>
+                <Table.Th>{language === 'km' ? 'សកម្មភាព' : 'Action'}</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
@@ -241,14 +243,14 @@ export default function TeachingHoursPage() {
                   </Table.Td>
                   <Table.Td>
                     <Badge size="lg" color="blue" variant="light">
-                      {log.hours_logged}h
+                      {log.hours_logged}{language === 'km' ? 'ម' : 'h'}
                     </Badge>
                   </Table.Td>
                   <Table.Td>{log.notes ? log.notes.substring(0, 50) + '...' : '-'}</Table.Td>
                   <Table.Td>{new Date(log.created_at).toLocaleDateString()}</Table.Td>
                   <Table.Td>
                     <Button variant="light" size="xs" onClick={() => handleViewLog(log)}>
-                      View
+                      {language === 'km' ? 'មើល' : 'View'}
                     </Button>
                   </Table.Td>
                 </Table.Tr>
@@ -256,8 +258,10 @@ export default function TeachingHoursPage() {
             </Table.Tbody>
           </Table>
         ) : (
-          <Alert icon={<IconAlertCircle />} color="gray" title="No Logs Yet">
-            You haven't logged any teaching hours yet. Start logging your teaching practice hours to track your progress.
+          <Alert icon={<IconAlertCircle />} color="gray" title={language === 'km' ? 'មិនទាន់មានកំណត់ត្រា' : 'No Logs Yet'}>
+            {language === 'km'
+              ? 'អ្នកមិនទាន់បានកត់ត្រាម៉ោងបង្រៀននៅឡើយទេ។ចាប់ផ្តើមកត់ត្រាម៉ោងបង្រៀនរបស់អ្នកដើម្បីតាមដានវឌ្ឍនភាព។'
+              : "You haven't logged any teaching hours yet. Start logging your teaching practice hours to track your progress."}
           </Alert>
         )}
       </Card>
@@ -265,56 +269,81 @@ export default function TeachingHoursPage() {
       {/* Guidelines Card */}
       <Card withBorder p="lg" radius="md" bg="gray.0">
         <Title order={4} mb="md">
-          Guidelines for Logging Hours / ការណែនាំលម្អិត
+          {language === 'km' ? 'ការណែនាំសម្រាប់ការកត់ត្រាម៉ោង' : 'Guidelines for Logging Hours'}
         </Title>
         <Stack gap="sm">
           <Group gap="sm">
             <IconCheck size={20} color="teal" />
-            <Text size="sm">Log hours on the day you teach or the next day while it's fresh in your memory</Text>
+            <Text size="sm">
+              {language === 'km'
+                ? 'កត់ត្រាម៉ោងនៅថ្ងៃដែលអ្នកបង្រៀនឬថ្ងៃបន្ទាប់ខណៈពេលវានៅស្រស់ក្នុងការចងចាំរបស់អ្នក'
+                : "Log hours on the day you teach or the next day while it's fresh in your memory"}
+            </Text>
           </Group>
           <Group gap="sm">
             <IconCheck size={20} color="teal" />
-            <Text size="sm">Include only actual teaching time (preparation time does not count)</Text>
+            <Text size="sm">
+              {language === 'km'
+                ? 'រួមបញ្ចូលតែពេលវេលាបង្រៀនពិតប្រាកដ (ពេលវេលារៀបចំមិនរាប់បញ្ចូលទេ)'
+                : 'Include only actual teaching time (preparation time does not count)'}
+            </Text>
           </Group>
           <Group gap="sm">
             <IconCheck size={20} color="teal" />
-            <Text size="sm">Provide brief notes about what lessons you taught and student engagement</Text>
+            <Text size="sm">
+              {language === 'km'
+                ? 'ផ្តល់ចំណាំខ្លីៗអំពីមេរៀនដែលអ្នកបានបង្រៀននិងការចូលរួមរបស់សិស្ស'
+                : 'Provide brief notes about what lessons you taught and student engagement'}
+            </Text>
           </Group>
           <Group gap="sm">
             <IconCheck size={20} color="teal" />
-            <Text size="sm">Minimum target: {TARGET_HOURS} hours over the practicum period</Text>
+            <Text size="sm">
+              {language === 'km'
+                ? `គោលដៅអប្បបរមា៖ ${TARGET_HOURS} ម៉ោងពេញមួយកម្មវិធី`
+                : `Minimum target: ${TARGET_HOURS} hours over the practicum period`}
+            </Text>
           </Group>
           <Group gap="sm">
             <IconCheck size={20} color="teal" />
-            <Text size="sm">Your mentor can review your logs and provide feedback</Text>
+            <Text size="sm">
+              {language === 'km'
+                ? 'គ្រូជំនួយរបស់អ្នកអាចពិនិត្យមើលកំណត់ត្រារបស់អ្នកនិងផ្តល់មតិកែលម្អ'
+                : 'Your mentor can review your logs and provide feedback'}
+            </Text>
           </Group>
         </Stack>
       </Card>
 
       {/* Log Detail Modal */}
       {selectedLog && (
-        <Modal opened={modalOpened} onClose={() => setModalOpened(false)} title="Teaching Hours Log Detail" size="md">
+        <Modal
+          opened={modalOpened}
+          onClose={() => setModalOpened(false)}
+          title={language === 'km' ? 'ព័ត៌មានលម្អិតកំណត់ត្រាម៉ោង' : 'Teaching Hours Log Detail'}
+          size="md"
+        >
           <Stack gap="lg">
             <div>
               <Text fw={500} c="dimmed" size="sm">
-                Date / ថ្ងៃ
+                {language === 'km' ? 'ថ្ងៃ' : 'Date'}
               </Text>
               <Text fw={700}>{new Date(selectedLog.activity_date).toLocaleDateString()}</Text>
             </div>
 
             <div>
               <Text fw={500} c="dimmed" size="sm">
-                Hours Taught / ម៉ោងបង្រៀន
+                {language === 'km' ? 'ម៉ោងបង្រៀន' : 'Hours Taught'}
               </Text>
               <Badge size="lg" color="blue" variant="light">
-                {selectedLog.hours_logged} hours
+                {selectedLog.hours_logged} {language === 'km' ? 'ម៉ោង' : 'hours'}
               </Badge>
             </div>
 
             {selectedLog.notes && (
               <div>
                 <Text fw={500} c="dimmed" size="sm">
-                  Notes / ចំណាំ
+                  {language === 'km' ? 'ចំណាំ' : 'Notes'}
                 </Text>
                 <Card p="sm" bg="gray.0">
                   <Text size="sm">{selectedLog.notes}</Text>
@@ -324,13 +353,13 @@ export default function TeachingHoursPage() {
 
             <div>
               <Text fw={500} c="dimmed" size="sm">
-                Logged On / កម្មវិធីលម្អិត
+                {language === 'km' ? 'កត់ត្រានៅ' : 'Logged On'}
               </Text>
               <Text size="sm">{new Date(selectedLog.created_at).toLocaleString()}</Text>
             </div>
 
             <Button fullWidth onClick={() => setModalOpened(false)}>
-              Close
+              {language === 'km' ? 'បិទ' : 'Close'}
             </Button>
           </Stack>
         </Modal>
@@ -338,4 +367,3 @@ export default function TeachingHoursPage() {
     </Container>
   );
 }
-

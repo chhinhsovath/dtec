@@ -32,6 +32,7 @@ import {
   IconFileText,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 interface CertificationRequirement {
   requirement_id: string;
@@ -58,9 +59,11 @@ export default function CertificationPage() {
   const [data, setData] = useState<CertificationData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
     const loadData = async () => {
       try {
         const session = getSession();
@@ -124,11 +127,11 @@ export default function CertificationPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Certification Readiness / ការរៀបចំឯកសារសក្ខម</Title>
-          <Text c="dimmed">Track your progress toward contract teacher certification</Text>
+          <Title order={1}>{language === 'km' ? 'សញ្ញាបត្រ' : 'Certification'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'តាមដានវឌ្ឍនភាពឆ្ពោះទៅរកសញ្ញាបត្រគ្រូបង្រៀន' : 'Track your progress toward contract teacher certification'}</Text>
         </div>
       </Group>
 
@@ -138,24 +141,24 @@ export default function CertificationPage() {
           <Group justify="space-between" align="flex-start">
             <div>
               <Title order={2} mb="sm">
-                {readiness.isReadyForCertification ? '✓ Ready for Certification' : 'In Progress'}
+                {readiness.isReadyForCertification ? (language === 'km' ? '✓ រួចរាល់សម្រាប់សញ្ញាបត្រ' : '✓ Ready for Certification') : (language === 'km' ? 'កំពុងដំណើរការ' : 'In Progress')}
               </Title>
               <Text c="dimmed" mb="lg">
                 {readiness.isReadyForCertification
-                  ? 'You have completed all certification requirements. You can now apply for your contract teacher certificate!'
-                  : `${readiness.completedRequirements} of ${readiness.totalRequirements} requirements completed`}
+                  ? (language === 'km' ? 'អ្នកបានបំពេញតម្រូវការសញ្ញាបត្រទាំងអស់ហើយ។ ឥឡូវអ្នកអាចដាក់ពាក្យសុំសញ្ញាបត្រគ្រូបង្រៀនបានហើយ!' : 'You have completed all certification requirements. You can now apply for your contract teacher certificate!')
+                  : `${readiness.completedRequirements} ${language === 'km' ? 'ក្នុងចំណោម' : 'of'} ${readiness.totalRequirements} ${language === 'km' ? 'តម្រូវការបានបំពេញ' : 'requirements completed'}`}
               </Text>
 
               <Group gap="lg">
                 <div>
                   <Text fw={500} size="sm" c="dimmed">
-                    Progress / ការធើើលឲ្យក្នុង
+                    {language === 'km' ? 'វឌ្ឍនភាព' : 'Progress'}
                   </Text>
                   <Title order={3}>{readiness.percentage.toFixed(0)}%</Title>
                 </div>
                 <div>
                   <Text fw={500} size="sm" c="dimmed">
-                    Requirements Completed / ត្រូវការ
+                    {language === 'km' ? 'តម្រូវការបានបំពេញ' : 'Requirements Completed'}
                   </Text>
                   <Title order={3}>
                     {readiness.completedRequirements}/{readiness.totalRequirements}
@@ -182,8 +185,8 @@ export default function CertificationPage() {
           </Group>
 
           {readiness.isReadyForCertification && (
-            <Alert icon={<IconCheck />} color="teal" title="Ready!" mt="lg">
-              All requirements completed! Contact your coordinator to issue your certificate.
+            <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'រួចរាល់!' : 'Ready!'} mt="lg">
+              {language === 'km' ? 'បានបំពេញតម្រូវការទាំងអស់! សូមទាក់ទងអ្នកសម្របសម្រួលដើម្បីចេញសញ្ញាបត្ររបស់អ្នក។' : 'All requirements completed! Contact your coordinator to issue your certificate.'}
             </Alert>
           )}
         </Card>
@@ -192,7 +195,7 @@ export default function CertificationPage() {
       {/* Requirements Checklist */}
       <Card withBorder p="lg" radius="md">
         <Title order={3} mb="lg">
-          Certification Requirements / តម្រូវការសក្ខម
+          {language === 'km' ? 'តម្រូវការសញ្ញាបត្រ' : 'Certification Requirements'}
         </Title>
 
         <Stack gap="md">

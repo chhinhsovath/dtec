@@ -32,6 +32,7 @@ import {
   IconClock,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface Mentee {
   mentor_relationship_id: string;
@@ -58,6 +59,7 @@ interface MentorshipSession {
 }
 
 export default function MentorshipSessionsPage() {
+  const { language } = useTranslation();
   const [mentees, setMentees] = useState<Mentee[]>([]);
   const [sessions, setSessions] = useState<MentorshipSession[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,17 +114,17 @@ export default function MentorshipSessionsPage() {
         setLoading(false);
       } catch (err) {
         console.error('Error loading data:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load data');
+        setError(err instanceof Error ? err.message : (language === 'km' ? 'មិនអាចផ្ទុកទិន្នន័យបាន' : 'Failed to load data'));
         setLoading(false);
       }
     };
 
     loadData();
-  }, [router]);
+  }, [router, language]);
 
   const handleScheduleSession = async () => {
     if (!selectedMentee || !sessionDate || !sessionTime || !topicKm || durationMinutes <= 0) {
-      alert('Please fill in all required fields');
+      alert(language === 'km' ? 'សូមបំពេញប្រអប់ទាំងអស់ដែលតម្រូវឱ្យបំពេញ' : 'Please fill in all required fields');
       return;
     }
 
@@ -143,10 +145,10 @@ export default function MentorshipSessionsPage() {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to schedule session');
+        throw new Error(language === 'km' ? 'មិនអាចកំណត់ពេលវេលាបានទេ' : 'Failed to schedule session');
       }
 
-      alert('Session scheduled successfully!');
+      alert(language === 'km' ? 'កំណត់ពេលវេលាបានជោគជ័យ!' : 'Session scheduled successfully!');
 
       // Reset form
       setSelectedMentee('');
@@ -164,7 +166,7 @@ export default function MentorshipSessionsPage() {
         setSessions(sessionsData.data || []);
       }
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to schedule session');
+      alert(err instanceof Error ? err.message : (language === 'km' ? 'មិនអាចកំណត់ពេលវេលាបានទេ' : 'Failed to schedule session'));
     } finally {
       setSubmitting(false);
     }
@@ -172,7 +174,7 @@ export default function MentorshipSessionsPage() {
 
   const handleAddFeedback = async () => {
     if (!selectedSession || (!feedbackKm && !feedbackEn)) {
-      alert('Please provide feedback');
+      alert(language === 'km' ? 'សូមផ្តល់មតិយោបល់' : 'Please provide feedback');
       return;
     }
 
@@ -180,14 +182,14 @@ export default function MentorshipSessionsPage() {
     try {
       // In a real implementation, this would call an API to update the session
       // For now, we'll just show a success message
-      alert('Feedback saved successfully!');
+      alert(language === 'km' ? 'រក្សាទុកមតិយោបល់បានជោគជ័យ!' : 'Feedback saved successfully!');
       setFeedbackKm('');
       setFeedbackEn('');
       setActionItemsKm('');
       setActionItemsEn('');
       setFeedbackModalOpened(false);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to save feedback');
+      alert(err instanceof Error ? err.message : (language === 'km' ? 'មិនអាចរក្សាទុកមតិយោបល់បានទេ' : 'Failed to save feedback'));
     } finally {
       setSubmitting(false);
     }
@@ -204,7 +206,7 @@ export default function MentorshipSessionsPage() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -224,11 +226,15 @@ export default function MentorshipSessionsPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Mentorship Sessions / ការងារលម្អិត</Title>
-          <Text c="dimmed">Schedule and manage mentorship sessions with your mentees</Text>
+          <Title order={1}>
+            {language === 'km' ? 'វគ្គដឹកនាំ' : 'Mentorship Sessions'}
+          </Title>
+          <Text c="dimmed">
+            {language === 'km' ? 'កំណត់ពេលវេលានិងគ្រប់គ្រងវគ្គដឹកនាំជាមួយសិស្សរបស់អ្នក' : 'Schedule and manage mentorship sessions with your mentees'}
+          </Text>
         </div>
       </Group>
 
@@ -238,7 +244,7 @@ export default function MentorshipSessionsPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Total Mentees / សិស្សសរុប
+                {language === 'km' ? 'សិស្សសរុប' : 'Total Mentees'}
               </Text>
               <Title order={2}>{mentees.length}</Title>
             </Stack>
@@ -252,7 +258,7 @@ export default function MentorshipSessionsPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Scheduled Sessions / ដែលគ្រោងទុក
+                {language === 'km' ? 'វគ្គដែលបានកំណត់' : 'Scheduled Sessions'}
               </Text>
               <Title order={2}>{upcomingSessions.length}</Title>
             </Stack>
@@ -266,7 +272,7 @@ export default function MentorshipSessionsPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Completed Sessions / ដែលបានបញ្ចប់
+                {language === 'km' ? 'វគ្គដែលបានបញ្ចប់' : 'Completed Sessions'}
               </Text>
               <Title order={2}>{completedSessions.length}</Title>
             </Stack>
@@ -285,13 +291,13 @@ export default function MentorshipSessionsPage() {
         mb="xl"
         onClick={() => setSessionModalOpened(true)}
       >
-        Schedule New Session
+        {language === 'km' ? 'កំណត់ពេលវេលាវគ្គថ្មី' : 'Schedule New Session'}
       </Button>
 
       {/* Upcoming Sessions */}
       <Card withBorder p="lg" radius="md" mb="xl">
         <Title order={3} mb="lg">
-          Upcoming Sessions / សិក្ខាសាលឆាប់មក
+          {language === 'km' ? 'វគ្គដែលនឹងមកដល់' : 'Upcoming Sessions'}
         </Title>
 
         {upcomingSessions.length > 0 ? (
@@ -305,14 +311,11 @@ export default function MentorshipSessionsPage() {
                         {new Date(session.session_date).toLocaleDateString()}
                       </Badge>
                       <Text size="sm" fw={500}>
-                        {session.topic_en}
+                        {language === 'km' ? session.topic_km : session.topic_en}
                       </Text>
                     </Group>
                     <Text size="sm" c="dimmed">
-                      Student: <strong>{session.mentee_name}</strong>
-                    </Text>
-                    <Text size="sm" c="dimmed">
-                      {session.topic_km}
+                      {language === 'km' ? 'សិស្ស' : 'Student'}: <strong>{session.mentee_name}</strong>
                     </Text>
                   </div>
                   <Button
@@ -327,13 +330,13 @@ export default function MentorshipSessionsPage() {
                       setFeedbackModalOpened(true);
                     }}
                   >
-                    Add Feedback
+                    {language === 'km' ? 'បន្ថែមមតិយោបល់' : 'Add Feedback'}
                   </Button>
                 </Group>
 
                 <Group gap="sm" mt="sm" pt="sm" style={{ borderTop: '1px solid var(--mantine-color-gray-2)' }}>
                   <Text size="xs" c="dimmed">
-                    Duration: {session.session_duration_minutes} minutes
+                    {language === 'km' ? 'រយៈពេល' : 'Duration'}: {session.session_duration_minutes} {language === 'km' ? 'នាទី' : 'minutes'}
                   </Text>
                 </Group>
               </Card>
@@ -341,7 +344,9 @@ export default function MentorshipSessionsPage() {
           </Stack>
         ) : (
           <Alert icon={<IconAlertCircle />} color="blue">
-            No upcoming sessions scheduled. Click "Schedule New Session" to add one.
+            {language === 'km'
+              ? 'មិនមានវគ្គដែលបានកំណត់ពេលវេលានៅឡើយទេ។ ចុចលើ "កំណត់ពេលវេលាវគ្គថ្មី" ដើម្បីបន្ថែម។'
+              : 'No upcoming sessions scheduled. Click "Schedule New Session" to add one.'}
           </Alert>
         )}
       </Card>
@@ -350,7 +355,7 @@ export default function MentorshipSessionsPage() {
       {completedSessions.length > 0 && (
         <Card withBorder p="lg" radius="md">
           <Title order={3} mb="lg">
-            Completed Sessions / សិក្ខាសាលដែលបានបញ្ចប់
+            {language === 'km' ? 'វគ្គដែលបានបញ្ចប់' : 'Completed Sessions'}
           </Title>
 
           <Stack gap="md">
@@ -360,22 +365,25 @@ export default function MentorshipSessionsPage() {
                   <div>
                     <Group gap="sm" mb="xs">
                       <Badge size="sm" color="teal">
-                        Completed
+                        {language === 'km' ? 'បានបញ្ចប់' : 'Completed'}
                       </Badge>
                       <Text size="sm">
                         {new Date(session.session_date).toLocaleDateString()}
                       </Text>
                     </Group>
-                    <Title order={5}>{session.topic_en}</Title>
+                    <Title order={5}>
+                      {language === 'km' ? session.topic_km : session.topic_en}
+                    </Title>
                     <Text size="sm" c="dimmed">
-                      Student: {session.mentee_name}
+                      {language === 'km' ? 'សិស្ស' : 'Student'}: {session.mentee_name}
                     </Text>
                   </div>
                 </Group>
 
                 {(session.feedback_en || session.feedback_km) && (
-                  <Alert icon={<IconAlertCircle />} color="teal" title="Feedback Provided" mt="sm">
-                    {session.feedback_en && <Text size="sm">{session.feedback_en}</Text>}
+                  <Alert icon={<IconAlertCircle />} color="teal" title={language === 'km' ? 'បានផ្តល់មតិយោបល់' : 'Feedback Provided'} mt="sm">
+                    {language === 'km' && session.feedback_km && <Text size="sm">{session.feedback_km}</Text>}
+                    {language === 'en' && session.feedback_en && <Text size="sm">{session.feedback_en}</Text>}
                   </Alert>
                 )}
               </Card>
@@ -388,13 +396,13 @@ export default function MentorshipSessionsPage() {
       <Modal
         opened={sessionModalOpened}
         onClose={() => setSessionModalOpened(false)}
-        title="Schedule Mentorship Session / គ្រោងលម្អិតសិក្ខាសាល"
+        title={language === 'km' ? 'កំណត់ពេលវេលាវគ្គដឹកនាំ' : 'Schedule Mentorship Session'}
         size="lg"
       >
         <Stack gap="md">
           <Select
-            label="Select Mentee / ជ្រើសរើសសិស្ស"
-            placeholder="Choose a mentee"
+            label={language === 'km' ? 'ជ្រើសរើសសិស្ស' : 'Select Mentee'}
+            placeholder={language === 'km' ? 'ជ្រើសរើសសិស្សម្នាក់' : 'Choose a mentee'}
             data={mentees.map((m) => ({
               value: m.graduate_student_id,
               label: `${m.full_name} (${m.student_code})`,
@@ -406,7 +414,7 @@ export default function MentorshipSessionsPage() {
           />
 
           <TextInput
-            label="Session Date / ថ្ងៃវលីរ"
+            label={language === 'km' ? 'ថ្ងៃវគ្គ' : 'Session Date'}
             type="date"
             value={sessionDate}
             onChange={(e) => setSessionDate(e.currentTarget.value)}
@@ -414,7 +422,7 @@ export default function MentorshipSessionsPage() {
           />
 
           <TextInput
-            label="Session Time / ម៉ោង"
+            label={language === 'km' ? 'ម៉ោងវគ្គ' : 'Session Time'}
             type="time"
             value={sessionTime}
             onChange={(e) => setSessionTime(e.currentTarget.value)}
@@ -422,7 +430,7 @@ export default function MentorshipSessionsPage() {
           />
 
           <NumberInput
-            label="Duration (minutes) / រយៈពេល (នាទី)"
+            label={language === 'km' ? 'រយៈពេល (នាទី)' : 'Duration (minutes)'}
             value={durationMinutes}
             onChange={(val) => setDurationMinutes(typeof val === 'number' ? val : (val ? parseInt(val) : 60))}
             min={15}
@@ -431,30 +439,30 @@ export default function MentorshipSessionsPage() {
           />
 
           <TextInput
-            label="Topic (Khmer) / ប្រធានបទ (ខ្មែរ)"
-            placeholder="Session topic in Khmer"
+            label={language === 'km' ? 'ប្រធានបទ (ខ្មែរ)' : 'Topic (Khmer)'}
+            placeholder={language === 'km' ? 'ប្រធានបទវគ្គជាភាសាខ្មែរ' : 'Session topic in Khmer'}
             value={topicKm}
             onChange={(e) => setTopicKm(e.currentTarget.value)}
             required
           />
 
           <TextInput
-            label="Topic (English) / ប្រធានបទ (English)"
-            placeholder="Session topic in English"
+            label={language === 'km' ? 'ប្រធានបទ (អង់គ្លេស)' : 'Topic (English)'}
+            placeholder={language === 'km' ? 'ប្រធានបទវគ្គជាភាសាអង់គ្លេស' : 'Session topic in English'}
             value={topicEn}
             onChange={(e) => setTopicEn(e.currentTarget.value)}
           />
 
           <Group justify="flex-end">
             <Button variant="default" onClick={() => setSessionModalOpened(false)}>
-              Cancel
+              {language === 'km' ? 'បោះបង់' : 'Cancel'}
             </Button>
             <Button
               leftSection={<IconPlus size={16} />}
               onClick={handleScheduleSession}
               loading={submitting}
             >
-              Schedule Session
+              {language === 'km' ? 'កំណត់ពេលវេលាវគ្គ' : 'Schedule Session'}
             </Button>
           </Group>
         </Stack>
@@ -465,50 +473,52 @@ export default function MentorshipSessionsPage() {
         <Modal
           opened={feedbackModalOpened}
           onClose={() => setFeedbackModalOpened(false)}
-          title="Add Session Feedback / បន្ថែមមតិយោបល់"
+          title={language === 'km' ? 'បន្ថែមមតិយោបល់វគ្គ' : 'Add Session Feedback'}
           size="lg"
         >
           <Stack gap="md">
             <div>
               <Text fw={500} mb="xs">
-                Session / សិក្ខាសាល
+                {language === 'km' ? 'វគ្គ' : 'Session'}
               </Text>
-              <Title order={5}>{selectedSession.topic_en}</Title>
+              <Title order={5}>
+                {language === 'km' ? selectedSession.topic_km : selectedSession.topic_en}
+              </Title>
               <Text size="sm" c="dimmed">
-                Student: {selectedSession.mentee_name}
+                {language === 'km' ? 'សិស្ស' : 'Student'}: {selectedSession.mentee_name}
               </Text>
               <Text size="sm" c="dimmed">
-                Date: {new Date(selectedSession.session_date).toLocaleDateString()}
+                {language === 'km' ? 'ថ្ងៃ' : 'Date'}: {new Date(selectedSession.session_date).toLocaleDateString()}
               </Text>
             </div>
 
             <Textarea
-              label="Feedback (Khmer) / មតិយោបល់ (ខ្មែរ)"
-              placeholder="Provide constructive feedback..."
+              label={language === 'km' ? 'មតិយោបល់ (ខ្មែរ)' : 'Feedback (Khmer)'}
+              placeholder={language === 'km' ? 'ផ្តល់មតិយោបល់សាងសង់...' : 'Provide constructive feedback...'}
               value={feedbackKm}
               onChange={(e) => setFeedbackKm(e.currentTarget.value)}
               minRows={4}
             />
 
             <Textarea
-              label="Feedback (English)"
-              placeholder="Provide feedback in English..."
+              label={language === 'km' ? 'មតិយោបល់ (អង់គ្លេស)' : 'Feedback (English)'}
+              placeholder={language === 'km' ? 'ផ្តល់មតិយោបល់ជាភាសាអង់គ្លេស...' : 'Provide feedback in English...'}
               value={feedbackEn}
               onChange={(e) => setFeedbackEn(e.currentTarget.value)}
               minRows={4}
             />
 
             <Textarea
-              label="Action Items (Khmer) / ការងារដែលត្រូវធ្វើ (ខ្មែរ)"
-              placeholder="List action items or follow-up tasks..."
+              label={language === 'km' ? 'ការងារដែលត្រូវធ្វើ (ខ្មែរ)' : 'Action Items (Khmer)'}
+              placeholder={language === 'km' ? 'រាយការណ៍ការងារដែលត្រូវធ្វើ...' : 'List action items or follow-up tasks...'}
               value={actionItemsKm}
               onChange={(e) => setActionItemsKm(e.currentTarget.value)}
               minRows={3}
             />
 
             <Textarea
-              label="Action Items (English)"
-              placeholder="List action items in English..."
+              label={language === 'km' ? 'ការងារដែលត្រូវធ្វើ (អង់គ្លេស)' : 'Action Items (English)'}
+              placeholder={language === 'km' ? 'រាយការណ៍ការងារជាភាសាអង់គ្លេស...' : 'List action items in English...'}
               value={actionItemsEn}
               onChange={(e) => setActionItemsEn(e.currentTarget.value)}
               minRows={3}
@@ -516,7 +526,7 @@ export default function MentorshipSessionsPage() {
 
             <Group justify="flex-end">
               <Button variant="default" onClick={() => setFeedbackModalOpened(false)}>
-                Cancel
+                {language === 'km' ? 'បោះបង់' : 'Cancel'}
               </Button>
               <Button
                 leftSection={<IconSend size={16} />}
@@ -524,7 +534,7 @@ export default function MentorshipSessionsPage() {
                 loading={submitting}
                 disabled={!feedbackKm && !feedbackEn}
               >
-                Save Feedback
+                {language === 'km' ? 'រក្សាទុកមតិយោបល់' : 'Save Feedback'}
               </Button>
             </Group>
           </Stack>

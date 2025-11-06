@@ -32,6 +32,7 @@ import {
   IconSend,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 interface Student {
   student_id: string;
@@ -60,9 +61,11 @@ export default function CertificationIssuancePage() {
   const [certificationNumber, setCertificationNumber] = useState<string>('');
   const [expiryDate, setExpiryDate] = useState<string>('');
   const [submitting, setSubmitting] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
     const loadData = async () => {
       try {
         const session = getSession();
@@ -219,11 +222,11 @@ export default function CertificationIssuancePage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Certificate Issuance / ការចេញឯកសារ</Title>
-          <Text c="dimmed">Issue contract teacher certificates to eligible students</Text>
+          <Title order={1}>{language === 'km' ? 'ការផ្តល់សញ្ញាបត្រ' : 'Certification Issuance'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'ផ្តល់សញ្ញាបត្រគ្រូបង្រៀនទៅសិស្សដែលមានសិទ្ធិ' : 'Issue contract teacher certificates to eligible students'}</Text>
         </div>
       </Group>
 

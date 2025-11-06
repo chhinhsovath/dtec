@@ -515,8 +515,9 @@ export async function getMentorDashboardStats(mentorId: string) {
     ),
     query(
       `SELECT COUNT(*) as total_sessions
-       FROM mentor_sessions
-       WHERE mentor_id = $1`,
+       FROM mentor_sessions ms
+       JOIN mentor_relationships mr ON ms.mentor_relationship_id = mr.id
+       WHERE mr.mentor_id = $1`,
       [mentorId]
     )
   ]);

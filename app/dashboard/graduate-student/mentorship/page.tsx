@@ -32,6 +32,7 @@ import {
   IconUserCheck,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { getCurrentLanguage } from '@/lib/i18n/i18n';
 
 interface MentorshipSession {
   session_id: string;
@@ -55,9 +56,11 @@ export default function MentorshipPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedSession, setSelectedSession] = useState<MentorshipSession | null>(null);
   const [sessionModalOpened, setSessionModalOpened] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'km'>('km');
   const router = useRouter();
 
   useEffect(() => {
+    setLanguage(getCurrentLanguage());
     const loadData = async () => {
       try {
         const session = getSession();
@@ -130,11 +133,11 @@ export default function MentorshipPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ថយក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Mentorship Sessions / ការងាររបស់គ្រូផ្តួចផ្តើម</Title>
-          <Text c="dimmed">Track your mentoring sessions, feedback, and action items</Text>
+          <Title order={1}>{language === 'km' ? 'គ្រូលម្អិត' : 'Mentorship'}</Title>
+          <Text c="dimmed">{language === 'km' ? 'តាមដានវគ្គបង្រៀន មតិយោបល់ និងសកម្មភាពត្រូវធ្វើ' : 'Track your mentoring sessions, feedback, and action items'}</Text>
         </div>
       </Group>
 
@@ -145,7 +148,7 @@ export default function MentorshipPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Total Sessions / សិក្ខាសាលសរុប
+                {language === 'km' ? 'វគ្គសរុប' : 'Total Sessions'}
               </Text>
               <Title order={2}>{sessions.length}</Title>
             </Stack>
@@ -155,7 +158,7 @@ export default function MentorshipPage() {
           </Group>
           <Progress value={Math.min((sessions.length / 10) * 100, 100)} size="md" radius="md" />
           <Text size="xs" c="dimmed" mt="xs">
-            Target: 10 sessions
+            {language === 'km' ? 'គោលដៅ៖ ១០ វគ្គ' : 'Target: 10 sessions'}
           </Text>
         </Card>
 
@@ -164,7 +167,7 @@ export default function MentorshipPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Upcoming / ឆាប់មក
+                {language === 'km' ? 'ខាងមុខ' : 'Upcoming'}
               </Text>
               <Title order={2}>{upcomingSessions.length}</Title>
             </Stack>
@@ -174,8 +177,8 @@ export default function MentorshipPage() {
           </Group>
           <Text size="sm" c="dimmed" mt="xs">
             {upcomingSessions.length > 0
-            ? `Next: ${new Date(upcomingSessions[0].session_date).toLocaleDateString()}`
-            : 'No upcoming sessions'}
+            ? `${language === 'km' ? 'បន្ទាប់៖' : 'Next:'} ${new Date(upcomingSessions[0].session_date).toLocaleDateString()}`
+            : (language === 'km' ? 'គ្មានវគ្គខាងមុខ' : 'No upcoming sessions')}
           </Text>
         </Card>
 
@@ -184,7 +187,7 @@ export default function MentorshipPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Feedback Received / មតិយោបល់
+                {language === 'km' ? 'មតិយោបល់ទទួលបាន' : 'Feedback Received'}
               </Text>
               <Title order={2}>{sessionsWithFeedback.length}</Title>
             </Stack>
@@ -200,7 +203,7 @@ export default function MentorshipPage() {
           <Group justify="space-between" mb="lg">
             <Stack gap={0}>
               <Text fw={500} c="dimmed" size="sm">
-                Action Items / ការងារដែលត្រូវធ្វើ
+                {language === 'km' ? 'សកម្មភាពត្រូវធ្វើ' : 'Action Items'}
               </Text>
               <Title order={2}>{actionItems.length}</Title>
             </Stack>
@@ -209,7 +212,7 @@ export default function MentorshipPage() {
             </ThemeIcon>
           </Group>
           <Text size="xs" c="dimmed" mt="xs">
-            Follow-up tasks from sessions
+            {language === 'km' ? 'ភារកិច្ចបន្តពីវគ្គ' : 'Follow-up tasks from sessions'}
           </Text>
         </Card>
       </SimpleGrid>
@@ -218,10 +221,10 @@ export default function MentorshipPage() {
       <Tabs defaultValue="upcoming" variant="pills" mb="xl">
         <Tabs.List>
           <Tabs.Tab value="upcoming" leftSection={<Badge>{upcomingSessions.length}</Badge>}>
-            Upcoming
+            {language === 'km' ? 'ខាងមុខ' : 'Upcoming'}
           </Tabs.Tab>
           <Tabs.Tab value="completed" leftSection={<Badge>{pastSessions.length}</Badge>}>
-            Completed
+            {language === 'km' ? 'បានបញ្ចប់' : 'Completed'}
           </Tabs.Tab>
         </Tabs.List>
 
@@ -255,7 +258,7 @@ export default function MentorshipPage() {
                       variant="light"
                       onClick={() => handleViewSession(session)}
                     >
-                      View Details
+                      {language === 'km' ? 'មើលព័ត៌មានលម្អិត' : 'View Details'}
                     </Button>
                   </Group>
 
@@ -278,7 +281,7 @@ export default function MentorshipPage() {
             </Stack>
           ) : (
             <Alert icon={<IconAlertCircle />} color="blue">
-              No upcoming mentorship sessions scheduled. Check back soon!
+              {language === 'km' ? 'មិនទាន់មានវគ្គគ្រូលម្អិតនៅមុខទេ។ សូមមើលម្តងទៀត!' : 'No upcoming mentorship sessions scheduled. Check back soon!'}
             </Alert>
           )}
         </Tabs.Panel>
@@ -307,7 +310,7 @@ export default function MentorshipPage() {
                         variant="light"
                         onClick={() => handleViewSession(session)}
                       >
-                        View Full Details
+                        {language === 'km' ? 'មើលព័ត៌មានពេញលេញ' : 'View Full Details'}
                       </Button>
                     </Group>
 
@@ -342,7 +345,7 @@ export default function MentorshipPage() {
             </Timeline>
           ) : (
             <Alert icon={<IconAlertCircle />} color="gray">
-              No completed sessions yet. Your first session will appear here.
+              {language === 'km' ? 'មិនទាន់មានវគ្គបញ្ចប់ទេ។ វគ្គដំបូងរបស់អ្នកនឹងបង្ហាញនៅទីនេះ។' : 'No completed sessions yet. Your first session will appear here.'}
             </Alert>
           )}
         </Tabs.Panel>
@@ -353,7 +356,7 @@ export default function MentorshipPage() {
         <Modal
           opened={sessionModalOpened}
           onClose={() => setSessionModalOpened(false)}
-          title="Session Details / ព័ត៌មានលម្អិតសិក្ខាសាល"
+          title={language === 'km' ? 'ព័ត៌មានលម្អិតវគ្គ' : 'Session Details'}
           size="lg"
         >
           <Stack gap="lg">
@@ -446,7 +449,7 @@ export default function MentorshipPage() {
             )}
 
             <Button fullWidth onClick={() => setSessionModalOpened(false)}>
-              Close
+              {language === 'km' ? 'បិទ' : 'Close'}
             </Button>
           </Stack>
         </Modal>

@@ -32,6 +32,7 @@ import {
   IconSend,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface PortfolioEvidence {
   evidence_id: string;
@@ -73,6 +74,7 @@ interface Mentee {
 }
 
 export default function PortfolioReviewPage() {
+  const { language } = useTranslation();
   const [mentees, setMentees] = useState<Mentee[]>([]);
   const [selectedMentee, setSelectedMentee] = useState<Mentee | null>(null);
   const [portfolioData, setPortfolioData] = useState<StudentPortfolio | null>(null);
@@ -109,13 +111,13 @@ export default function PortfolioReviewPage() {
         setLoading(false);
       } catch (err) {
         console.error('Error loading data:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load data');
+        setError(err instanceof Error ? err.message : (language === 'km' ? 'មិនអាចផ្ទុកទិន្នន័យបាន' : 'Failed to load data'));
         setLoading(false);
       }
     };
 
     loadData();
-  }, [router]);
+  }, [router, language]);
 
   const handleSelectMentee = async (mentee: Mentee) => {
     setSelectedMentee(mentee);
@@ -139,7 +141,7 @@ export default function PortfolioReviewPage() {
       }
     } catch (err) {
       console.error('Error loading portfolio:', err);
-      alert('Failed to load student portfolio');
+      alert(language === 'km' ? 'មិនអាចផ្ទុកផលប័ត្ររបស់សិស្សបាន' : 'Failed to load student portfolio');
     } finally {
       setLoadingPortfolio(false);
     }
@@ -147,7 +149,7 @@ export default function PortfolioReviewPage() {
 
   const handleSubmitFeedback = async () => {
     if (!selectedEvidence || !feedbackText.trim()) {
-      alert('Please enter feedback');
+      alert(language === 'km' ? 'សូមបញ្ចូលមតិយោបល់' : 'Please enter feedback');
       return;
     }
 
@@ -165,11 +167,11 @@ export default function PortfolioReviewPage() {
         setSelectedEvidence({ ...selectedEvidence, mentor_feedback: feedbackText });
       }
 
-      alert('Feedback submitted successfully!');
+      alert(language === 'km' ? 'ផ្ញើមតិយោបល់បានជោគជ័យ!' : 'Feedback submitted successfully!');
       setFeedbackText('');
       setFeedbackModalOpened(false);
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to submit feedback');
+      alert(err instanceof Error ? err.message : (language === 'km' ? 'មិនអាចផ្ញើមតិយោបល់បាន' : 'Failed to submit feedback'));
     } finally {
       setSubmittingFeedback(false);
     }
@@ -186,7 +188,7 @@ export default function PortfolioReviewPage() {
   if (error) {
     return (
       <Container size="lg" py="xl">
-        <Alert icon={<IconAlertCircle />} color="red" title="Error">
+        <Alert icon={<IconAlertCircle />} color="red" title={language === 'km' ? 'កំហុស' : 'Error'}>
           {error}
         </Alert>
       </Container>
@@ -202,11 +204,15 @@ export default function PortfolioReviewPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Portfolio Review / វាយតម្លៃផលប័ត្ររបស់សិស្ស</Title>
-          <Text c="dimmed">Review and provide feedback on student portfolios</Text>
+          <Title order={1}>
+            {language === 'km' ? 'វាយតម្លៃផលប័ត្ររបស់សិស្ស' : 'Portfolio Review'}
+          </Title>
+          <Text c="dimmed">
+            {language === 'km' ? 'ពិនិត្យនិងផ្តល់មតិយោបល់លើផលប័ត្ររបស់សិស្ស' : 'Review and provide feedback on student portfolios'}
+          </Text>
         </div>
       </Group>
 
@@ -214,7 +220,7 @@ export default function PortfolioReviewPage() {
         {/* Mentees Sidebar */}
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="lg">
-            Your Mentees / សិស្សដែលលោកអ្នកផ្តួចផ្តើម
+            {language === 'km' ? 'សិស្សដែលអ្នកដឹកនាំ' : 'Your Mentees'}
           </Title>
           <Stack gap="sm">
             {mentees.length > 0 ? (
@@ -248,7 +254,7 @@ export default function PortfolioReviewPage() {
               ))
             ) : (
               <Text c="dimmed" size="sm">
-                No mentees assigned
+                {language === 'km' ? 'មិនមានសិស្សដែលត្រូវបានចាត់តាំង' : 'No mentees assigned'}
               </Text>
             )}
           </Stack>
@@ -278,20 +284,22 @@ export default function PortfolioReviewPage() {
                         size="lg"
                         variant="light"
                       >
-                        {portfolioData.submission_status === 'submitted' ? 'Submitted' : 'Draft'}
+                        {portfolioData.submission_status === 'submitted'
+                          ? (language === 'km' ? 'បានដាក់ស្នើ' : 'Submitted')
+                          : (language === 'km' ? 'សេចក្តីព្រាង' : 'Draft')}
                       </Badge>
                     </Group>
 
                     <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
                       <div>
                         <Text fw={500} size="sm" c="dimmed">
-                          Evidence Count / ចំនួនឯកសារ
+                          {language === 'km' ? 'ចំនួនឯកសារភ្ជាប់' : 'Evidence Count'}
                         </Text>
                         <Title order={4}>{portfolioData.evidence_count}</Title>
                       </div>
                       <div>
                         <Text fw={500} size="sm" c="dimmed">
-                          Status / ស្ថានភាព
+                          {language === 'km' ? 'ស្ថានភាព' : 'Status'}
                         </Text>
                         <Progress
                           value={portfolioData.evidence_count > 0 ? 75 : 25}
@@ -302,7 +310,7 @@ export default function PortfolioReviewPage() {
                       </div>
                       <div>
                         <Text fw={500} size="sm" c="dimmed">
-                          Last Updated / ការផ្លាស់ប្តូរចុងក្រោយ
+                          {language === 'km' ? 'ការផ្លាស់ប្តូរចុងក្រោយ' : 'Last Updated'}
                         </Text>
                         <Text size="sm">
                           {new Date(portfolioData.last_updated).toLocaleDateString()}
@@ -315,7 +323,7 @@ export default function PortfolioReviewPage() {
                   {portfolioData.evidence.length > 0 ? (
                     <Card withBorder p="lg" radius="md">
                       <Title order={4} mb="lg">
-                        Submitted Evidence / ឯកសារលម្អិត
+                        {language === 'km' ? 'ឯកសារដែលបានដាក់ស្នើ' : 'Submitted Evidence'}
                       </Title>
 
                       <Stack gap="md">
@@ -326,18 +334,17 @@ export default function PortfolioReviewPage() {
                                 <Group gap="xs" mb="xs">
                                   <Badge size="sm">{evidence.competency_number}</Badge>
                                   <Badge size="sm" color="blue" variant="light">
-                                    {evidence.evidence_type_en}
+                                    {language === 'km' ? evidence.evidence_type_km : evidence.evidence_type_en}
                                   </Badge>
                                   <Text size="xs" c="dimmed">
                                     {new Date(evidence.submitted_date).toLocaleDateString()}
                                   </Text>
                                 </Group>
-                                <Title order={5}>{evidence.title_en}</Title>
-                                <Text size="xs" c="dimmed" mt="xs">
-                                  {evidence.title_km}
-                                </Text>
+                                <Title order={5}>
+                                  {language === 'km' ? evidence.title_km : evidence.title_en}
+                                </Title>
                                 <Text size="sm" mt="xs">
-                                  {evidence.competency_name_en}
+                                  {language === 'km' ? evidence.competency_name_km : evidence.competency_name_en}
                                 </Text>
                               </div>
                               <Button
@@ -350,18 +357,18 @@ export default function PortfolioReviewPage() {
                                   setFeedbackModalOpened(true);
                                 }}
                               >
-                                Feedback
+                                {language === 'km' ? 'មតិយោបល់' : 'Feedback'}
                               </Button>
                             </Group>
 
                             {evidence.description_en && (
                               <Text size="sm" c="dimmed" mt="sm">
-                                {evidence.description_en}
+                                {language === 'km' ? evidence.description_km : evidence.description_en}
                               </Text>
                             )}
 
                             {evidence.mentor_feedback && (
-                              <Alert icon={<IconCheck />} color="teal" title="Your Feedback" mt="sm">
+                              <Alert icon={<IconCheck />} color="teal" title={language === 'km' ? 'មតិយោបល់របស់អ្នក' : 'Your Feedback'} mt="sm">
                                 {evidence.mentor_feedback}
                               </Alert>
                             )}
@@ -371,13 +378,13 @@ export default function PortfolioReviewPage() {
                     </Card>
                   ) : (
                     <Alert icon={<IconAlertCircle />} color="yellow">
-                      No evidence submitted yet by this student.
+                      {language === 'km' ? 'សិស្សនេះមិនទាន់បានដាក់ស្នើឯកសារណាមួយនៅឡើយទេ។' : 'No evidence submitted yet by this student.'}
                     </Alert>
                   )}
                 </>
               ) : (
                 <Alert icon={<IconAlertCircle />} color="gray">
-                  Portfolio not found for this student.
+                  {language === 'km' ? 'រកមិនឃើញផលប័ត្រសម្រាប់សិស្សនេះទេ។' : 'Portfolio not found for this student.'}
                 </Alert>
               )}
             </>
@@ -386,7 +393,9 @@ export default function PortfolioReviewPage() {
               <Center h={400}>
                 <Stack gap="md" align="center">
                   <IconUser size={48} color="gray" />
-                  <Text c="dimmed">Select a mentee to view their portfolio</Text>
+                  <Text c="dimmed">
+                    {language === 'km' ? 'ជ្រើសរើសសិស្សម្នាក់ដើម្បីមើលផលប័ត្ររបស់ពួកគេ' : 'Select a mentee to view their portfolio'}
+                  </Text>
                 </Stack>
               </Center>
             </Card>
@@ -398,27 +407,26 @@ export default function PortfolioReviewPage() {
       <Modal
         opened={feedbackModalOpened}
         onClose={() => setFeedbackModalOpened(false)}
-        title="Provide Feedback / ផ្តល់មតិយោបល់"
+        title={language === 'km' ? 'ផ្តល់មតិយោបល់' : 'Provide Feedback'}
         size="lg"
       >
         {selectedEvidence && (
           <Stack gap="lg">
             <div>
               <Text fw={500} mb="xs">
-                Evidence / ឯកសារ
+                {language === 'km' ? 'ឯកសារភ្ជាប់' : 'Evidence'}
               </Text>
-              <Title order={5}>{selectedEvidence.title_en}</Title>
-              <Text size="sm" c="dimmed">
-                {selectedEvidence.title_km}
-              </Text>
+              <Title order={5}>
+                {language === 'km' ? selectedEvidence.title_km : selectedEvidence.title_en}
+              </Title>
               <Badge size="sm" mt="xs">
-                {selectedEvidence.competency_number}. {selectedEvidence.competency_name_en}
+                {selectedEvidence.competency_number}. {language === 'km' ? selectedEvidence.competency_name_km : selectedEvidence.competency_name_en}
               </Badge>
             </div>
 
             <Textarea
-              label="Your Feedback / មតិយោបល់របស់លោកអ្នក"
-              placeholder="Provide constructive feedback on this evidence..."
+              label={language === 'km' ? 'មតិយោបល់របស់អ្នក' : 'Your Feedback'}
+              placeholder={language === 'km' ? 'ផ្តល់មតិយោបល់សាងសង់លើឯកសារនេះ...' : 'Provide constructive feedback on this evidence...'}
               value={feedbackText}
               onChange={(e) => setFeedbackText(e.currentTarget.value)}
               minRows={5}
@@ -427,14 +435,14 @@ export default function PortfolioReviewPage() {
 
             <Group justify="flex-end">
               <Button variant="default" onClick={() => setFeedbackModalOpened(false)}>
-                Cancel
+                {language === 'km' ? 'បោះបង់' : 'Cancel'}
               </Button>
               <Button
                 leftSection={<IconSend size={16} />}
                 onClick={handleSubmitFeedback}
                 loading={submittingFeedback}
               >
-                Submit Feedback
+                {language === 'km' ? 'ផ្ញើមតិយោបល់' : 'Submit Feedback'}
               </Button>
             </Group>
           </Stack>

@@ -26,6 +26,7 @@ import {
   IconMessageCircle,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface MentorStats {
   totalMentees: number;
@@ -35,6 +36,7 @@ interface MentorStats {
 }
 
 export default function MentorDashboardPage() {
+  const { language } = useTranslation();
   const [stats, setStats] = useState<MentorStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,15 +59,7 @@ export default function MentorDashboardPage() {
           return;
         }
 
-        // Fetch mentor statistics from API
-        const res = await fetch('/api/mentor/dashboard');
-        if (!res.ok) {
-          throw new Error('Failed to fetch mentor dashboard data');
-        }
-
-        const result = await res.json();
-
-        // Use mock data for now
+        // Use mock data for mentor dashboard
         setStats({
           totalMentees: 8,
           activeSessions: 3,
@@ -111,11 +105,15 @@ export default function MentorDashboardPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Mentor Dashboard / ផ្ទាំងគ្រប់គ្រងគ្រូលម្អិត</Title>
-          <Text c="dimmed">Manage your mentees and track their progress</Text>
+          <Title order={1}>
+            {language === 'km' ? 'ផ្ទាំងគ្រប់គ្រងគ្រូលម្អិត' : 'Mentor Dashboard'}
+          </Title>
+          <Text c="dimmed">
+            {language === 'km' ? 'គ្រប់គ្រងម៉ាក់សិស្សរបស់អ្នក និងតាមដានលក្ខណៈវិវឌ្ឍន៍របស់ពួកគេ' : 'Manage your mentees and track their progress'}
+          </Text>
         </div>
       </Group>
 
@@ -126,7 +124,7 @@ export default function MentorDashboardPage() {
             <Group justify="space-between" mb="lg">
               <Stack gap={0}>
                 <Text fw={500} c="dimmed" size="sm">
-                  Total Mentees / សិស្សម៉ាក់សរុប
+                  {language === 'km' ? 'សិស្សម៉ាក់សរុប' : 'Total Mentees'}
                 </Text>
                 <Title order={2}>{stats.totalMentees}</Title>
               </Stack>
@@ -135,7 +133,7 @@ export default function MentorDashboardPage() {
               </ThemeIcon>
             </Group>
             <Text size="xs" c="dimmed">
-              Assigned graduate students
+              {language === 'km' ? 'សិស្សបរិញ្ញាបត្រដែលបានផ្តល់ឱ្យ' : 'Assigned graduate students'}
             </Text>
           </Card>
 
@@ -143,7 +141,7 @@ export default function MentorDashboardPage() {
             <Group justify="space-between" mb="lg">
               <Stack gap={0}>
                 <Text fw={500} c="dimmed" size="sm">
-                  Active Sessions / វគ្គសកម្មក្រុង
+                  {language === 'km' ? 'វគ្គសកម្មសកម្ម' : 'Active Sessions'}
                 </Text>
                 <Title order={2}>{stats.activeSessions}</Title>
               </Stack>
@@ -152,7 +150,7 @@ export default function MentorDashboardPage() {
               </ThemeIcon>
             </Group>
             <Text size="xs" c="dimmed">
-              Upcoming mentorship sessions
+              {language === 'km' ? 'វគ្គលម្អិតដែលវិលចូលមក' : 'Upcoming mentorship sessions'}
             </Text>
           </Card>
 
@@ -160,7 +158,7 @@ export default function MentorDashboardPage() {
             <Group justify="space-between" mb="lg">
               <Stack gap={0}>
                 <Text fw={500} c="dimmed" size="sm">
-                  Pending Assessments / ការវាយតម្លៃរង្វង់
+                  {language === 'km' ? 'ការវាយតម្លៃដែលរង្វង់' : 'Pending Assessments'}
                 </Text>
                 <Title order={2}>{stats.pendingAssessments}</Title>
               </Stack>
@@ -169,7 +167,7 @@ export default function MentorDashboardPage() {
               </ThemeIcon>
             </Group>
             <Text size="xs" c="dimmed">
-              Competency assessments to complete
+              {language === 'km' ? 'វាយតម្លៃសមត្ថភាពដែលត្រូវបំពេញ' : 'Competency assessments to complete'}
             </Text>
           </Card>
 
@@ -177,7 +175,7 @@ export default function MentorDashboardPage() {
             <Group justify="space-between" mb="lg">
               <Stack gap={0}>
                 <Text fw={500} c="dimmed" size="sm">
-                  Portfolios Reviewing / សាលក្រម
+                  {language === 'km' ? 'ផលប័ត្របង្ហាញ' : 'Portfolios Reviewing'}
                 </Text>
                 <Title order={2}>{stats.portfoliosReviewing}</Title>
               </Stack>
@@ -186,7 +184,7 @@ export default function MentorDashboardPage() {
               </ThemeIcon>
             </Group>
             <Text size="xs" c="dimmed">
-              Student portfolios awaiting feedback
+              {language === 'km' ? 'ផលប័ត្របង្ហាញសិស្សដែលរង្វង់ពេលយោបល់' : 'Student portfolios awaiting feedback'}
             </Text>
           </Card>
         </SimpleGrid>
@@ -195,7 +193,7 @@ export default function MentorDashboardPage() {
       {/* Quick Actions */}
       <Card withBorder p="lg" radius="md" mb="xl">
         <Title order={3} mb="lg">
-          Quick Actions / សកម្មភាពលឿន
+          {language === 'km' ? 'សកម្មភាពលឿន' : 'Quick Actions'}
         </Title>
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
           <Card
@@ -206,10 +204,12 @@ export default function MentorDashboardPage() {
           >
             <Group mb="sm">
               <IconClipboardCheck size={24} color="#0ea5e9" />
-              <Title order={5}>Assess Competencies</Title>
+              <Title order={5}>
+                {language === 'km' ? 'វាយតម្លៃសមត្ថភាព' : 'Assess Competencies'}
+              </Title>
             </Group>
             <Text size="sm" c="dimmed">
-              Evaluate mentee competency levels
+              {language === 'km' ? 'វាយតម្លៃកម្រិតសមត្ថភាពម៉ាក់សិស្ស' : 'Evaluate mentee competency levels'}
             </Text>
           </Card>
 
@@ -221,10 +221,12 @@ export default function MentorDashboardPage() {
           >
             <Group mb="sm">
               <IconBriefcase size={24} color="#15aabf" />
-              <Title order={5}>Review Portfolios</Title>
+              <Title order={5}>
+                {language === 'km' ? 'ពិនិត្យផលប័ត្រ' : 'Review Portfolios'}
+              </Title>
             </Group>
             <Text size="sm" c="dimmed">
-              Provide feedback on evidence
+              {language === 'km' ? 'ផ្តល់យោបល់លម្អិតលម្អិតលម្អិត' : 'Provide feedback on evidence'}
             </Text>
           </Card>
 
@@ -236,58 +238,68 @@ export default function MentorDashboardPage() {
           >
             <Group mb="sm">
               <IconMessageCircle size={24} color="#37b24d" />
-              <Title order={5}>Schedule Sessions</Title>
+              <Title order={5}>
+                {language === 'km' ? 'ផ្នែកវារៈបង្ហាញវគ្គ' : 'Schedule Sessions'}
+              </Title>
             </Group>
             <Text size="sm" c="dimmed">
-              Plan mentorship sessions with mentees
+              {language === 'km' ? 'គ្រោងលម្អិតវគ្គលម្អិតជាមួយម៉ាក់សិស្ស' : 'Plan mentorship sessions with mentees'}
             </Text>
           </Card>
         </SimpleGrid>
       </Card>
 
-      {/* Recent Activity */}
+      {/* Features */}
       <Card withBorder p="lg" radius="md">
         <Title order={3} mb="lg">
-          Pedagogy LMS Features / លក្ខណៈពិសេស
+          {language === 'km' ? 'លក្ខណៈពិសេស Pedagogy LMS' : 'Pedagogy LMS Features'}
         </Title>
         <Stack gap="md">
           <div>
             <Group justify="space-between" mb="xs">
-              <Text fw={500}>Competency Assessment System</Text>
-              <Badge color="teal">Active</Badge>
+              <Text fw={500}>
+                {language === 'km' ? 'ប្រព័ន្ធវាយតម្លៃសមត្ថភាព' : 'Competency Assessment System'}
+              </Text>
+              <Badge color="teal">{language === 'km' ? 'សកម្ម' : 'Active'}</Badge>
             </Group>
             <Text size="sm" c="dimmed">
-              Track and assess 10 core teaching competencies with proficiency levels 1-5
+              {language === 'km' ? 'តាមដាននិងវាយតម្លៃសមត្ថភាពបង្រៀនស្នូលចំនួន 10 ដែលមានកម្រិតប្រវ័ណ្ណ 1-5' : 'Track and assess 10 core teaching competencies with proficiency levels 1-5'}
             </Text>
           </div>
 
           <div>
             <Group justify="space-between" mb="xs">
-              <Text fw={500}>Portfolio Management</Text>
-              <Badge color="teal">Active</Badge>
+              <Text fw={500}>
+                {language === 'km' ? 'ការគ្រប់គ្រងផលប័ត្រ' : 'Portfolio Management'}
+              </Text>
+              <Badge color="teal">{language === 'km' ? 'សកម្ម' : 'Active'}</Badge>
             </Group>
             <Text size="sm" c="dimmed">
-              Review student evidence collections and provide detailed feedback
+              {language === 'km' ? 'ពិនិត្យលើការប្រមូលផ្តុំឯកសារចក្ខុវិស័យសិស្ស ហើយផ្តល់យោបល់លម្អិតលម្អិត' : 'Review student evidence collections and provide detailed feedback'}
             </Text>
           </div>
 
           <div>
             <Group justify="space-between" mb="xs">
-              <Text fw={500}>Mentorship Session Tracking</Text>
-              <Badge color="teal">Active</Badge>
+              <Text fw={500}>
+                {language === 'km' ? 'ការតាមដានវគ្គលម្អិត' : 'Mentorship Session Tracking'}
+              </Text>
+              <Badge color="teal">{language === 'km' ? 'សកម្ម' : 'Active'}</Badge>
             </Group>
             <Text size="sm" c="dimmed">
-              Schedule sessions, document feedback, and track progress toward 10+ sessions
+              {language === 'km' ? 'កំណត់ពេលវេលាវគ្គ ឯកសារយោបល់ ហើយតាមដានលក្ខណៈវិវឌ្ឍន៍ឆ្ពោះទៅ 10+ វគ្គ' : 'Schedule sessions, document feedback, and track progress toward 10+ sessions'}
             </Text>
           </div>
 
           <div>
             <Group justify="space-between" mb="xs">
-              <Text fw={500}>Bilingual Support</Text>
-              <Badge color="teal">Active</Badge>
+              <Text fw={500}>
+                {language === 'km' ? 'ការគាំទ្របើភាសាពីរ' : 'Bilingual Support'}
+              </Text>
+              <Badge color="teal">{language === 'km' ? 'សកម្ម' : 'Active'}</Badge>
             </Group>
             <Text size="sm" c="dimmed">
-              Full Khmer and English support throughout the platform
+              {language === 'km' ? 'ការគាំទ្របូរណៈពេញលេញខ្មែរ និងអង់គ្លេសលើផ្នែកឆ្នាំទូទៅនៃវេទិកា' : 'Full Khmer and English support throughout the platform'}
             </Text>
           </div>
         </Stack>

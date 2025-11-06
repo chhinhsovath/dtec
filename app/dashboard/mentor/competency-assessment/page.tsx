@@ -29,6 +29,7 @@ import {
   IconArrowLeft,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/client-auth';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface Mentee {
   mentor_relationship_id: string;
@@ -67,6 +68,7 @@ const LEVEL_OPTIONS = [
 ];
 
 export default function CompetencyAssessmentPage() {
+  const { language } = useTranslation();
   const [mentees, setMentees] = useState<Mentee[]>([]);
   const [selectedMentee, setSelectedMentee] = useState<Mentee | null>(null);
   const [competencies, setCompetencies] = useState<Competency[]>([]);
@@ -262,11 +264,15 @@ export default function CompetencyAssessmentPage() {
           leftSection={<IconArrowLeft size={16} />}
           onClick={() => router.back()}
         >
-          Back
+          {language === 'km' ? 'ត្រឡប់ក្រោយ' : 'Back'}
         </Button>
         <div style={{ flex: 1 }}>
-          <Title order={1}>Competency Assessment</Title>
-          <Text c="dimmed">Assess your mentees' competency progress</Text>
+          <Title order={1}>
+            {language === 'km' ? 'វាយតម្លៃសមត្ថភាព' : 'Competency Assessment'}
+          </Title>
+          <Text c="dimmed">
+            {language === 'km' ? 'វាយតម្លៃលក្ខណៈសមត្ថភាពរបស់ម៉ាក់សិស្ស' : "Assess your mentees' competency progress"}
+          </Text>
         </div>
       </Group>
 
@@ -286,7 +292,7 @@ export default function CompetencyAssessmentPage() {
         {/* Mentees List */}
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="lg">
-            Your Mentees
+            {language === 'km' ? 'ម៉ាក់សិស្សរបស់អ្នក' : 'Your Mentees'}
           </Title>
           <Stack gap="sm">
             {mentees.length > 0 ? (
@@ -319,7 +325,7 @@ export default function CompetencyAssessmentPage() {
               ))
             ) : (
               <Text c="dimmed" size="sm">
-                No mentees assigned yet
+                {language === 'km' ? 'មិនមានម៉ាក់សិស្សដែលបានផ្តល់ឱ្យ' : 'No mentees assigned yet'}
               </Text>
             )}
           </Stack>
@@ -329,22 +335,22 @@ export default function CompetencyAssessmentPage() {
         {selectedMentee && (
           <Card withBorder p="lg" radius="md">
             <Title order={4} mb="lg">
-              Assessment Form
+              {language === 'km' ? 'ឯកសារវាយតម្លៃ' : 'Assessment Form'}
             </Title>
             <Stack gap="md">
               <div>
                 <Text fw={500} size="sm" mb="xs">
-                  Mentee
+                  {language === 'km' ? 'ម៉ាក់សិស្ស' : 'Mentee'}
                 </Text>
                 <Text>{selectedMentee.full_name}</Text>
               </div>
 
               <Select
-                label="Competency"
-                placeholder="Select competency"
+                label={language === 'km' ? 'សមត្ថភាព' : 'Competency'}
+                placeholder={language === 'km' ? 'ជ្រើសរើសសមត្ថភាព' : 'Select competency'}
                 data={competencies.map((c) => ({
                   value: c.competency_id,
-                  label: `${c.competency_number}. ${c.name_en}`,
+                  label: `${c.competency_number}. ${language === 'km' ? c.name_km : c.name_en}`,
                 }))}
                 value={selectedCompetencyId}
                 onChange={(val) => setSelectedCompetencyId(val || '')}
@@ -387,7 +393,7 @@ export default function CompetencyAssessmentPage() {
                 loading={submitting}
                 disabled={!selectedCompetencyId}
               >
-                Submit Assessment
+                {language === 'km' ? 'ដាក់ស្នើវាយតម្លៃ' : 'Submit Assessment'}
               </Button>
             </Stack>
           </Card>
@@ -396,37 +402,37 @@ export default function CompetencyAssessmentPage() {
         {/* Competency Reference */}
         <Card withBorder p="lg" radius="md">
           <Title order={4} mb="lg">
-            Competency Levels
+            {language === 'km' ? 'កម្រិតសមត្ថភាព' : 'Competency Levels'}
           </Title>
           <Stack gap="sm">
             <div>
               <Badge color="#FF6B6B">Level 1</Badge>
               <Text size="xs" mt="xs">
-                Beginning - needs support
+                {language === 'km' ? 'ចាប់ផ្តើម - ត្រូវការគាំ' : 'Beginning - needs support'}
               </Text>
             </div>
             <div>
               <Badge color="#FFA94D">Level 2</Badge>
               <Text size="xs" mt="xs">
-                Developing - showing growth
+                {language === 'km' ? 'កំពុងលូតលាស់ - បង្ហាញលក្ខណៈវិវឌ្ឍន៍' : 'Developing - showing growth'}
               </Text>
             </div>
             <div>
               <Badge color="#51CF66">Level 3</Badge>
               <Text size="xs" mt="xs">
-                Proficient - meets standard ✓
+                {language === 'km' ? 'ឈានដល់ស្តង់ដារ - ឈានដល់ស្តង់ដារ ✓' : 'Proficient - meets standard ✓'}
               </Text>
             </div>
             <div>
               <Badge color="#339AF0">Level 4</Badge>
               <Text size="xs" mt="xs">
-                Advanced - exceeds standard
+                {language === 'km' ? 'កម្រិតខ្ពស់ - ឆ្ពោះលើស ស្តង់ដារ' : 'Advanced - exceeds standard'}
               </Text>
             </div>
             <div>
               <Badge color="#7950F2">Level 5</Badge>
               <Text size="xs" mt="xs">
-                Master - exemplary
+                {language === 'km' ? 'ជាម្ចាស់ - តូចលម្អ' : 'Master - exemplary'}
               </Text>
             </div>
           </Stack>
@@ -436,14 +442,14 @@ export default function CompetencyAssessmentPage() {
       {/* Competencies Reference Table */}
       <Card withBorder p="lg" radius="md">
         <Title order={4} mb="lg">
-          All Competencies Reference
+          {language === 'km' ? 'សម្ភារៈយោងសមត្ថភាពទាំងអស់' : 'All Competencies Reference'}
         </Title>
         <Table striped highlightOnHover>
           <Table.Thead>
             <Table.Tr>
               <Table.Th>#</Table.Th>
-              <Table.Th>English</Table.Th>
-              <Table.Th>Khmer</Table.Th>
+              <Table.Th>{language === 'km' ? 'ភាសាអង់គ្លេស' : 'English'}</Table.Th>
+              <Table.Th>{language === 'km' ? 'ភាសាខ្មែរ' : 'Khmer'}</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>

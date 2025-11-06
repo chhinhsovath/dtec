@@ -1,21 +1,22 @@
-# Demo Accounts Guide - Pedagogy LMS & K-12 LMS
+# Demo Accounts Guide - Pedagogy LMS
 
 **Last Updated**: November 7, 2025
-**Platforms**: 2 LMS Systems with 7 Distinct Roles
+**Platform**: Pedagogy LMS - Contract Teacher Training & Certification Program
+**Supported Roles**: 3 (Graduate Student, Mentor, Coordinator)
 
 ---
 
 ## 🚀 Quick Start
 
 ### Login Page
-Navigate to: `http://localhost:3000/auth/login` (or `http://localhost:3001/auth/login`)
+Navigate to: `http://localhost:3000/auth/login`
 
 ### Universal Demo Password
 All demo accounts use the password: **`demo@123`**
 
 ---
 
-## 📚 Platform 1: Pedagogy LMS
+## 📚 Pedagogy LMS
 ### Contract Teacher Training & Certification Program
 
 A specialized 6-month graduate teacher training program for contract teachers with the following roles:
@@ -101,7 +102,7 @@ A specialized 6-month graduate teacher training program for contract teachers wi
 - `PUT /api/mentor/mentorship-sessions` - Update session
 
 **What to Test**:
-- [ ] Can view only Pedagogy pages (NO K-12 pages)
+- [ ] Can view Pedagogy LMS mentor pages
 - [ ] Dashboard shows mentee statistics
 - [ ] Can access Competency Assessment page
 - [ ] Can access Portfolio Review page
@@ -140,9 +141,9 @@ A specialized 6-month graduate teacher training program for contract teachers wi
 2. `/dashboard/coordinator/students` - Student management
 3. `/dashboard/coordinator/mentors` - Mentor management
 4. `/dashboard/coordinator/certification-issuance` - Certificate issuance
-5. `/dashboard/coordinator/reports` - Program reports (placeholder)
-6. `/dashboard/coordinator/competencies` - Competency setup (placeholder)
-7. `/dashboard/coordinator/settings` - Settings (placeholder)
+5. `/dashboard/coordinator/reports` - Program reports
+6. `/dashboard/coordinator/competencies` - Competency setup
+7. `/dashboard/coordinator/settings` - Settings
 
 **API Endpoints**:
 - `GET /api/coordinator/dashboard` - Dashboard statistics
@@ -174,132 +175,6 @@ A specialized 6-month graduate teacher training program for contract teachers wi
 
 ---
 
-## 🏫 Platform 2: K-12 LMS
-### Traditional School Learning Management System
-
-Standard K-12 learning management system for traditional schools with the following roles:
-
-### 4️⃣ Student (student@test.com)
-**Role**: `student`
-**Password**: `demo@123`
-**Dashboard**: `/dashboard/student`
-
-**Features Available**:
-- ✅ View enrolled courses
-- ✅ Check grades and academic records
-- ✅ View attendance records
-- ✅ Submit and view assignments
-- ✅ Access course materials and resources
-- ✅ Manage personal profile
-
-**Navigation Menu**:
-- Dashboard
-- Courses
-- Grades
-- Attendance
-- Assignments
-- Resources
-- Profile
-
-**What to Test**:
-- [ ] K-12 student navigation is different from Pedagogy
-- [ ] Can view courses dashboard
-- [ ] Can access all K-12 navigation items
-- [ ] Separated from Pedagogy LMS pages
-
----
-
-### 5️⃣ Teacher (teacher@test.com)
-**Role**: `teacher`
-**Password**: `demo@123`
-**Dashboard**: `/dashboard/teacher`
-
-**Features Available**:
-- ✅ Manage assigned classes
-- ✅ View student list
-- ✅ Grade students
-- ✅ Track attendance
-- ✅ Create and manage assignments
-- ✅ Upload learning resources
-- ✅ Generate reports
-
-**Navigation Menu**:
-- Dashboard
-- My Classes
-- Students
-- Grades
-- Attendance
-- Assignments
-- Resources
-- Reports
-- Profile
-
-**What to Test**:
-- [ ] Can access K-12 teacher pages (Grades, Classes, etc.)
-- [ ] Does NOT see Pedagogy pages (Competency Assessment, Portfolio Review)
-- [ ] Navigation shows K-12 pages only
-
----
-
-### 6️⃣ Parent (parent@test.com)
-**Role**: `parent`
-**Password**: `demo@123`
-**Dashboard**: `/dashboard/parent`
-
-**Features Available**:
-- ✅ View child/children list
-- ✅ Check child's grades
-- ✅ View attendance records
-- ✅ Receive notifications
-- ✅ Manage profile
-
-**Navigation Menu**:
-- Dashboard
-- My Children
-- Grades
-- Attendance
-- Notifications
-- Profile
-
-**What to Test**:
-- [ ] Parent dashboard loads
-- [ ] Can view children information
-- [ ] Limited to parent-specific features
-
----
-
-### 7️⃣ Administrator (admin@test.com)
-**Role**: `admin`
-**Password**: `demo@123`
-**Dashboard**: `/dashboard/admin`
-
-**Features Available**:
-- ✅ Full system access
-- ✅ User management
-- ✅ Class and course management
-- ✅ Grade and attendance management
-- ✅ Reporting and analytics
-- ✅ System settings and configuration
-
-**Navigation Menu**:
-- Dashboard
-- Users
-- Classes
-- Courses
-- Attendance
-- Grades
-- Reports
-- Settings
-- Profile
-
-**What to Test**:
-- [ ] Admin dashboard loads
-- [ ] Can access all system pages
-- [ ] Can view statistics
-- [ ] Access to system settings
-
----
-
 ## 📊 Demo Accounts Summary Table
 
 | Role | Email | Platform | Password | Dashboard URL |
@@ -307,10 +182,6 @@ Standard K-12 learning management system for traditional schools with the follow
 | Graduate Student | student@pedagogy.edu | Pedagogy LMS | demo@123 | /dashboard/graduate-student |
 | Mentor | mentor@pedagogy.edu | Pedagogy LMS | demo@123 | /dashboard/mentor |
 | Coordinator | coordinator@pedagogy.edu | Pedagogy LMS | demo@123 | /dashboard/coordinator |
-| Student | student@test.com | K-12 LMS | demo@123 | /dashboard/student |
-| Teacher | teacher@test.com | K-12 LMS | demo@123 | /dashboard/teacher |
-| Parent | parent@test.com | K-12 LMS | demo@123 | /dashboard/parent |
-| Admin | admin@test.com | K-12 LMS | demo@123 | /dashboard/admin |
 
 ---
 
@@ -327,10 +198,10 @@ Standard K-12 learning management system for traditional schools with the follow
 ### Pedagogy LMS - Mentor
 - [ ] Login with mentor@pedagogy.edu / demo@123
 - [ ] Redirected to /dashboard/mentor
-- [ ] See ONLY Pedagogy pages (NO K-12 pages)
 - [ ] See 5 navigation items (Dashboard, Competency Assessment, Portfolio Review, Mentorship Sessions, Profile)
 - [ ] Dashboard shows mentee statistics
 - [ ] Bilingual support works
+- [ ] Can access all mentor-specific pages
 
 ### Pedagogy LMS - Coordinator
 - [ ] Login with coordinator@pedagogy.edu / demo@123
@@ -341,29 +212,6 @@ Standard K-12 learning management system for traditional schools with the follow
 - [ ] Can view student and mentor lists
 - [ ] API endpoints return data
 
-### K-12 LMS - Student
-- [ ] Login with student@test.com / demo@123
-- [ ] Redirected to /dashboard/student
-- [ ] See K-12 pages (different from Pedagogy)
-- [ ] Can view grades, courses, attendance
-
-### K-12 LMS - Teacher
-- [ ] Login with teacher@test.com / demo@123
-- [ ] Redirected to /dashboard/teacher
-- [ ] See K-12 pages (Grades, Classes, Students, etc.)
-- [ ] NOT seeing Pedagogy pages
-
-### K-12 LMS - Parent
-- [ ] Login with parent@test.com / demo@123
-- [ ] Redirected to /dashboard/parent
-- [ ] See parent-specific pages
-
-### K-12 LMS - Admin
-- [ ] Login with admin@test.com / demo@123
-- [ ] Redirected to /dashboard/admin
-- [ ] See all admin pages
-- [ ] Full system access
-
 ---
 
 ## 🌐 Language Support
@@ -373,43 +221,6 @@ All demo accounts support **bilingual interface**:
 - **Khmer (ខ្មែរ)** - Khmer translation
 
 **Toggle Language**: Click language button on login page (EN/ខ្មែរ)
-
----
-
-## 🔄 Navigation Differences
-
-### Pedagogy LMS (Mentor)
-**What Mentor Sees**:
-- Dashboard
-- Competency Assessment ✅
-- Portfolio Review ✅
-- Mentorship Sessions ✅
-- Profile
-
-**What Mentor DOES NOT See**:
-- ❌ Grades (K-12)
-- ❌ My Classes (K-12)
-- ❌ Students (K-12)
-- ❌ Assignments (K-12)
-- ❌ Attendance (K-12)
-- ❌ Resources (K-12)
-
-### K-12 LMS (Teacher)
-**What Teacher Sees**:
-- Dashboard
-- My Classes ✅
-- Students ✅
-- Grades ✅
-- Attendance ✅
-- Assignments ✅
-- Resources ✅
-- Reports ✅
-- Profile
-
-**What K-12 Teacher DOES NOT See**:
-- ❌ Competency Assessment (Pedagogy)
-- ❌ Portfolio Review (Pedagogy)
-- ❌ Mentorship Sessions (Pedagogy)
 
 ---
 
@@ -428,11 +239,6 @@ For Testing Pedagogy LMS:
 - student2@pedagogy.edu / demo@123
 - mentor2@pedagogy.edu / demo@123
 - student3@pedagogy.edu / demo@123
-
-For Testing K-12 LMS:
-- student2@test.com / demo@123
-- teacher2@test.com / demo@123
-- parent2@test.com / demo@123
 ```
 
 ---
@@ -440,13 +246,14 @@ For Testing K-12 LMS:
 ## 📱 Login Page Features
 
 ### Login Page Enhancements:
-✅ **Tabbed Demo Accounts**: Separated by platform (Pedagogy LMS vs K-12 LMS)
+✅ **Single Platform Focus**: Pedagogy LMS only
+✅ **Three Demo Buttons**: Graduate Student, Mentor, Coordinator
 ✅ **Tooltips**: Hover to see role descriptions
 ✅ **Color Coding**: Different colors for each role
 ✅ **Icons**: Visual indicators for roles
 ✅ **Bilingual Support**: English and Khmer labels
-✅ **Platform Info**: Clear descriptions of each platform
-✅ **All-in-one**: Access all 7 roles from one page
+✅ **Platform Info**: Clear descriptions
+✅ **One-Click Login**: Quick access to all 3 roles
 
 ---
 
@@ -480,14 +287,9 @@ For Testing K-12 LMS:
 - **Solution**: Check email spelling carefully
 
 ### Navigation Issues
-**Problem**: "Mentor sees K-12 pages"
-- **Solution**: Should NOT happen - report as bug
-- **Solution**: Clear cache and reload
-- **Solution**: Check browser console for errors
-
-**Problem**: "Cannot access Coordinator dashboard"
-- **Solution**: Verify logged in as `coordinator@pedagogy.edu`
-- **Solution**: Check that role is set to `admin`
+**Problem**: "Cannot access dashboard"
+- **Solution**: Verify logged in as correct email
+- **Solution**: Check that role is set correctly
 - **Solution**: Verify API routes are working
 
 ### Dashboard Issues
@@ -510,4 +312,5 @@ For issues with demo accounts or login page:
 ---
 
 **Last Updated**: November 7, 2025
-**Version**: 1.0 - Complete Multi-Role Demo Account Guide
+**Version**: 2.0 - Pedagogy LMS Only
+**Status**: Production Ready - K-12 features removed

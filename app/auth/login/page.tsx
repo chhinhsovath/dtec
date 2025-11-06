@@ -265,7 +265,7 @@ export default function LoginPage() {
               </Anchor>
             </Text>
 
-            {/* Demo Login Section - Organized by Platform */}
+            {/* Demo Login Section - Pedagogy LMS Only */}
             <Stack
               gap="md"
               mt="xl"
@@ -288,172 +288,74 @@ export default function LoginPage() {
                 {t('auth.login.demoAccounts')} - Password: <code style={{ fontFamily: 'monospace' }}>demo@123</code>
               </Text>
 
-              <Tabs defaultValue="pedagogy" variant="pills">
-                <Tabs.List grow>
-                  <Tabs.Tab
-                    value="pedagogy"
-                    leftSection={<IconBookmarks size={14} />}
-                    style={{ fontFamily: 'Hanuman, sans-serif' }}
-                  >
-                    Pedagogy LMS
-                  </Tabs.Tab>
-                  <Tabs.Tab
-                    value="k12"
-                    leftSection={<IconSchool size={14} />}
-                    style={{ fontFamily: 'Hanuman, sans-serif' }}
-                  >
-                    K-12 LMS
-                  </Tabs.Tab>
-                </Tabs.List>
-
-                {/* Pedagogy LMS Demo Accounts */}
-                <Tabs.Panel value="pedagogy" pt="md">
-                  <Stack gap="sm">
-                    <Text
-                      size="xs"
-                      c="dimmed"
-                      ta="center"
-                      fw={500}
-                      mb="xs"
+              <Stack gap="sm">
+                <Text
+                  size="xs"
+                  c="dimmed"
+                  ta="center"
+                  fw={500}
+                  mb="xs"
+                  style={{ fontFamily: 'Hanuman, sans-serif' }}
+                >
+                  Contract Teacher Training & Certification Program
+                </Text>
+                <SimpleGrid cols={2} spacing="sm">
+                  <Tooltip label="View competencies, teaching hours, portfolio, and certification progress">
+                    <Button
+                      variant="light"
+                      color="cyan"
+                      size="sm"
+                      onClick={() => handleDemoLogin('student@pedagogy.edu')}
+                      disabled={loading}
+                      fullWidth
                       style={{ fontFamily: 'Hanuman, sans-serif' }}
                     >
-                      Contract Teacher Training Program
-                    </Text>
-                    <SimpleGrid cols={2} spacing="sm">
-                      <Tooltip label="View competencies, teaching hours, portfolio, and certification progress">
-                        <Button
-                          variant="light"
-                          color="cyan"
-                          size="sm"
-                          onClick={() => handleDemoLogin('student@pedagogy.edu')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          <IconBookmarks size={16} style={{ marginRight: '0.5rem' }} />
-                          Graduate Student
-                        </Button>
-                      </Tooltip>
-                      <Tooltip label="Assess competencies, review portfolios, manage mentorship sessions">
-                        <Button
-                          variant="light"
-                          color="lime"
-                          size="sm"
-                          onClick={() => handleDemoLogin('mentor@pedagogy.edu')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          <IconClipboardCheck size={16} style={{ marginRight: '0.5rem' }} />
-                          Mentor
-                        </Button>
-                      </Tooltip>
-                      <div style={{ gridColumn: 'span 2' }}>
-                        <Tooltip label="Manage students, mentors, certifications, and program reports">
-                          <Button
-                            variant="light"
-                            color="grape"
-                            size="sm"
-                            onClick={() => handleDemoLogin('coordinator@pedagogy.edu')}
-                            disabled={loading}
-                            fullWidth
-                            style={{ fontFamily: 'Hanuman, sans-serif' }}
-                          >
-                            <IconUsers size={16} style={{ marginRight: '0.5rem' }} />
-                            Coordinator
-                          </Button>
-                        </Tooltip>
-                      </div>
-                    </SimpleGrid>
-                  </Stack>
-                </Tabs.Panel>
-
-                {/* K-12 LMS Demo Accounts */}
-                <Tabs.Panel value="k12" pt="md">
-                  <Stack gap="sm">
-                    <Text
-                      size="xs"
-                      c="dimmed"
-                      ta="center"
-                      fw={500}
-                      mb="xs"
+                      <IconBookmarks size={16} style={{ marginRight: '0.5rem' }} />
+                      Graduate Student
+                    </Button>
+                  </Tooltip>
+                  <Tooltip label="Assess competencies, review portfolios, manage mentorship sessions">
+                    <Button
+                      variant="light"
+                      color="lime"
+                      size="sm"
+                      onClick={() => handleDemoLogin('mentor@pedagogy.edu')}
+                      disabled={loading}
+                      fullWidth
                       style={{ fontFamily: 'Hanuman, sans-serif' }}
                     >
-                      Traditional Learning Management System
-                    </Text>
-                    <SimpleGrid cols={2} spacing="sm">
-                      <Tooltip label="View courses, grades, assignments, and attendance">
-                        <Button
-                          variant="light"
-                          color="blue"
-                          size="sm"
-                          onClick={() => handleDemoLogin('student@test.com')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          <IconUser size={16} style={{ marginRight: '0.5rem' }} />
-                          Student
-                        </Button>
-                      </Tooltip>
-                      <Tooltip label="Manage classes, grade students, track attendance">
-                        <Button
-                          variant="light"
-                          color="green"
-                          size="sm"
-                          onClick={() => handleDemoLogin('teacher@test.com')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          <IconSchool size={16} style={{ marginRight: '0.5rem' }} />
-                          Teacher
-                        </Button>
-                      </Tooltip>
-                      <Tooltip label="View child progress and attendance">
-                        <Button
-                          variant="light"
-                          color="orange"
-                          size="sm"
-                          onClick={() => handleDemoLogin('parent@test.com')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          👨‍👩‍👧 Parent
-                        </Button>
-                      </Tooltip>
-                      <Tooltip label="Full system access and administration">
-                        <Button
-                          variant="light"
-                          color="red"
-                          size="sm"
-                          onClick={() => handleDemoLogin('admin@test.com')}
-                          disabled={loading}
-                          fullWidth
-                          style={{ fontFamily: 'Hanuman, sans-serif' }}
-                        >
-                          <IconAward size={16} style={{ marginRight: '0.5rem' }} />
-                          Admin
-                        </Button>
-                      </Tooltip>
-                    </SimpleGrid>
-                  </Stack>
-                </Tabs.Panel>
-              </Tabs>
+                      <IconClipboardCheck size={16} style={{ marginRight: '0.5rem' }} />
+                      Mentor
+                    </Button>
+                  </Tooltip>
+                  <div style={{ gridColumn: 'span 2' }}>
+                    <Tooltip label="Manage students, mentors, certifications, and program reports">
+                      <Button
+                        variant="light"
+                        color="grape"
+                        size="sm"
+                        onClick={() => handleDemoLogin('coordinator@pedagogy.edu')}
+                        disabled={loading}
+                        fullWidth
+                        style={{ fontFamily: 'Hanuman, sans-serif' }}
+                      >
+                        <IconUsers size={16} style={{ marginRight: '0.5rem' }} />
+                        Coordinator
+                      </Button>
+                    </Tooltip>
+                  </div>
+                </SimpleGrid>
+              </Stack>
 
               <Alert
                 color="blue"
-                title="Demo Account Info"
+                title="About Pedagogy LMS"
                 icon={<IconSchool size={16} />}
                 style={{ fontFamily: 'Hanuman, sans-serif' }}
               >
                 <Stack gap="xs" style={{ fontSize: '0.9rem', fontFamily: 'Hanuman, sans-serif' }}>
                   <Text style={{ fontFamily: 'Hanuman, sans-serif' }}>
-                    <strong>Pedagogy LMS:</strong> Contract teacher training and certification platform
-                  </Text>
-                  <Text style={{ fontFamily: 'Hanuman, sans-serif' }}>
-                    <strong>K-12 LMS:</strong> Traditional school learning management system
+                    <strong>Pedagogy LMS:</strong> A comprehensive contract teacher training and certification platform designed to support professional development and competency assessment.
                   </Text>
                 </Stack>
               </Alert>

@@ -8,17 +8,12 @@
 
 import {
   IconDashboard,
-  IconBook,
   IconAward,
-  IconCalendarEvent,
-  IconFileText,
   IconUsers,
-  IconClipboardList,
   IconSettings,
   IconUserCircle,
   IconChalkboard,
   IconChartBar,
-  IconBell,
   IconClipboardCheck,
   IconBriefcase,
   IconMessageCircle,
@@ -36,11 +31,8 @@ export interface MenuItem {
 
 export interface MenuConfig {
   student: MenuItem[];
-  teacher: MenuItem[];
   mentor: MenuItem[];
   coordinator: MenuItem[];
-  admin: MenuItem[];
-  parent: MenuItem[];
 }
 
 export const menuConfig: MenuConfig = {
@@ -83,54 +75,6 @@ export const menuConfig: MenuConfig = {
     {
       label: { km: 'ប្រវត្តិលម្អិត', en: 'Profile' },
       href: '/dashboard/graduate-student/profile',
-      icon: IconUserCircle,
-    },
-  ],
-
-  teacher: [
-    {
-      label: { km: 'ផ្ទាំងគ្រប់គ្រង', en: 'Dashboard' },
-      href: '/dashboard/teacher',
-      icon: IconDashboard,
-    },
-    {
-      label: { km: 'ថ្នាក់របស់ខ្ញុំ', en: 'My Classes' },
-      href: '/dashboard/teacher/classes',
-      icon: IconChalkboard,
-    },
-    {
-      label: { km: 'សិស្សម៉ាក់', en: 'Students' },
-      href: '/dashboard/teacher/students',
-      icon: IconUsers,
-    },
-    {
-      label: { km: 'ពិន្ទុ', en: 'Grades' },
-      href: '/dashboard/teacher/grades',
-      icon: IconAward,
-    },
-    {
-      label: { km: 'ការចូលរៀន', en: 'Attendance' },
-      href: '/dashboard/teacher/attendance',
-      icon: IconCalendarEvent,
-    },
-    {
-      label: { km: 'កិច្ចការ', en: 'Assignments' },
-      href: '/dashboard/teacher/assignments',
-      icon: IconClipboardList,
-    },
-    {
-      label: { km: 'ធនធាន', en: 'Resources' },
-      href: '/dashboard/teacher/resources',
-      icon: IconFileText,
-    },
-    {
-      label: { km: 'របាយការណ៍', en: 'Reports' },
-      href: '/dashboard/teacher/reports',
-      icon: IconChartBar,
-    },
-    {
-      label: { km: 'ប្រវត្តិលម្អិត', en: 'Profile' },
-      href: '/dashboard/teacher/profile',
       icon: IconUserCircle,
     },
   ],
@@ -200,90 +144,9 @@ export const menuConfig: MenuConfig = {
       icon: IconSettings,
     },
   ],
-
-  admin: [
-    {
-      label: { km: 'ផ្ទាំងគ្រប់គ្រង', en: 'Dashboard' },
-      href: '/dashboard/admin',
-      icon: IconDashboard,
-    },
-    {
-      label: { km: 'អ្នកប្រើប្រាស់', en: 'Users' },
-      href: '/dashboard/admin/users',
-      icon: IconUsers,
-    },
-    {
-      label: { km: 'ថ្នាក់រៀន', en: 'Classes' },
-      href: '/dashboard/admin/classes',
-      icon: IconChalkboard,
-    },
-    {
-      label: { km: 'វគ្គសិក្សា', en: 'Courses' },
-      href: '/dashboard/admin/courses',
-      icon: IconBook,
-    },
-    {
-      label: { km: 'ការចូលរៀន', en: 'Attendance' },
-      href: '/dashboard/admin/attendance',
-      icon: IconCalendarEvent,
-    },
-    {
-      label: { km: 'ពិន្ទុ', en: 'Grades' },
-      href: '/dashboard/admin/grades',
-      icon: IconAward,
-    },
-    {
-      label: { km: 'របាយការណ៍', en: 'Reports' },
-      href: '/dashboard/admin/reports',
-      icon: IconChartBar,
-    },
-    {
-      label: { km: 'ការកំណត់', en: 'Settings' },
-      href: '/dashboard/admin/settings',
-      icon: IconSettings,
-    },
-    {
-      label: { km: 'ប្រវត្តិលម្អិត', en: 'Profile' },
-      href: '/dashboard/admin/profile',
-      icon: IconUserCircle,
-    },
-  ],
-
-  parent: [
-    {
-      label: { km: 'ផ្ទាំងគ្រប់គ្រង', en: 'Dashboard' },
-      href: '/dashboard/parent',
-      icon: IconDashboard,
-    },
-    {
-      label: { km: 'កូនៗរបស់ខ្ញុំ', en: 'My Children' },
-      href: '/dashboard/parent/children',
-      icon: IconUsers,
-    },
-    {
-      label: { km: 'ពិន្ទុ', en: 'Grades' },
-      href: '/dashboard/parent/grades',
-      icon: IconAward,
-    },
-    {
-      label: { km: 'ការចូលរៀន', en: 'Attendance' },
-      href: '/dashboard/parent/attendance',
-      icon: IconCalendarEvent,
-    },
-    {
-      label: { km: 'ការជូនដំណឹង', en: 'Notifications' },
-      href: '/dashboard/parent/notifications',
-      icon: IconBell,
-    },
-    {
-      label: { km: 'ប្រវត្តិលម្អិត', en: 'Profile' },
-      href: '/dashboard/parent/profile',
-      icon: IconUserCircle,
-    },
-  ],
 };
 
-export function getMenuByRole(role: 'student' | 'teacher' | 'mentor' | 'coordinator' | 'admin' | 'parent'): MenuItem[] {
+export function getMenuByRole(role: 'student' | 'mentor' | 'coordinator'): MenuItem[] {
   return menuConfig[role] || [];
 }
 

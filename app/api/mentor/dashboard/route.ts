@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { query } from '@/lib/database';
 import { getMentorDashboardStats, getMentorMentees } from '@/lib/services/pedagogy-service';
 
 /**
@@ -8,14 +9,28 @@ import { getMentorDashboardStats, getMentorMentees } from '@/lib/services/pedago
 export async function GET(req: NextRequest) {
   try {
     const cookies = req.cookies;
-    const mentorId = cookies.get('user_id')?.value;
+    const userId = cookies.get('user_id')?.value;
     const userRole = cookies.get('role')?.value;
 
     // Mentors have 'teacher' role in the system, admins can also access mentor dashboards
-    if (!mentorId || (userRole !== 'teacher' && userRole !== 'admin')) {
+    if (!userId || (userRole !== 'teacher' && userRole !== 'admin')) {
       return NextResponse.json(
         { error: 'Unauthorized - mentor access required' },
         { status: 403 }
+      );
+    }
+
+    // Look up mentor ID from user_id
+    const mentorResult = await query(
+      'SELECT id FROM mentors WHERE user_id = $1',
+      [userId]
+    );
+
+    const mentorId = mentorResult.rows[0]?.id;
+    if (!mentorId) {
+      return NextResponse.json(
+        { error: 'Mentor profile not found for this user' },
+        { status: 404 }
       );
     }
 

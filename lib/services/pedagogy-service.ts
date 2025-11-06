@@ -13,20 +13,21 @@ import { query } from '@/lib/database';
 export async function getStudentCompetencies(graduateStudentId: string) {
   const result = await query(
     `SELECT
-      ca.competency_assessment_id,
+      ca.id as competency_assessment_id,
       ca.graduate_student_id,
       ca.competency_id,
-      ca.current_level,
+      cl.level_number as current_level,
       ca.score,
       ca.assessment_date,
-      ca.feedback_text,
+      ca.assessment_comments_km as feedback_text,
       cf.competency_number,
       cf.name_km,
       cf.name_en,
       cf.description_km,
       cf.description_en
     FROM competency_assessments ca
-    JOIN competency_framework cf ON ca.competency_id = cf.competency_id
+    JOIN competency_framework cf ON ca.competency_id = cf.id
+    LEFT JOIN competency_levels cl ON ca.competency_level_id = cl.id
     WHERE ca.graduate_student_id = $1
     ORDER BY cf.competency_number ASC`,
     [graduateStudentId]
@@ -40,21 +41,27 @@ export async function updateCompetencyAssessment(
   currentLevel: number,
   score: number,
   feedbackText: string,
-  assessorId: string
+  mentorId: string
 ) {
+  // First, get the competency_level_id for the given level number
+  const levelResult = await query(
+    `SELECT id FROM competency_levels WHERE level_number = $1`,
+    [currentLevel]
+  );
+  const competencyLevelId = levelResult.rows[0]?.id;
+
   const result = await query(
     `INSERT INTO competency_assessments
-      (graduate_student_id, competency_id, current_level, score, feedback_text, assessor_id, assessment_date)
-    VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)
-    ON CONFLICT (graduate_student_id, competency_id)
+      (graduate_student_id, competency_id, mentor_id, competency_level_id, score, assessment_comments_km, assessment_date)
+    VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE)
+    ON CONFLICT (graduate_student_id, competency_id, assessment_date)
     DO UPDATE SET
-      current_level = $3,
-      score = $4,
-      feedback_text = $5,
-      assessment_date = CURRENT_TIMESTAMP,
-      assessor_id = $6
+      competency_level_id = $4,
+      score = $5,
+      assessment_comments_km = $6,
+      updated_at = CURRENT_TIMESTAMP
     RETURNING *`,
-    [graduateStudentId, competencyId, currentLevel, score, feedbackText, assessorId]
+    [graduateStudentId, competencyId, mentorId, competencyLevelId, score, feedbackText]
   );
   return result.rows[0];
 }
@@ -400,10 +407,9 @@ export async function getProgramPhases(programId: string) {
 export async function getStudentCohort(graduateStudentId: string) {
   const result = await query(
     `SELECT
-      c.cohort_id,
+      c.id as cohort_id,
       c.batch_code,
       c.batch_year,
-      c.intake_number,
       c.batch_name_km,
       c.batch_name_en,
       c.planned_size,
@@ -411,8 +417,8 @@ export async function getStudentCohort(graduateStudentId: string) {
       c.end_date,
       c.status as cohort_status
     FROM cohorts c
-    JOIN graduate_students gs ON c.cohort_id = gs.cohort_id
-    WHERE gs.graduate_student_id = $1`,
+    JOIN graduate_students gs ON c.id = gs.cohort_id
+    WHERE gs.id = $1`,
     [graduateStudentId]
   );
   return result.rows[0] || null;
@@ -421,7 +427,7 @@ export async function getStudentCohort(graduateStudentId: string) {
 export async function getStudentCurrentPhase(graduateStudentId: string) {
   const result = await query(
     `SELECT
-      pp.phase_id,
+      pp.id as phase_id,
       pp.phase_number,
       pp.name_km,
       pp.name_en,
@@ -431,8 +437,8 @@ export async function getStudentCurrentPhase(graduateStudentId: string) {
       pp.end_week,
       pp.duration_weeks
     FROM program_phases pp
-    JOIN graduate_students gs ON pp.phase_id = gs.program_phase_id
-    WHERE gs.graduate_student_id = $1`,
+    JOIN graduate_students gs ON pp.id = gs.program_phase_id
+    WHERE gs.id = $1`,
     [graduateStudentId]
   );
   return result.rows[0] || null;
@@ -452,16 +458,17 @@ export async function getStudentDashboardStats(graduateStudentId: string) {
   ] = await Promise.all([
     query(
       `SELECT COUNT(*) as total,
-              SUM(CASE WHEN current_level >= 3 THEN 1 ELSE 0 END) as proficient
+              SUM(CASE WHEN score >= 41 THEN 1 ELSE 0 END) as proficient
        FROM competency_assessments
        WHERE graduate_student_id = $1`,
       [graduateStudentId]
     ),
     query(
-      `SELECT COALESCE(SUM(hours_logged), 0) as total_hours,
-              COALESCE(AVG(hours_logged), 0) as avg_hours_per_log
-       FROM teaching_hours_log
-       WHERE graduate_student_id = $1`,
+      `SELECT COALESCE(SUM(duration_minutes::float / 60), 0) as total_hours,
+              COALESCE(AVG(duration_minutes::float / 60), 0) as avg_hours_per_log
+       FROM teaching_hours_log thl
+       JOIN practicum_placements pp ON thl.practicum_placement_id = pp.id
+       WHERE pp.graduate_student_id = $1`,
       [graduateStudentId]
     ),
     query(
@@ -472,7 +479,7 @@ export async function getStudentDashboardStats(graduateStudentId: string) {
       [graduateStudentId]
     ),
     query(
-      `SELECT placement_status, teaching_hours_actual, teaching_hours_target
+      `SELECT status as placement_status, actual_teaching_hours_logged as teaching_hours_actual, required_teaching_hours as teaching_hours_target
        FROM practicum_placements
        WHERE graduate_student_id = $1
        LIMIT 1`,

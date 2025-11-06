@@ -22,7 +22,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ user });
+    // Create response with user data
+    const response = NextResponse.json({ user });
+
+    // Set user_id cookie for API authentication
+    response.cookies.set('user_id', user.id, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: '/'
+    });
+
+    return response;
   } catch (error: any) {
     console.error('Auth error:', error);
     return NextResponse.json(
